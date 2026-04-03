@@ -1,0 +1,54 @@
+instruction:
+  name: MOVEW
+  description: |
+    Word block move.
+    
+    This instruction moves a block of words from one area of memory to another. The type of transfer is determined by the opcode field ΔΔ, with the base octal code 1431ΔΔ.
+
+      <ascii-table>
+      ┌───────┬─────────────┬─────────────┐
+      │ ΔΔ₈   │ move from:  │ move to:    │
+      ├───────┼─────────────┼─────────────┤
+      │ 00₈   │ PT          │ PT          │
+      │ 01₈   │ PT          │ APT         │
+      │ 02₈   │ PT          │ phy.memory* │
+      │ 03₈   │ APT         │ PT          │
+      │ 04₈   │ APT         │ APT         │
+      │ 05₈   │ APT         │ phy.memory* │
+      │ 06₈   │ phy.memory  │ PT*         │
+      │ 07₈   │ phy.memory  │ APT*        │
+      │ 10₈   │ phy.memory  │ phy.memory* │
+      └───────┴─────────────┴─────────────┘
+      </ascii-table> 
+
+      * = privileged instruction
+      PT  = normal page table
+      APT = alternative page table
+      phy.memory = physical memory
+
+    The following registers control the transfer:
+    - A and D: source address
+    - X and T: destination address
+    - L: number of words to be moved (maximum 2048 words)
+    
+    For physical memory-block moves, A and/or X are incremented when D and/or T overflow.
+    
+    If the L register contains a value greater than 2048 (L = 4000₈), no words are moved and A, D, T, and X remain unchanged.
+    
+    After transfer, the registers contain:
+    - A, D, T, X: addresses after the last moved word
+    - L: zero
+    
+    Special cases:
+    If the memory management system is off (bit PTM of the STS register is zero), bank 0 of physical memory is addressed and the following transfer fields become equivalent:
+    - ΔΔ = 00 = 01 = 03 = 04
+    - ΔΔ = 02 = 05
+    - ΔΔ = 06 = 07
+    
+    MOVEW can be interrupted. L, A, D, X, T, and P registers are then changed to restart execution.
+  opcode: "0143100" # Octal, ΔΔ specifies the transfer type
+  format: "MOVEW"
+  mask: "1111_1111_1111_1000" # 
+  category: "Word Block Instructions"
+  instruction_class:
+  privilege: "user"

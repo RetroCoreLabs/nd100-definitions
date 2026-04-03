@@ -1,0 +1,8 @@
+name: "opcode"
+description: "Instruction opcode field"
+bit_size: 5  # Standard opcode size for ND-100
+type: "opcode"
+validation:
+  required_fields:
+    - "value"  # Must match instruction's opcode field
+  value_format: "octal"  # Opcodes are typically specified in octal 

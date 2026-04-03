@@ -1,0 +1,125 @@
+register:
+  name: STS
+  description: |
+    Status register that contains CPU flags and processor status bits.
+    The lower part (bits 7-0) contains 8 flags that are accessible by programs and are level dependent.
+    The upper part (bits 15-8) is common for all program levels and contains system-wide flags.
+    TRR STS only writes to bits 0-7 of the status register, not the whole register.
+    
+    Each program level has its own set of registers (A, D, T, L, X, B) and status flags.
+    There are 16 program levels in the ND-110 system, with level 15 having the highest priority
+    and level 0 the lowest.
+  size: 16
+  type: status
+  bits:
+    - name: P
+      position: 0
+      size: 1
+      description: |
+        Page table mode - Enables use of the alternate page table.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: G
+      position: 1
+      size: 1
+      description: |
+        Rounding flag for floating point operations.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: K
+      position: 2
+      size: 1
+      description: |
+        One-bit accumulator - Used by bit operations and instructions operating on one-bit data.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: Z
+      position: 3
+      size: 1
+      description: |
+        Error flag - This flag is static and remains set until it is reset by a program.
+        The Z flag may be internally connected to an interrupt level so that an error
+        message routine may be triggered.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: O
+      position: 4
+      size: 1
+      description: |
+        Dynamic overflow flag.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: O
+      position: 5
+      size: 1
+      description: |
+        Static overflow flag - The overflow flag remains set after an overflow condition
+        until it is reset by a program.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: C
+      position: 6
+      size: 1
+      description: |
+        Carry flag - Set or reset according to the result of arithmetic operations.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: M
+      position: 7
+      size: 1
+      description: |
+        Multishift link flag - Used in shift instructions as a one-bit extension
+        of the register (A, D or T) to allow multiple word shifts.
+        Program controlled via TRA/TRR instructions or bit instructions.
+    - name: IONI
+      position: 8
+      size: 1
+      description: |
+        Interrupt system ON flag.
+        Common for all program levels.
+    - name: PONI
+      position: 9
+      size: 1
+      description: |
+        Memory management ON flag.
+        Common for all program levels.
+    - name: SEXI
+      position: 10
+      size: 1
+      description: |
+        Extended flag to show that the memory management system is in 24-bit extended
+        addressing mode instead of the 19-bit addressing mode.
+        Common for all program levels.
+    - name: N100
+      position: 11
+      size: 1
+      description: |
+        N100 flag to show that this is an ND-100 family CPU (not a NORD-10).
+        Common for all program levels.
+    - name: PIL
+      position: 8
+      size: 4
+      description: |
+        Current program level (PIL).
+        Bits 11-8 define what program level the CPU is currently at (0-15).
+        
+        Priority increases with level: program level 15 has the highest priority 
+        and program level 0 the lowest. The ND-110 has 16 program levels, each with
+        its own set of registers and status flags.
+        
+        SINTRAN III level usage:
+        - 15: Extremely fast user interrupts (only one I/O source)
+        - 14: Internal interrupts (monitoring error conditions, 10 possible sources)
+        - 13: Real-time clock, multiport memory error log, HDLC input
+        - 12: Input devices (terminals, tape readers)
+        - 11: Mass storage devices (disk, floppy disk, magnetic tape)
+        - 10: Output devices (printers, displays)
+        - 5: Xmsg
+        - 4: I/O monitor calls
+        - 3: Segment administration
+        - 2: SINTRAN III monitor
+        - 1: Real-time and background processes
+        - 0: Idle loop
+        
+        Context switching between program levels happens automatically during interrupts
+        and takes only 7.2 μs including saving and unsaving all registers and flags.
+  program_level: true
+  read_only: false
+  write_only: false
+  hidden: false
+  level_dependent_bits: "0-7"
+  system_bits: "8-15"
+  group: status 

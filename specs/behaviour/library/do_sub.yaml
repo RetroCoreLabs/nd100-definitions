@@ -1,0 +1,44 @@
+function:
+  name: "do_sub"
+  description: "Subtract two 16-bit values with borrow, update flags C, O, Q"
+  
+  parameters:
+    - name: "a"
+      type: "uint16"
+      description: "First operand (minuend)"
+    - name: "b"
+      type: "uint16"
+      description: "Second operand (subtrahend)"
+    - name: "k"
+      type: "uint16"
+      description: "Borrow-in (0 or 1)"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "C"
+    - "O"
+    - "Q"
+  
+  body:
+    meta: |
+      # Add operands with borrow-in (subtraction is addition with complement)
+      tmp = cast(int32, a) + cast(int32, ~b) + cast(int32, k)
+      
+      # Set carry flag if result exceeds 16 bits
+      if (tmp & 0xFFFF0000):
+        set_flag(C, true)
+      else:
+        set_flag(C, false)
+      
+      # Check for overflow
+      is_diff = ((a ^ ~b) & 0x8000) != 0
+      
+      if (!is_diff and ((a ^ tmp) & 0x8000)):
+        set_flag(O, true)
+        set_flag(Q, true)
+      else:
+        set_flag(Q, false)
+      
+      # Return 16-bit result
+      return tmp & 0xFFFF 

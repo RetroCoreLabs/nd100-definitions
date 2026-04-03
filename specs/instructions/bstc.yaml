@@ -1,0 +1,15 @@
+instruction:
+  name: BSTC
+  description: |
+    Store complement and set K to 1
+
+    (B) ⟵ K (complemented); K ⟵ 1
+
+  opcode: "176000"  # Octal
+  mask: "1111_1111_1000_0000" # top 9 bits are opcode
+  format: "BSTC"    
+  category: "Bit instructions"
+  privilege: "user"
+  flags_affected:
+    - K  # 1-bit accumulator (K)
+    

@@ -1,0 +1,34 @@
+instruction:
+  name: "MON"
+  description: |
+    The MON instruction is used in special different contexts when running under an operating system.
+    It provides system call functionality through different monitor call numbers.
+
+  detailed_description: |
+    The unsigned <monitor_call_number> allows 256 monitor calls.
+    This field is loaded into the T register on level 14.
+    The higher byte of the T register is sign exended.
+  opcode: "153000"  # Octal
+  mask: "1111_1111_0000_0000" # Matches the bit pattern shown in image
+  format: "MON <monitor_call_number>"
+  category: "Monitor Calls"
+  instruction_class: 
+  privilege: "user"
+  
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode determines what type of operation occurs" 
+    - name: "monitor_call_number"
+      bits: "7-0" 
+      type: "numeric" # 8 bit signed
+      description: "Monitor call number that determines the system function"
+
+  examples:
+    - code: "MON 0"
+      description: "End of program or stop"
+    - code: "MON 1"
+      description: "Read a character from specified device into the A register"
+    - code: "MON 2"
+      description: "Output the character contained in the A register on the specified device" 

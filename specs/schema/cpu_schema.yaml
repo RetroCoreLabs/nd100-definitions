@@ -1,0 +1,312 @@
+$schema: http://json-schema.org/draft-07/schema#
+
+type: object
+required:
+  - metadata
+properties:
+  metadata:
+    type: object
+    required:
+      - cpu_name
+      - word_size
+      - endianness
+      - paths
+      - registers
+      - instruction_classes
+      - operand_types
+    properties:
+      cpu_name:
+        type: string
+        description: "CPU name"
+      word_size:
+        type: integer
+        description: "Word size in bits"
+      endianness:
+        type: string
+        enum: ["big", "little"]
+        description: "CPU endianness"
+      paths:
+        type: object
+        required:
+          - instructions
+          - behavior
+          - library
+        properties:
+          instructions:
+            type: string
+            description: "Path to instruction definitions"
+          behavior:
+            type: string
+            description: "Path to behavior definitions"
+          library:
+            type: string
+            description: "Path to library functions"
+      tokens:
+        type: object
+        properties:
+          identifier:
+            type: object
+            required:
+              - pattern
+              - description
+            properties:
+              pattern:
+                type: string
+                description: "Token pattern"
+              description:
+                type: string
+                description: "Token description"
+          number:
+            type: object
+            required:
+              - pattern
+              - description
+            properties:
+              pattern:
+                type: string
+                description: "Token pattern"
+              description:
+                type: string
+                description: "Token description"
+          string:
+            type: object
+            required:
+              - pattern
+              - description
+            properties:
+              pattern:
+                type: string
+                description: "Token pattern"
+              description:
+                type: string
+                description: "Token description"
+          comment:
+            type: object
+            required:
+              - pattern
+              - description
+            properties:
+              pattern:
+                type: string
+                description: "Token pattern"
+              description:
+                type: string
+                description: "Token description"
+      registers:
+        type: array
+        items:
+          type: object
+          required:
+            - name
+            - description
+          properties:
+            name:
+              type: string
+              description: "Register name"
+            size:
+              type: integer
+              description: "Register size in bits"
+            value:
+              type: integer
+              description: "Register value"
+            description:
+              type: string
+              description: "Register description"
+            code:
+              type: integer
+              description: "Register code"
+            type:
+              type: string
+              description: "Register type"
+            mnemonic_source:
+              type: string
+              description: "Source mnemonic"
+            mnemonic_target:
+              type: string
+              description: "Target mnemonic"
+            program_levels:
+              type: integer
+              description: "If this register has multiple sets and follows the program level (PIL) then this is the number of sets"
+            bits:
+              type: array
+              items:
+                type: object
+                required:
+                  - name
+                  - size
+                  - description
+                  - position
+                properties:
+                  name:
+                    type: string
+                    description: "Bit field name"
+                  size:
+                    type: integer
+                    description: "Bit field size"
+                  description:
+                    type: string
+                    description: "Bit field description"
+                  position:
+                    type: integer
+                    description: "Bit position"
+      instruction_classes:
+        type: array
+        items:
+          type: object
+          required:
+            - name
+            - description
+            - format
+            - operands
+          properties:
+            name:
+              type: string
+              description: "Instruction class name"
+            mask:
+              type: string
+              pattern: "^[01_]+$"
+              description: "Bit mask for opcode"
+            description:
+              type: string
+              description: "Class description"
+            format:
+              type: string
+              description: "Instruction format"
+            bit_format:
+              type: string
+              description: "ASCII art showing bit layout"
+            operands:
+              type: array
+              items:
+                type: object
+                required:
+                  - name
+                  - bits
+                  - description
+                properties:
+                  name:
+                    type: string
+                    description: "Field name"
+                  type:
+                    type: string
+                    description: "Field type"
+                  bits:
+                    type: string
+                    pattern: "^[0-9]+-[0-9]+$"
+                    description: "Bit range"
+                  description:
+                    type: string
+                    description: "Field description"
+      operand_types:
+        type: array
+        description: "These are the types of operands that can be used in the instructions that has specific meanings"
+        minItems: 1
+        items:
+          type: object
+          required:
+            - name
+            - description
+            - type
+          properties:
+            name:
+              type: string
+              description: "Name of the operand type"
+            description:
+              type: string
+              description: "Description of the operand type"
+            bit_size:
+              type: integer
+              description: "Size of the operand in bits"
+            type:
+              type: string
+              enum: ["numeric", "enum", "opcode", "addressing_mode"]
+              description: "Type of the operand"
+            signed:
+              type: boolean
+              description: "Whether the operand is signed (for numeric types)"
+            subfields:
+              type: array
+              description: "Detailed bit field structure for complex operand types like addressing_mode"
+              items:
+                type: object
+                required:
+                  - name
+                  - position
+                  - bit_size
+                  - description
+                properties:
+                  name:
+                    type: string
+                    description: "Name of the subfield (e.g., X, I, B)"
+                  position:
+                    type: integer
+                    description: "Bit position of this subfield in the operand"
+                  bit_size:
+                    type: integer
+                    description: "Size of this subfield in bits"
+                  description:
+                    type: string
+                    description: "Description of this subfield"
+                  effect_when_set:
+                    type: string
+                    description: "Effect when this bit is set to 1"
+            composite_effects:
+              type: array
+              description: "Effects when multiple bits are set in specific combinations"
+              items:
+                type: object
+                required:
+                  - condition
+                  - format_addition
+                  - position
+                properties:
+                  condition:
+                    type: string
+                    description: "Condition when this effect applies (e.g., X=1, I=1)"
+                  format_addition:
+                    type: string
+                    description: "Text to add to the assembly format (e.g., ,X, I)"
+                  position:
+                    type: string
+                    enum: ["prefix", "suffix"]
+                    description: "Where to add the format addition"
+            values:
+              type: array
+              description: "List of possible values for symbolic or addressing mode types"
+              items:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                    description: "Name of the value"
+                  value:
+                    type: integer
+                    description: "Numeric value"
+                  description:
+                    type: string
+                    description: "Description of the value"
+                  mode:
+                    type: string
+                    description: "Addressing mode (for addressing_mode type)"
+                  bit_pattern:
+                    type: string
+                    pattern: "^[01]+$"
+                    description: "Bit pattern for the value"
+                  format:
+                    type: string
+                    description: "Format string for display"
+                  example:
+                    type: string
+                    description: "Example usage"
+                  fields:
+                    type: array
+                    description: "Fields that make up this value"
+                    items:
+                      type: object
+                      additionalProperties:
+                        type: integer
+                  effective_address:
+                    type: string
+                    description: "Formula for effective address calculation (for addressing modes)"

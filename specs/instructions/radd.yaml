@@ -1,0 +1,75 @@
+instruction:
+  name: "RADD"
+  description: |
+    Add source to destination (dr): = (dr) + (sr)
+    
+  detailed_description: |
+    These instructions specify operations between source (sr) and destination (dr) registers.
+
+    Optional sub-instructions:
+
+    - **CLD**: CLD=1. Zero is used instead of the destination register as an operand (dr register contents are unchanged).
+    - **CM1**: CM1=1. The 1's complement of the source register is used as an operand (sr register contents are unchanged).
+    - **ADC**: This mnemonic represents C=0 I=1. Add previous carry to destination register.
+    - **AD1**: This mnemonic represents C=1 I=0. Add 1 to destination register.
+    - **CM2**: This compound sub-instruction is equivalent to CM1 ADC.
+
+    Flags affected:
+
+    RADD instructions affect the carry (C) and overflow (O and Q) flags as follows:
+
+    - **C = 1**: If a carry occurs from the signed bit positions of the adder.
+    - **O = 1 ; Q = 1**: If an overflow occurs, that is if the signs of the two operands are equal and the sign of the result is different.
+    - **O = 1 ; Q = 0**: If overflow does not exist, the dynamic overflow flag (O) is reset while the static overflow flag (Q) is left unchanged.
+
+    ---
+    
+    ### Instruction combinations
+
+    COPY
+    RADD <sr> <dr>           dr ⟵ dr + sr
+    RADD CLD <sr> <dr>       dr ⟵ sr         ≡ COPY
+    RADD CM1 <sr> <dr>       dr ⟵ dr + ~sr
+    RADD CM1 CLD <sr> <dr>   dr ⟵ ~sr
+    RADD AD1 <sr> <dr>       dr ⟵ dr + sr + 1
+    RADD CLD AD1 <sr> <dr>   dr ⟵ sr + 1
+    RADD CM1 AD1 <sr> <dr>   dr ⟵ dr - sr    ≡ RSUB
+    RADD CM1 CLD AD1 <sr> <dr> dr ⟵ -sr
+    RADD ADC <sr> <dr>       dr ⟵ dr + sr + c
+    RADD CLD ADC <sr> <dr>   dr ⟵ sr + c
+    RADD CM1 ADC <sr> <dr>   dr ⟵ dr + ~sr + c
+    RADD CM1 CLD ADC <sr> <dr> dr ⟵ ~sr + c
+
+    RINC
+    RADD AD1 <dr> is equivalent to RINC <dr>, increment dr register by one.
+
+    RDCR
+    RADD CM1 <dr> is equivalent to RDCR <dr>, decrement dr register by one.
+
+    RCLR
+    RADD CLD 0 (COPY 0) is equivalent to RCLR <dr>, register clear.
+
+    EXIT
+    RADD CM1 SL DP (COPY SL DP) is equivalent to EXIT, return from subroutine.
+
+  opcode: "0146000"  # Octal
+  mask: "1111_1100_0000_0000" # top 5 bits are the opcode
+  format: "RADD [sub-instruction(s)] <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_arithmetic"
+  privilege: "user"
+  flags_affected: ["C", "O", "Q"]
+  examples:
+    - description: "Add the contents of the B register to the contents of the A register, leaving the result in the A register."
+      code: "RADD SB DA"
+    - description: "Add the contents of the A and X registers together and place the result in the X register. (146057₈)"
+      code: "RADD SA DX"
+    - description: |
+        Use zero as the destination operand, add the X register contents and leave the result in B. THAT IS copy the contents of the X register into B. (146173₈)
+        Equivalent to COPY SX DB.
+      code: "RADD CLD SX DB"
+    - description: |
+        Copy the negative value of the X register contents into B. (146773₈)
+        Equivalent to COPY CLD AD1 or RSUB CM1.
+      code: "RADD CM1 CLD AD1 SX DB"
+

@@ -1,0 +1,25 @@
+instruction:
+  name: SETPT
+  description: |
+    Set page tables.
+    
+  detailed_description: |
+    This instruction can replace the following instructions:
+      SETPT: JXZ * 7₈
+             LDDTX 20₈
+             BSET ZRO 130₈ DA
+             LDBTX 10₈
+             STD ,B
+             LDXTX 00
+             JMP *-6₈
+    
+    Each time the loop is executed (until X becomes zero) two consecutive physical memory locations addressed by X are loaded into the A and D registers.
+    
+    The word in A is the protect field of the page table, bit 11 (the PGU bit) is cleared to set the page table. The double word (in A and D) is then stored in two consecutive locations pointed to by the contents of the B register, the page table address.
+    
+    * is the mnemonic for P relative addressing.
+  format: SETPT
+  opcode: "140300"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

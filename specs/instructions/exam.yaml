@@ -1,0 +1,11 @@
+instruction:
+  name: EXAM
+  description: |
+    Examine
+    
+    Load the contents of the physical memory location, pointed to by the A and D register contents, into the T register.
+  format: EXAM
+  opcode: "150416"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Physical Memory Control Instructions"
+  privilege: "privileged" 

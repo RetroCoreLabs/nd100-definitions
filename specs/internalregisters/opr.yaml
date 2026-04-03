@@ -1,0 +1,75 @@
+register:
+  name: OPR
+  description: Operator's Panel Switch Register that contains the current state of the front panel switches
+  size: 16
+  type: control
+  bits:
+    - name: SWITCH_0
+      position: 0
+      size: 1
+      description: Switch 0 - State of panel toggle switch 0
+    - name: SWITCH_1
+      position: 1
+      size: 1
+      description: Switch 1 - State of panel toggle switch 1
+    - name: SWITCH_2
+      position: 2
+      size: 1
+      description: Switch 2 - State of panel toggle switch 2
+    - name: SWITCH_3
+      position: 3
+      size: 1
+      description: Switch 3 - State of panel toggle switch 3
+    - name: SWITCH_4
+      position: 4
+      size: 1
+      description: Switch 4 - State of panel toggle switch 4
+    - name: SWITCH_5
+      position: 5
+      size: 1
+      description: Switch 5 - State of panel toggle switch 5
+    - name: SWITCH_6
+      position: 6
+      size: 1
+      description: Switch 6 - State of panel toggle switch 6
+    - name: SWITCH_7
+      position: 7
+      size: 1
+      description: Switch 7 - State of panel toggle switch 7
+    - name: SWITCH_8
+      position: 8
+      size: 1
+      description: Switch 8 - State of panel toggle switch 8
+    - name: SWITCH_9
+      position: 9
+      size: 1
+      description: Switch 9 - State of panel toggle switch 9
+    - name: SWITCH_10
+      position: 10
+      size: 1
+      description: Switch 10 - State of panel toggle switch 10
+    - name: SWITCH_11
+      position: 11
+      size: 1
+      description: Switch 11 - State of panel toggle switch 11
+    - name: SWITCH_12
+      position: 12
+      size: 1
+      description: Switch 12 - State of panel toggle switch 12
+    - name: SWITCH_13
+      position: 13
+      size: 1
+      description: Switch 13 - State of panel toggle switch 13
+    - name: SWITCH_14
+      position: 14
+      size: 1
+      description: Switch 14 - State of panel toggle switch 14
+    - name: SWITCH_15
+      position: 15
+      size: 1
+      description: Switch 15 - State of panel toggle switch 15
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: panel 

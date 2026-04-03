@@ -1,0 +1,14 @@
+instruction:
+  name: PIOF
+  description: |
+    Memory management and interrupt system OFF
+    
+    Disables both the memory management and interrupt systems. This combines the functions of the IOF and POF instructions.
+
+    Before_use:
+      Check conditions of the IOF instruction.
+  format: PIOF
+  opcode: "150405"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Memory Management Instructions"
+  privilege: "privileged" 

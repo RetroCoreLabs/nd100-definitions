@@ -1,0 +1,19 @@
+instruction:
+  name: "FDV"
+  description: |
+    Divide floating point accumulator
+
+    The contents of the floating point accumulator (A and D registers) are divided by the contents of two sequential memory locations, pointed to by the effective address.   
+  detailed_description: |
+    Flags affected:
+    - Division by zero sets the error flag (2).
+    - This can be detected by the BSKP instruction
+    
+  opcode: "114000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "FDV <addressing_mode> <disp>"
+  category: "Standard Floating Instructions"
+  instruction_class: "memory_transfer"
+  privilege: "user"
+  flags_affected:
+    - Z  # Error

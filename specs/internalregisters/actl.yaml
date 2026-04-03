@@ -1,0 +1,23 @@
+register:
+  name: ACTL
+  description: Active Level Register that indicates which program level is currently active. Current level, decoded.4.2.3.3.1
+  size: 16
+  type: control
+  bits:
+    - name: LEVEL
+      position: 0
+      size: 4
+      description: Current Level - The program level that is currently executing (0-15)
+    - name: PREV_LEVEL
+      position: 4
+      size: 4
+      description: Previous Level - The program level that was previously executing
+    - name: LEVEL_MASK
+      position: 8
+      size: 8
+      description: Level Mask - Bitmap of active program levels (bit n=1 means level n is active)
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: system 

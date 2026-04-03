@@ -1,0 +1,13 @@
+instruction:
+  name: REX
+  description: |
+    Reset extended address mode
+  extended_description: |
+    Set the paging system to the 19-bit address mode instead of the 24-bit address mode.
+    (Creating a physical address space of up to 512K words.)
+    
+  format: REX
+  opcode: "0150407"  # Octal (example, update if needed)
+  mask: "1111_1111_1111_1111"
+  category: "Memory Management Instructions"
+  privilege: "privileged" 

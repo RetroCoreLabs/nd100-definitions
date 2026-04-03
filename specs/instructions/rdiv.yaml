@@ -1,0 +1,24 @@
+instruction:
+  name: "RDIV"
+  description: |
+    Divide double accumulator with source; quotient in A, remainder in D
+    A: = AD/(sr)
+    (AD = A * (sr) + D)
+
+  detailed_description: |
+    The 32-bit signed integer held in the double accumulator AD is divided by the contents of sr.
+    If division causes overflow, the error flag (Z) is set.
+  
+    The numbers are fixed point integers with the fixed point after the rightmost position.
+  
+  opcode: "141600"  # Octal
+  mask: "1111_1111_1100_0000"  # Matches bit pattern from image
+  format: "RDIV <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_src_dst"
+  privilege: "user"
+  flags_affected:
+    - Z  # Error
+    - C  # Carry
+    - O  # Overflow
+    - Q  

@@ -1,0 +1,13 @@
+instruction:
+  name: LBYTP
+  description: |
+    Load the A register with a byte from physical memory.
+    
+    (D) points to the bank number containing the byte array
+    (T) points to the start of a byte array
+    (X) points to the actual byte within the array
+  format: LBYTP
+  opcode: "140514"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

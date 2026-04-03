@@ -1,0 +1,16 @@
+instruction:
+  name: BFILL
+  description: |
+    Byte fill.
+    
+    Only the destination is used as an operand in this instruction (it is placed in the X and T registers). The lower byte of the A register is then filled with the destination field.
+    
+    After execution, bit 15 of the T register points to the end of the field (after the last byte position) and the field length equals zero.
+
+  opcode: "0140130" # Octal
+  format: "BFILL"
+  mask: "1111_1111_1111_1111"
+  category: "Byte Instructions"
+  instruction_class: 
+  privilege: "user"
+  

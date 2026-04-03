@@ -1,0 +1,28 @@
+instruction:
+  name: "REXO"
+  description: |
+    Logical exclusive OR 
+    
+    (dr): = (dr) ⊕ (sr)
+
+  detailed_description: |
+    Optional sub instructions:
+      CLD=1 Zero is used instead of the destination register as an operand (dr register contents are unchanged).
+      CM1=1 The 1's complement of the source register is used as an operand (sr register contents are unchanged).
+    
+    Instruction combinations:
+
+      REXO <sr> <dr>          dr ⟵ dr XOR sr
+      REXO CLD <sr> <dr>      dr ⟵ sr
+      REXO CML <sp> <dr>      dr ⟵ dr XOR sr's (1's complement)
+      REXO CML CLD <sr> <dr>  dr ⟵ sr (1's complement)
+
+  opcode: "0145000"  # Octal
+  mask: "1111_1111_1100_0000"  # Matches bit pattern from image
+  format: "REXO [flags] <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_logical"
+  privilege: "user"
+  examples:
+    - description: "Exclusive OR the contents of the B and Y registers, leaving the result in B"
+      code: "REXO ST DB"

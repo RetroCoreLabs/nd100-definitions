@@ -1,0 +1,47 @@
+function:
+  name: "MemoryReadByte"
+  description: "Read an 8-bit value from memory at the specified address"
+  
+  parameters:
+    - name: "addr"
+      type: "uint16"
+      description: "Memory address to read from"
+  
+  returns: "uint8"
+  
+  affects_flags:
+    - "C"
+    - "O"
+  
+  body:
+    meta: |
+      # Read byte from memory
+      value = MemoryReadByteImpl(addr)
+      
+      # Return the value
+      return value
+
+---
+
+function:
+  name: "MemoryWriteByte"
+  description: "Write an 8-bit value to memory at the specified address"
+  
+  parameters:
+    - name: "addr"
+      type: "uint16"
+      description: "Memory address to write to"
+    - name: "value"
+      type: "uint8"
+      description: "8-bit value to write"
+  
+  returns: "void"
+  
+  affects_flags:
+    - "C"
+    - "O"
+  
+  body:
+    meta: |
+      # Write byte to memory
+      MemoryWriteByteImpl(addr, value) 

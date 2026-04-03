@@ -1,0 +1,106 @@
+register:
+  name: PCR
+  description: |
+    Paging Control Register that controls memory paging operations.
+
+    The PCR (paging control register) is a register inside RMAC. There is a copy of PCR
+    for each program level. These copies are stored in the extended register file (XRF).
+    The PCR register is loaded from XRF at the same time as the register set is loaded from
+    the register file.
+    
+    The instructions TRR PCR and TRA PGC allow the programmer to write to the PCR or read
+    back its contents. These instructions can read and write to the (copy of the) PCR on
+    any program level.
+    
+    One PCR may be written into at a time, by the instruction TRR PCR.
+    
+    Note: The PCR registers are not cleared during power on initialization.
+    This must be done by program before executing a PON instruction.
+  size: 16
+  type: control
+  ascii_art: |
+    Four page table mode (MMS-1):
+
+     <ascii-table>
+    ┌────┬────┬────┬─────┬──────┬─────┬────┐
+    │ 15 │14-10│ 9-8│ 7-4 │  3-2 │  1  │ 0  │
+    ├────┴────┼────┼─────┼──────┼─────┼────┤
+    │   n.a.  │ PT │ APT │  PL  │  0  │Ring│
+    └─────────┴────┴─────┴──────┴─────┴────┘
+    </ascii-table>
+
+    Sixteen page table mode (MMS-2):
+    
+    <ascii-table>
+    ┌────┬────┬────┬─────┬──────┬─────┬────┐
+    │ 15 │14-12│11-8│ 7-4 │  3-2 │  1  │ 0  │
+    ├────┴────┼────┼─────┼──────┼─────┼────┤
+    │   n/a   │ PT │ APT │  PL  │  1  │Ring│
+    └─────────┴────┴─────┴──────┴─────┴────┘
+    </ascii-table>
+  bits:
+    - name: RING
+      position: 0
+      size: 2
+      description: |
+        Ring number (0-3) - Memory protection ring number
+        - Ring 0: User Programs
+        - Ring 1: Compilers, assemblers, database systems
+        - Ring 2: Operating system, File system, I/O system
+        - Ring 3: Kernel of operating system
+    - name: MMS_TYPE
+      position: 2
+      size: 1
+      description: |
+        Memory Management System Type
+        - 0: MMS-1 format (supports 4 page tables)
+        - 1: MMS-2 format (supports 16 page tables)
+    - name: LEVEL
+      position: 3
+      size: 4
+      description: |
+        Program Level (PL) - The level (0-15) this PCR applies to.
+        When using TRR PCR, the A register must specify this field
+        to select which program level's PCR to modify.
+    - name: APT
+      position: 7
+      size: 4
+      description: |
+        Alternative Page Table number
+        - MMS-1: 2 bits (bits 7-8, values 0-3)
+        - MMS-2: 4 bits (bits 7-10, values 0-15)
+    - name: PT
+      position: 11
+      size: 4
+      description: |
+        Page Table number
+        - MMS-1: 2 bits (bits 9-10, values 0-3)
+        - MMS-2: 4 bits (bits 11-14, values 0-15)
+    - name: RESERVED
+      position: 15
+      size: 1
+      description: Not assigned - Reserved for future use
+  usage: |
+    Reading: To read back the contents of the 16 PCRs, use the TRA PGC instruction.
+    The A register must have the following format:
+    
+     <ascii-table>
+    ┌────┬────┬────┬─────┬──────┬─────┬────┐
+    │ 15 │14-8 │ 7-4│ 3-0 │           │    │
+    ├────┴────┼────┼─────┼───────────┼────┤
+    │  n/a    │ PL │  0  │     0     │ 0  │
+    └─────────┴────┴─────┴───────────┴────┘
+    </ascii-table>
+
+    After execution, the contents of the A register will contain the PCR value
+    for the specified program level.
+    
+    Writing: To write a PCR, use the TRR PCR instruction. The A register must
+    use one of the formats shown in the ASCII art section.
+  program_level: true
+  read_only: false
+  write_only: false
+  hidden: false
+  group: memory_management
+  preserved: true
+  aliases: ["PGC"] 

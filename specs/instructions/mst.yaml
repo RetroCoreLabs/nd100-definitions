@@ -1,0 +1,39 @@
+instruction:
+  name: MST
+  description: |
+    Masked set
+    
+    The A register is used as a mask to set bits within the selected internal register.
+    Setting a bit in the A register sets the corresponding bit in the internal register.
+    
+    See table for internal registers that allow MST.
+  
+  opcode: "0150300"  # Octal  
+  format: "MST <register>"  
+  category: "Register Transfer"
+  instruction_class: #"register_transfer" 
+  privilege: "privileged"
+  mask: "1111_1111_1111_0000" # top 12 bits are opcode
+  bit_format: |
+        +----------------------------+---------+
+        | 15 -------------------- 4  | 3 --- 0 |
+        +----------------------------+---------+
+        | OpCode                     | Register|
+        +----------------------------+---------+
+  operands:
+    - name: "opcode"        
+      bits: "15-4"
+      type: "opcode"
+      description: "The opcode determines what type of operation occurs"
+    - name: "internal_register"
+      type: "enum"
+      bits: "3-0"
+      description: "The CPU internal register"               
+      enum: # values are OCTAL
+        - name: "STS"
+          value: "0001"
+        - name: "PID"
+          value: "0006"
+        - name: "PIE"
+          value: "0007"
+    

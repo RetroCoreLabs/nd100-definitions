@@ -1,0 +1,23 @@
+instruction:
+  name: "AAT"
+  description: "Add argument to T"
+  opcode: "173000"  # Octal
+  mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
+  format: "AAT <number>"
+  category: "Argument Instruction"
+  privilege: "user"
+  operands:
+    - name: "opcode"        
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode determines what type of operation occurs"
+    - name: "number"
+      type: "numeric"
+      bits: "7-0"
+      description: "8-bit argument extended to 16 bits using sign extension"
+  flags_affected:
+    - C  # Carry
+    - O  # Overflow
+  examples:
+    - description: "Add 13 to the contents of the T register."
+      code: "AAT 13"

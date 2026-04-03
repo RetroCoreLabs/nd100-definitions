@@ -1,0 +1,37 @@
+function:
+  name: "do_xor"
+  description: "Perform bitwise XOR between two 16-bit values, update flags Q, Z"
+  
+  parameters:
+    - name: "a"
+      type: "uint16"
+      description: "First operand"
+    - name: "b"
+      type: "uint16"
+      description: "Second operand"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "Q"
+    - "Z"
+  
+  body:
+    meta: |
+      # Perform bitwise XOR
+      result = a ^ b
+      
+      # Set sign flag if result is negative
+      if (result & 0x8000):
+        set_flag(Q, true)
+      else:
+        set_flag(Q, false)
+      
+      # Set zero flag if result is zero
+      if (result == 0):
+        set_flag(Z, true)
+      else:
+        set_flag(Z, false)
+      
+      # Return the result
+      return result 

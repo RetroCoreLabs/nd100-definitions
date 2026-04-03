@@ -1,0 +1,12 @@
+instruction:
+  name: SBIT
+  description: |
+    Store the single bit accumulator (K) in a logical memory bit.
+    
+    (X) points to the start of a bit array
+    (A) points to the bit within the array
+  format: SBIT
+  opcode: "140512"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

@@ -1,0 +1,130 @@
+levels:
+  description: |
+    The ND-110 has 16 program levels (0-15). Each level consists of a complete set of registers 
+    (A, D, T, L, X and B registers), program counter (P), and a status register (STS) with 
+    the status flags O, Q, Z, C, M, K, PTM and TG. There are also 8 registers that are only 
+    accessible from the microprogram.
+    
+    Priority increases with level: program level 15 has the highest priority and program level 0 
+    the lowest. Higher priority levels can interrupt lower priority levels.
+    
+    Context switching between program levels is done by means of an interrupt. This may be external,
+    internal (trap), or programmed. A program may relinquish priority by executing a WAIT instruction.
+    Context switching from one program level to another is completely automatic and requires only
+    7.2 μs, including saving and unsaving all registers and flags.
+    
+  interrupt_controller:
+    description: |
+      The interrupt controller takes care of all interrupts on levels 10-15, including all
+      internal interrupts. Interrupts on levels 0-9 are implemented by the microprogram.
+      
+      When an interrupt is received, the IIC register and the mask register (IIE) are combined
+      using a logical AND operation. The priority encoder selects the highest priority level
+      of the result. This is compared to the current level. If the interrupt level is higher
+      and the interrupt system is on, the interrupt will be accepted.
+      
+      An interrupt routine may be interrupted by a higher priority interrupt. Service to the
+      lower priority routine is resumed automatically upon completion of the higher level.
+      
+      When an interrupt request is serviced, the CPU moves to a higher program level. The
+      interrupt service routine ends with a WAIT instruction which relinquishes priority and
+      the CPU moves to a lower level. If another interrupt request has occurred with greater
+      priority than the original program, then the new interrupt is serviced first. If no
+      interrupt has occurred or the level of the new interrupt is lower, the original routine
+      resumes.
+      
+    activation: |
+      All program levels may be activated by software. In addition, the levels 10, 11, 12
+      and 13 may be activated by 512 external I/O interrupts. The IDENT instruction is used to
+      identify the interrupting device.
+      
+      The interrupt controller sends out a 5-bit vector specifying the interrupt source. These
+      bits specify a branch address in the microprogram.
+      
+      In the IIC register there are ten bits for level 14 and one bit each for levels 10-13,
+      not level 15. Interrupts for levels 0-9 are accessed via the microprogram.
+  
+  level_assignments:
+    - level: 15
+      usage: "Extremely fast user interrupts"
+      description: |
+        This level is used for extremely fast interrupts and may only have one I/O
+        interrupt source. It is not used by standard ND equipment or software, but is available
+        for users who need an immediate access to the CPU.
+      
+    - level: 14
+      usage: "Internal interrupts"
+      description: |
+        Program level 14 is used by the internal interrupt system, which monitors error
+        conditions or traps in the CPU. Level 14 has 10 possible sources. Each source is
+        represented by a bit in the interrupt control register (IIC) and interrupt mask register
+        (IIE).
+      
+    - level: 13
+      usage: "Real-time clock"
+      description: |
+        The 'real-time clock', the multiport memory error log and HDLC input are connected to
+        level 13.
+      
+    - level: 12
+      usage: "Input devices"
+      description: |
+        Character input devices such as terminals, tape readers, etc., are connected to level
+        12, and so is HDLC output.
+      
+    - level: 11
+      usage: "Mass storage devices"
+      description: |
+        Level 11 is used by mass storage devices such as disk, floppy disk, magnetic tape, etc.
+      
+    - level: 10
+      usage: "Output devices"
+      description: |
+        Level 10 is assigned to character output devices such as line printers, paper tape
+        punches, displays, etc.
+      
+    - level: 9
+      usage: "not used"
+      
+    - level: 8
+      usage: "not used"
+      
+    - level: 7
+      usage: "not used"
+      
+    - level: 6
+      usage: "not used"
+      
+    - level: 5
+      usage: "Xmsg"
+      
+    - level: 4
+      usage: "I/O monitor calls"
+      
+    - level: 3
+      usage: "Segment administration"
+      description: |
+        Note: Levels 2 & 3 have changed usage from previous versions of SINTRAN.
+      
+    - level: 2
+      usage: "SINTRAN III monitor"
+      description: |
+        Note: Levels 2 & 3 have changed usage from previous versions of SINTRAN.
+      
+    - level: 1
+      usage: "Real-time and background"
+      
+    - level: 0
+      usage: "Idle loop"
+      
+  register_sets:
+    description: |
+      Each of the 16 program levels has its own set of the following registers:
+      - A register: Accumulator
+      - D register: Double accumulator
+      - T register: Extra register
+      - L register: Link register
+      - X register: Index register
+      - B register: Base register
+      - P register: Program counter
+      - STS register: Status register (with level-dependent status flags)

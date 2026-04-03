@@ -1,0 +1,20 @@
+instruction:
+  name: IOT
+  description: |
+    NORD-1 INSTRUCTION (DO NOT USE)
+
+  detailed_description: |
+    ND-110 microcode implements this instruction like this:
+
+    1861  000627  % IOT - INSTRUCTION IS PRIVILEGED WHEN RING = 0 OR 1
+    1862  000627  %                  AND ILLEGAL    WHEN RING = 2 OR 3
+    1863  000627  
+    1864  000627  IOT1:     ALUD,NONE           IDBS,ALU            T,JMP               T,PUSH              PVCHK;
+    1865  000630            ALUD,NONE           IDBS,ALU            T,JMP               T,HOLD              ILLIN;
+   
+  opcode: "160000 "  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "IOT <device_register_address>"
+  category: "Input and Output"
+  instruction_class:
+  privilege: "privileged"

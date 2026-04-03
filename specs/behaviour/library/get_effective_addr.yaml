@@ -1,0 +1,44 @@
+function:
+  name: "GetEffectiveAddr"
+  description: "Calculate effective address based on addressing mode and operands"
+  
+  parameters:
+    - name: "addr"
+      type: "uint16"
+      description: "Base address or displacement"
+    - name: "use_index"
+      type: "bool"
+      description: "Whether to use index register X"
+    - name: "use_base"
+      type: "bool"
+      description: "Whether to use base register B"
+    - name: "is_indirect"
+      type: "bool"
+      description: "Whether to use indirect addressing"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "C"
+    - "O"
+  
+  body:
+    meta: |
+      # Start with the base address
+      EA = addr
+      
+      # Add index register if specified
+      if (use_index):
+        EA = EA + X
+      
+      # Add base register if specified
+      if (use_base):
+        EA = EA + B
+      
+      # Handle indirect addressing
+      if (is_indirect):
+        # Read the address from memory
+        EA = MemoryRead(EA)
+      
+      # Return the effective address
+      return EA 

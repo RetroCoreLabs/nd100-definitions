@@ -1,0 +1,23 @@
+instruction:
+  name: "SAA"
+  description: "Set argument to A"
+  opcode: "170400"  # Octal
+  mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
+  format: "SAA <number>"
+  category: "Argument Instruction"
+  privilege: "user"
+  operands:
+    - name: "opcode"        
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode determines what type of operation occurs"
+    - name: "number"
+      type: "numeric"
+      bits: "7-0"
+      description: "8-bit argument extended to 16 bits using sign extension"
+  flags_affected:
+    - C  # Carry
+    - O  # Overflow
+  examples:
+    - description: "Set the A register to 10."
+      code: "SAA 10"

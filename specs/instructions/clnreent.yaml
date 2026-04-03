@@ -1,0 +1,12 @@
+instruction:
+  name: CLNREENT
+  description: |
+    Clear non reentrant pages.
+    
+    The contents of the memory address at A + 2 are read to find the page table to be cleared along with the SINTRAN RT bitmap (addressed by the X and T registers). 
+    The page table entries corresponding to those bits set in the RT bitmap are then cleared.
+  format: CLNREENT
+  opcode: "140302"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

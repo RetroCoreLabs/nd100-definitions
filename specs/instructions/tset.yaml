@@ -1,0 +1,16 @@
+instruction:
+  name: TSET
+  description: |
+    Test and set
+    
+    (T) points to the virtual memory word to be accessed
+    (A) ⟵ memory word addressed by T
+    
+    The address given by the T register is a logical memory address. It is normally translated into a physical address using page tables (if memory management is on). The contents of the location addressed by T are simultaneously loaded into the A register as the location is written to with all 1s. The memory system is dedicated to this task and no other memory access is allowed during the operation. This can be used for processor synchronization.
+    
+    The old content of the memory address is always read from the memory and never from cache. The all 1s' data word is never written to cache.
+  format: TSET
+  opcode: "140123"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Memory Examine and Test Instructions"
+  privilege: "privileged" 

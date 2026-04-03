@@ -1,0 +1,38 @@
+instruction:
+  name: "INIT"
+  description: |
+    Initialize stack. 
+    
+    Loads the addresses pointed to by B with the stack frame addresses. 
+    Sets up 
+      LINK  ⟵ L + 1                          {stack start}  
+      PREVB ⟵ (B)                            {save current pointer}  
+      SMAX  ⟵ stack start address + maximum stack size  
+      (B)   ⟵ (B = 200₈) + 200₈              {establish new pointer}  
+      STP   ⟵ stack demand + (B)  
+
+    Load the addresses pointed to by **B** with the stack frame addresses.
+
+    Stack overflow and flag error causes an error return, that is the program continues at the address following the stack demand value. 
+    In all other cases, the program skips this address to find the return address from the stack.  
+
+    Format:
+      INIT 
+      <number of words allocated to stack>
+      <address of stack start>
+      <maximum stack size>
+      <flag>
+      <address left empty>
+      <error return address>
+      <return address>
+    
+  opcode: "0140134" # Octal
+  format: "INIT"
+  mask: "1111_1111_1111_1111" 
+  category: "Stack Operations"
+  instruction_class:
+  privilege: "user"
+  flags_affected:
+    - PTM # "Page Table Flag - Status register bit 0 used for flag comparison"
+  
+

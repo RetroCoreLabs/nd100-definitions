@@ -1,0 +1,43 @@
+register:
+  name: CCL
+  description: Cache Clear register for controlling cache operations
+  size: 16
+  type: control
+  bits:
+    - name: CLEAR_I
+      position: 0
+      size: 1
+      description: Clear Instruction Cache - Writing 1 clears the instruction cache
+    - name: CLEAR_D
+      position: 1
+      size: 1
+      description: Clear Data Cache - Writing 1 clears the data cache
+    - name: INVALIDATE_I
+      position: 2
+      size: 1
+      description: Invalidate Instruction Cache - Writing 1 invalidates instruction cache entries
+    - name: INVALIDATE_D
+      position: 3
+      size: 1
+      description: Invalidate Data Cache - Writing 1 invalidates data cache entries
+    - name: DISABLE_I
+      position: 4
+      size: 1
+      description: Disable Instruction Cache - Writing 1 disables the instruction cache
+    - name: DISABLE_D
+      position: 5
+      size: 1
+      description: Disable Data Cache - Writing 1 disables the data cache
+    - name: FLUSH
+      position: 6
+      size: 1
+      description: Flush Cache - Writing 1 flushes all dirty cache lines to memory
+    - name: reserved
+      position: 7
+      size: 9
+      description: Reserved for future use
+  program_level: false
+  read_only: false
+  write_only: true
+  hidden: false
+  group: cache 

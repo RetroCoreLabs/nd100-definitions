@@ -1,0 +1,43 @@
+instruction:
+  name: "DNZ"
+  description: |
+    Denormalise     
+    Convert the floating number in TAD to a fixed point number in A
+  detailed_description: |
+    The number in the floating point accumulator (A and D registers) is converted to its Single precision fixed point equivalent in the A register using the scaling factor given.
+    
+    When converting to an integer, a scaling factor of -16 should always be used and will give a fixed point number with the same value as the integer part of the floating point number. 
+    Other scaling factors will have the same result but the overflow test will be affected.
+    
+    The D register will be cleared after this instruction.
+    
+    If the conversion causes underflow, the A and D registers will be set to zero. If overflow occurs (the resulting integer has an absolute value greater than decimal 32767), the error flag (Z) is set to one.
+
+     48-bit: 
+     * 48-bit CPUs allow different scaling factors to be used for DNZ operations. However, the overflow test is only failproof for a scaling factor of 16 (decimal)
+
+  opcode: "152000"  # Octal
+  mask: "1111_1111_0000_0000"  # Standard mask format
+  format: "DNZ <scaling_factor>"
+  category: "Floating Conversion (Standard Format)"
+  instruction_class: 
+  privilege: "user"
+    
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode for floating conversion"
+
+    - name: "scaling_factor"
+      bits: "7-0"
+      type: "numeric"
+      description: "Scaling factor in range -128 to 127 (gives converting range from 10^-39 to 10^39)" 
+
+  examples:
+    - code: "DNZ"
+      description: "Convert the number in TAD to a fixed point number in A"
+    - code: "DNZ -20"
+      description: "Floating to integer conversation. Opcode 152360"
+        
+

@@ -1,0 +1,12 @@
+name: "uint5"
+description: "5-bit unsigned integer"
+bit_size: 5
+type: "numeric"
+signed: false
+
+---
+name: "displacement"
+description: "8-bit signed integer"
+bit_size: 8
+type: "numeric"
+signed: true 

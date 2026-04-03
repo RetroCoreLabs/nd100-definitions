@@ -1,0 +1,824 @@
+{
+  "device_types": {
+    "rtc": {
+      "description": "Real-Time Clock",
+      "register_count": 4,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_DATA",
+          "name": "Read Data Register",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0-15", "name": "Returns 0" }
+          ]
+        },
+        {
+          "offset": 1,
+          "label_suffix": "CLEAR_COUNTER",
+          "name": "Clear Counter",
+          "direction": "Write",
+          "description": "Clear real-time clock counter.\nNext clock pulse occurs exactly 20 ms later.\nRepeated execution prevents counter increment."
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_STATUS",
+          "name": "Read Status Register",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt Enabled - clock will interrupt on next pulse" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "External Hold Pulse received" },
+            { "bits": "3", "name": "Ready for Transfer - clock pulse occurred" },
+            { "bits": "4-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 3,
+          "label_suffix": "WRITE_CONTROL",
+          "name": "Write Control Register",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Enable interrupt on Ready for Transfer" },
+            { "bits": "1", "name": "Return address on opcom segment (RETSG)" },
+            { "bits": "2-9", "name": "(unused)" },
+            { "bits": "10-11", "name": "Frequency select (0=Stop, 1=100us, 2=10us, 3=1us)" },
+            { "bits": "12", "name": "External Hold Enable (1=enable, 0=disable)" },
+            { "bits": "13", "name": "Clear Ready for Transfer flag" },
+            { "bits": "14", "name": "Clear External Hold signal" },
+            { "bits": "15", "name": "Restart clock (preset to N-1)" }
+          ]
+        }
+      ]
+    },
+    "terminal": {
+      "description": "Terminal",
+      "register_count": 8,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_INPUT",
+          "name": "Read Input Data",
+          "direction": "Read",
+          "description": "Read input data character from terminal"
+        },
+        {
+          "offset": 1,
+          "label_suffix": "WRITE_NOP",
+          "name": "Write (No Operation)",
+          "direction": "Write",
+          "description": "No operation"
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_INPUT_STATUS",
+          "name": "Read Input Status",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt Enabled - data available gives interrupt" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "Device Activated" },
+            { "bits": "3", "name": "Ready for Transfer - data available" },
+            { "bits": "4", "name": "Error OR - inclusive OR of bits 5-7" },
+            { "bits": "5", "name": "Framing Error" },
+            { "bits": "6", "name": "Parity Error" },
+            { "bits": "7", "name": "Overrun" },
+            { "bits": "8-10", "name": "(unused)" },
+            { "bits": "11", "name": "Carrier Missing" },
+            { "bits": "12-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 3,
+          "label_suffix": "WRITE_INPUT_CTRL",
+          "name": "Write Input Control",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Enable interrupt on data available" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "Activate Device" },
+            { "bits": "3", "name": "Test Mode" },
+            { "bits": "4", "name": "Device Clear" },
+            { "bits": "5-10", "name": "(unused)" },
+            { "bits": "11-12", "name": "Character Length (0=8, 1=7, 2=6, 3=5)" },
+            { "bits": "13", "name": "Stop Bits (0=2 bits, 1=1 bit)" },
+            { "bits": "14", "name": "Parity (0=none, 1=even parity)" },
+            { "bits": "15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 4,
+          "label_suffix": "READ_ZERO",
+          "name": "Read (Returns 0)",
+          "direction": "Read",
+          "description": "Returns 0 in A register, no other effect"
+        },
+        {
+          "offset": 5,
+          "label_suffix": "WRITE_DATA",
+          "name": "Write Output Data",
+          "direction": "Write",
+          "description": "Write data character to terminal output"
+        },
+        {
+          "offset": 6,
+          "label_suffix": "READ_OUTPUT_STATUS",
+          "name": "Read Output Status",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt Enabled - ready gives interrupt" },
+            { "bits": "1-2", "name": "(unused)" },
+            { "bits": "3", "name": "Ready for Transfer" },
+            { "bits": "4-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 7,
+          "label_suffix": "WRITE_OUTPUT_CTRL",
+          "name": "Write Output Control",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Enable interrupt on ready for transfer" },
+            { "bits": "1-15", "name": "(unused)" }
+          ]
+        }
+      ]
+    },
+    "paper_tape": {
+      "description": "Paper Tape Reader",
+      "register_count": 4,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_DATA",
+          "name": "Read Data",
+          "direction": "Read",
+          "description": "Read data byte from tape"
+        },
+        {
+          "offset": 1,
+          "label_suffix": "WRITE_DATA",
+          "name": "Write Data Buffer",
+          "direction": "Write"
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_STATUS",
+          "name": "Read Status",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt Enabled" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "Read Active" },
+            { "bits": "3", "name": "Ready for Transfer" },
+            { "bits": "4-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 3,
+          "label_suffix": "WRITE_CONTROL",
+          "name": "Write Control",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt Enable" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "Activate" },
+            { "bits": "3", "name": "Ready for Transfer" },
+            { "bits": "4", "name": "Device Clear" },
+            { "bits": "5-15", "name": "(unused)" }
+          ]
+        }
+      ]
+    },
+    "smd": {
+      "description": "SMD Disk Controller",
+      "register_count": 8,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_MEM_ADDR",
+          "name": "Read Core Address",
+          "direction": "Read",
+          "description": "Read current memory (core) address register"
+        },
+        {
+          "offset": 1,
+          "label_suffix": "LOAD_MEM_ADDR",
+          "name": "Load Core Address",
+          "direction": "Write",
+          "description": "Load memory (core) address for DMA transfer"
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_SEEK_COND",
+          "name": "Read Seek Condition (CWR=0) / Read ECC Count (CWR=1)",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0-7", "name": "Seek Complete status for units 0-7" },
+            { "bits": "8-10", "name": "Unit number from last control word" },
+            { "bits": "11", "name": "Seek Error for selected unit" },
+            { "bits": "12", "name": "SMD 15MHz (always 1 for ND632)" },
+            { "bits": "13", "name": "ECC error is correctable" },
+            { "bits": "14", "name": "ECC parity error (HW fault)" },
+            { "bits": "15", "name": "Last field read was address field" }
+          ],
+          "description": "--- CWR bit 15 = 0: Seek Condition ---\n--- CWR bit 15 = 1: ECC Count ---"
+        },
+        {
+          "offset": 3,
+          "label_suffix": "LOAD_BLOCK_ADDR",
+          "name": "Load Block Address I (CWR=0) / Load Block Address II (CWR=1)",
+          "direction": "Write",
+          "description": "CWR=0: Load sector/track address\nCWR=1: Load cylinder number (triggers seek when Active bit set)"
+        },
+        {
+          "offset": 4,
+          "label_suffix": "READ_STATUS",
+          "name": "Read Status (CWR=0) / Read ECC Pattern (CWR=1)",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt Enabled" },
+            { "bits": "1", "name": "Error Interrupt Enabled" },
+            { "bits": "2", "name": "Active (controller busy)" },
+            { "bits": "3", "name": "Ready for Transfer" },
+            { "bits": "4", "name": "Hardware Error (inclusive OR)" },
+            { "bits": "5", "name": "Illegal Load" },
+            { "bits": "6", "name": "Timeout" },
+            { "bits": "7", "name": "Hardware Error 2 (disk fault)" },
+            { "bits": "8", "name": "Address Mismatch" },
+            { "bits": "9", "name": "(reserved)" },
+            { "bits": "10", "name": "Comparer Error" },
+            { "bits": "11-12", "name": "(reserved)" },
+            { "bits": "13", "name": "Disk Unit Not Ready" },
+            { "bits": "14", "name": "On Cylinder" },
+            { "bits": "15", "name": "CWR bit (register multiplex)" }
+          ],
+          "description": "--- CWR bit 15 = 0: Status Register ---"
+        },
+        {
+          "offset": 5,
+          "label_suffix": "LOAD_CONTROL",
+          "name": "Load Control Word",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Enable interrupt on Not Active" },
+            { "bits": "1", "name": "Enable interrupt on Errors" },
+            { "bits": "2", "name": "Active (start operation, triggers seek)" },
+            { "bits": "3", "name": "Test Mode" },
+            { "bits": "4", "name": "Device Clear" },
+            { "bits": "5-6", "name": "Core address bits 16-17" },
+            { "bits": "7-9", "name": "Unit Select (max 4 units)" },
+            { "bits": "10", "name": "Marginal Recovery Cycle" },
+            { "bits": "11-14", "name": "Operation Code: 0=Read 1=Write 2=ReadParity 3=Compare 4=Seek 5=Format 6=SeekComplete 7=ReturnToZero 8=RunECC 9=SelectRelease" },
+            { "bits": "15", "name": "CWR bit (register multiplex)" }
+          ]
+        },
+        {
+          "offset": 6,
+          "label_suffix": "READ_BLOCK_ADDR",
+          "name": "Read Block Address I (CWR=0) / Read Block Address II (CWR=1)",
+          "direction": "Read",
+          "description": "CWR=0: Read sector/track address\nCWR=1: Read cylinder number"
+        },
+        {
+          "offset": 7,
+          "label_suffix": "LOAD_WORD_COUNT",
+          "name": "Load Word Count (CWR=0) / Load ECC Control (CWR=1)",
+          "direction": "Write",
+          "description": "CWR=0: Set number of words for DMA transfer\nCWR=1: Load ECC control register"
+        }
+      ]
+    },
+    "floppy_dma": {
+      "description": "Floppy DMA Controller",
+      "register_count": 8,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_DATA",
+          "name": "Read Data Register",
+          "direction": "Read",
+          "description": "Read data from floppy controller"
+        },
+        {
+          "offset": 1,
+          "label_suffix": "UNUSED1",
+          "name": "(Not Used)",
+          "direction": "None",
+          "description": "This register is not used"
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_STATUS1",
+          "name": "Read Status Register 1",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "(unused)" },
+            { "bits": "1", "name": "Interrupt Enabled" },
+            { "bits": "2", "name": "Device Active (controller busy)" },
+            { "bits": "3", "name": "Ready for Transfer" },
+            { "bits": "4", "name": "Error OR (inclusive OR of errors)" },
+            { "bits": "5", "name": "Deleted Record / EOF marker" },
+            { "bits": "6", "name": "Internal retry (no error)" },
+            { "bits": "7", "name": "Hard Error (no memory contact)" },
+            { "bits": "8-14", "name": "Error code from controller" },
+            { "bits": "15", "name": "Dual Density controller" }
+          ]
+        },
+        {
+          "offset": 3,
+          "label_suffix": "LOAD_CONTROL",
+          "name": "Load Control Word",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "(unused)" },
+            { "bits": "1", "name": "Enable Interrupt" },
+            { "bits": "2", "name": "Activate Autoload" },
+            { "bits": "3", "name": "Test Mode" },
+            { "bits": "4", "name": "Device Clear" },
+            { "bits": "5", "name": "Enable Streamer" },
+            { "bits": "6-7", "name": "(unused)" },
+            { "bits": "8", "name": "Execute Command (from command block in memory)" },
+            { "bits": "9-13", "name": "Test Data (when test mode active)" },
+            { "bits": "14-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 4,
+          "label_suffix": "READ_STATUS2",
+          "name": "Read Status Register 2",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0-1", "name": "Bytes per Sector encoding" },
+            { "bits": "2", "name": "Double Sided diskette" },
+            { "bits": "3", "name": "Double Density format" },
+            { "bits": "4-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 5,
+          "label_suffix": "LOAD_PTR_HI",
+          "name": "Load Pointer High",
+          "direction": "Write",
+          "description": "Load command block pointer high bits (23-16)"
+        },
+        {
+          "offset": 6,
+          "label_suffix": "UNUSED6",
+          "name": "(Not Used)",
+          "direction": "None",
+          "description": "This register is not used"
+        },
+        {
+          "offset": 7,
+          "label_suffix": "LOAD_PTR_LO",
+          "name": "Load Pointer Low / Load Data",
+          "direction": "Write",
+          "description": "Load command block pointer low bits (15-0)"
+        }
+      ]
+    },
+    "line_printer": {
+      "description": "Line Printer",
+      "register_count": 4,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_DATA",
+          "name": "Read Data",
+          "direction": "Read",
+          "description": "Read back data in buffer (only valid in test mode, bit 3 in control)"
+        },
+        {
+          "offset": 1,
+          "label_suffix": "WRITE_DATA",
+          "name": "Write Data",
+          "direction": "Write",
+          "description": "Write character to buffer register\nCodes 0-037 (octal) are illegal except:\n  011: HT (horizontal tab)\n  012: LF (line feed)\n  014: FF (form feed)\n  015: CR (carriage return)\n  020-033: VFU channels (020=FF via channel 1)"
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_STATUS",
+          "name": "Read Status",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt enabled on ready" },
+            { "bits": "1", "name": "Interrupt enabled on error" },
+            { "bits": "2", "name": "(unused)" },
+            { "bits": "3", "name": "Ready for Transfer" },
+            { "bits": "4", "name": "Error (bit 5 or 6 set)" },
+            { "bits": "5", "name": "Line printer not ready" },
+            { "bits": "6", "name": "Out of paper" },
+            { "bits": "7", "name": "Compressed pitch" },
+            { "bits": "8", "name": "LP9 (format/control code mode)" },
+            { "bits": "9", "name": "Inhibit (illegal character in buffer)" },
+            { "bits": "10", "name": "(unused)" },
+            { "bits": "11-12", "name": "Band detect (00=128ch, 01=96ch, 10=64ch, 11=48ch)" },
+            { "bits": "13-15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 3,
+          "label_suffix": "WRITE_CONTROL",
+          "name": "Write Control",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Enable interrupt on ready for transfer" },
+            { "bits": "1", "name": "Enable interrupt on error" },
+            { "bits": "2", "name": "Activate (print character in buffer)" },
+            { "bits": "3", "name": "Test mode" },
+            { "bits": "4", "name": "Device and interface clear" },
+            { "bits": "5-15", "name": "(unused)" }
+          ]
+        }
+      ]
+    },
+    "nd500_interface": {
+      "description": "ND-500 Interface",
+      "register_count": 16,
+      "registers": [
+        {
+          "offset": 0,
+          "label_suffix": "READ_MAR",
+          "name": "Read MAR x2",
+          "direction": "Read",
+          "description": "Read Memory Address Register bits 0-15 (doubled)"
+        },
+        {
+          "offset": 1,
+          "label_suffix": "LOAD_MAR",
+          "name": "Load MAR x2",
+          "direction": "Write",
+          "description": "Load Memory Address Register bits 0-15 (doubled)"
+        },
+        {
+          "offset": 2,
+          "label_suffix": "READ_STATUS",
+          "name": "Read Status",
+          "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "Interrupt enabled" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "ND-500 busy" },
+            { "bits": "3", "name": "ND-500 finished" },
+            { "bits": "4", "name": "Error" },
+            { "bits": "5", "name": "Interface locked (ND-500 running)" },
+            { "bits": "6", "name": "DMA error" },
+            { "bits": "7", "name": "ND-500 power fault" },
+            { "bits": "8", "name": "ND-500 power off" },
+            { "bits": "9", "name": "ND-500 micro clock stopped" },
+            { "bits": "10-14", "name": "ND-500 stop reason" },
+            { "bits": "15", "name": "CONTROL register bit 15" }
+          ]
+        },
+        {
+          "offset": 3,
+          "label_suffix": "LOAD_STATUS",
+          "name": "Load Status (test mode only)",
+          "direction": "Write",
+          "description": "Load status register for testing (only in Not Locked + Test mode)"
+        },
+        {
+          "offset": 4,
+          "label_suffix": "READ_CONTROL",
+          "name": "Read Control",
+          "direction": "Read",
+          "description": "Read back the control register (only in Locked Test or Not Locked Test mode)"
+        },
+        {
+          "offset": 5,
+          "label_suffix": "LOAD_CONTROL",
+          "name": "Load Control",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "Enable interrupt from ND-500" },
+            { "bits": "1", "name": "(unused)" },
+            { "bits": "2", "name": "Activate ND-500 operation (locks communication)" },
+            { "bits": "3", "name": "Test mode" },
+            { "bits": "4", "name": "ND-500 programmed clear" },
+            { "bits": "5", "name": "Disable TAG-IN decoding when locked" },
+            { "bits": "6", "name": "DMA error" },
+            { "bits": "7", "name": "Command chaining" },
+            { "bits": "8-14", "name": "ND-500 operation code" },
+            { "bits": "15", "name": "(unused)" }
+          ]
+        },
+        {
+          "offset": 6,
+          "label_suffix": "MASTER_CLEAR",
+          "name": "Master Clear / Read Data (test)",
+          "direction": "Write/Read",
+          "description": "Normal: Master clear of interface\nTest: Read data register"
+        },
+        {
+          "offset": 7,
+          "label_suffix": "TERMINATE",
+          "name": "Terminate / Load Data (test)",
+          "direction": "Write",
+          "description": "Normal: Terminate current operation\nTest: Load data register"
+        },
+        {
+          "offset": 8,
+          "label_suffix": "READ_TAG_IN",
+          "name": "Read TAG-IN / Read Upper Limit (test)",
+          "direction": "Read",
+          "description": "Normal: Read TAG-IN (message from ND-500)\nTest: Read upper memory limit register"
+        },
+        {
+          "offset": 9,
+          "label_suffix": "WRITE_TAG_OUT",
+          "name": "Write TAG-OUT / Load Upper Limit (test)",
+          "direction": "Write",
+          "description": "Normal: Write TAG-OUT (command to ND-500)\nTest: Load upper memory limit register"
+        },
+        {
+          "offset": 10,
+          "label_suffix": "READ_LOWER_LIM",
+          "name": "Read Lower Limit (test only)",
+          "direction": "Read",
+          "description": "Read lower memory limit register (test mode only)"
+        },
+        {
+          "offset": 11,
+          "label_suffix": "WRITE_DATAX",
+          "name": "Write DATAX / Load Lower Limit (test)",
+          "direction": "Write",
+          "description": "Normal: Write DATAX\nTest: Load lower memory limit register"
+        },
+        {
+          "offset": 12,
+          "label_suffix": "READ_LOCKED1",
+          "name": "Read Locked (test only)",
+          "direction": "Read",
+          "description": "Read interface locked status"
+        },
+        {
+          "offset": 13,
+          "label_suffix": "WRITE_DATA",
+          "name": "Write Data",
+          "direction": "Write",
+          "description": "Write data to ND-500"
+        },
+        {
+          "offset": 14,
+          "label_suffix": "READ_LOCKED2",
+          "name": "Read Locked",
+          "direction": "Read",
+          "description": "Read interface locked status"
+        },
+        {
+          "offset": 15,
+          "label_suffix": "RETURN_GATE",
+          "name": "Return Gate (RETG5)",
+          "direction": "Write",
+          "bit_fields": [
+            { "bits": "1", "name": "Stop microclock (halts ND-500 CPU)" }
+          ],
+          "description": "Microclock control"
+        }
+      ]
+    },
+    "hdlc": {
+      "description": "HDLC/Megalink",
+      "register_count": 16,
+      "registers": [
+        { "offset": 0, "label_suffix": "RX_DATA", "name": "Receiver Data Register (RxDR)", "direction": "Read", "description": "Assembled byte from COM5025 receiver buffer" },
+        { "offset": 1, "label_suffix": "PCR", "name": "Parameter Control Register (PCR)", "direction": "Write", "description": "HDLC protocol definition (8 bits). Written to COM5025 Mode register during INITIALIZE." },
+        { "offset": 2, "label_suffix": "RX_STATUS", "name": "Receiver Status Register (RxSR)", "direction": "Read", "description": "COM5025 receiver status (8 bits)" },
+        { "offset": 3, "label_suffix": "SAR", "name": "Sync/Address Register (SAR)", "direction": "Write", "description": "Station address (bit-oriented) or SYNC char (byte-oriented)" },
+        { "offset": 4, "label_suffix": "CHL", "name": "Character Length Register (CHL)", "direction": "Write",
+          "bit_fields": [
+            { "bits": "0-2", "name": "Receiver character length" },
+            { "bits": "3-4", "name": "(unused)" },
+            { "bits": "5-7", "name": "Transmitter character length" }
+          ],
+          "description": "Usually 8 bits each (value 0x88)"
+        },
+        { "offset": 5, "label_suffix": "TX_DATA", "name": "Transmitter Data Register (TxDR)", "direction": "Write", "description": "Byte to transmit via COM5025" },
+        { "offset": 6, "label_suffix": "TX_STATUS", "name": "Transmitter Status Register (TxSR)", "direction": "Read", "description": "COM5025 transmitter status (8 bits)" },
+        { "offset": 7, "label_suffix": "TX_CTRL", "name": "Transmitter Control Word (TxCW)", "direction": "Write", "description": "COM5025 transmitter control (same bits as TxSR)" },
+        { "offset": 8, "label_suffix": "RRTS", "name": "Receiver Transfer Status (RRTS)", "direction": "Read",
+          "description": "High byte auto-cleared on read",
+          "bit_fields": [
+            { "bits": "0", "name": "DataAvailable — byte assembled in RX buffer" },
+            { "bits": "1", "name": "StatusAvailable — status ready in RxSR" },
+            { "bits": "2", "name": "ReceiverActive — frame in progress" },
+            { "bits": "3", "name": "SyncFlagReceived — FLAG detected" },
+            { "bits": "4", "name": "DMAModuleRequest — DMA needs attention (auto-clear)" },
+            { "bits": "5", "name": "SD — Signal Detector (modem)" },
+            { "bits": "6", "name": "DSR — Data Set Ready (modem)" },
+            { "bits": "7", "name": "RI — Ring Indicator (modem)" },
+            { "bits": "8", "name": "BlockEnd — DMA block complete (auto-clear)" },
+            { "bits": "9", "name": "FrameEnd — HDLC frame received (auto-clear)" },
+            { "bits": "10", "name": "ListEnd — descriptor list exhausted (auto-clear)" },
+            { "bits": "11", "name": "ListEmpty — NO RX BUFFERS! Disables receiver (auto-clear)" },
+            { "bits": "13", "name": "X21D — X.21 Data Indication Error" },
+            { "bits": "14", "name": "X21S — X.21 Call Setup/Clear Error" },
+            { "bits": "15", "name": "ReceiverOverrun — buffer overrun" }
+          ]
+        },
+        { "offset": 9, "label_suffix": "WRTC", "name": "Receiver Transfer Control (WRTC)", "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "DataAvailableIE — enable IRQ 13 on DataAvailable" },
+            { "bits": "1", "name": "StatusAvailableIE — enable IRQ 13 on StatusAvailable" },
+            { "bits": "2", "name": "EnableReceiver — turn on receiver" },
+            { "bits": "3", "name": "EnableReceiverDMA — route DataAvail to DMA" },
+            { "bits": "4", "name": "DMAModuleIE — enable IRQ 13 on DMA request" },
+            { "bits": "5", "name": "DeviceClear+Maintenance — clear + enter loopback" },
+            { "bits": "6", "name": "DTR — Data Terminal Ready" },
+            { "bits": "7", "name": "ModemStatusChangeIE — enable IRQ on modem change" },
+            { "bits": "8", "name": "BlockEndIE — enable IRQ on Block End" },
+            { "bits": "9", "name": "FrameEndIE — enable IRQ on Frame End" },
+            { "bits": "10", "name": "ListEndIE — enable IRQ on List End" }
+          ]
+        },
+        { "offset": 10, "label_suffix": "RTTS", "name": "Transmitter Transfer Status (RTTS)", "direction": "Read",
+          "description": "High byte auto-cleared on read",
+          "bit_fields": [
+            { "bits": "0", "name": "TxBufferEmpty — ready for new byte" },
+            { "bits": "1", "name": "TxUnderrun — buffer not loaded in time" },
+            { "bits": "2", "name": "TxActive — transmitter active" },
+            { "bits": "6", "name": "RFS — Ready For Sending / CTS (modem)" },
+            { "bits": "8", "name": "BlockEnd — DMA buffer sent (auto-clear)" },
+            { "bits": "9", "name": "FrameEnd — HDLC frame sent TEOM (auto-clear)" },
+            { "bits": "10", "name": "ListEnd — all descriptors done (auto-clear)" },
+            { "bits": "11", "name": "TxFinished — DMA done, auto-sets DMAReq (auto-clear)" },
+            { "bits": "15", "name": "Illegal — bad key/format in descriptor" }
+          ]
+        },
+        { "offset": 11, "label_suffix": "WTTC", "name": "Transmitter Transfer Control (WTTC)", "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "TxBufferEmptyIE — enable IRQ 12 on buffer empty" },
+            { "bits": "1", "name": "TxUnderrunIE — enable IRQ 12 on underrun" },
+            { "bits": "2", "name": "TxEnabled — enable transmitter output" },
+            { "bits": "3", "name": "EnableTxDMA — route buffer-empty to DMA" },
+            { "bits": "4", "name": "DMAModuleIE — enable IRQ 12 on DMA request" },
+            { "bits": "5", "name": "HalfDuplex — half-duplex mode" },
+            { "bits": "6", "name": "RTS — Request To Send" },
+            { "bits": "7", "name": "ModemStatusChangeIE — enable IRQ on RFS change" },
+            { "bits": "8", "name": "BlockEndIE — enable IRQ on Block End" },
+            { "bits": "9", "name": "FrameEndIE — enable IRQ on Frame End" },
+            { "bits": "10", "name": "ListEndIE — enable IRQ on List End" }
+          ]
+        },
+        { "offset": 12, "label_suffix": "DMA_ADDR_R", "name": "DMA Address Read", "direction": "Read", "description": "Reads back last value written to DMA Address Write" },
+        { "offset": 13, "label_suffix": "DMA_ADDR_W", "name": "DMA Address Write", "direction": "Write", "description": "16 LSBs of buffer/descriptor list address" },
+        { "offset": 14, "label_suffix": "DMA_CMD_R", "name": "DMA Command Read", "direction": "Read", "description": "Read DMA command status (shifted left 8 bits)" },
+        { "offset": 15, "label_suffix": "DMA_CMD_W", "name": "DMA Command Write", "direction": "Write",
+          "bit_fields": [
+            { "bits": "0-3", "name": "Bank bits for 18-bit DMA addressing" },
+            { "bits": "8-10", "name": "Command: 0=CLEAR 1=INIT 2=RX_START 3=RX_CONT 4=TX_START 5=DUMP_DATA 6=DUMP_REGS 7=LOAD_REGS" }
+          ]
+        }
+      ]
+    },
+    "octobus": {
+      "description": "Octobus Interface",
+      "register_count": 8,
+      "registers": [
+        { "offset": 0, "label_suffix": "IN_READ_DATA", "name": "Input Read Data", "direction": "Read", "description": "Read received data from 16-word FIFO" },
+        { "offset": 1, "label_suffix": "IN_WRITE_DATA", "name": "Input Write Data", "direction": "Write", "description": "Write data to input controller" },
+        { "offset": 2, "label_suffix": "IN_READ_STATUS", "name": "Input Read Status", "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "InterruptEnable" },
+            { "bits": "1", "name": "FifoNotFull" },
+            { "bits": "2", "name": "RequestOn" },
+            { "bits": "3", "name": "ReadyForTransfer" },
+            { "bits": "4", "name": "Error" },
+            { "bits": "5", "name": "RetryCounter0" },
+            { "bits": "6", "name": "NotPresent — interface not installed" },
+            { "bits": "7", "name": "Busy" },
+            { "bits": "8", "name": "ParityError" }
+          ]
+        },
+        { "offset": 3, "label_suffix": "IN_WRITE_CTRL", "name": "Input Write Control", "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "InterruptEnable" },
+            { "bits": "2", "name": "TransmitEnable" },
+            { "bits": "3", "name": "ReceiveEnable" },
+            { "bits": "4", "name": "MasterClear (CMMACLE) — reset SAMSON" },
+            { "bits": "5", "name": "ContinueACCP — resume ACCP processor" },
+            { "bits": "6", "name": "Reset interface" },
+            { "bits": "7", "name": "TestMode" }
+          ]
+        },
+        { "offset": 4, "label_suffix": "OUT_READ_DATA", "name": "Output Read Data", "direction": "Read", "description": "Read data from output controller" },
+        { "offset": 5, "label_suffix": "OUT_WRITE_CMD", "name": "Output Write Command", "direction": "Write", "description": "CMMACLE (master clear) or CMACONT (continue ACCP)" },
+        { "offset": 6, "label_suffix": "OUT_READ_STATUS", "name": "Output Read Status", "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "InterruptEnable" },
+            { "bits": "2", "name": "RequestOn" },
+            { "bits": "3", "name": "ReadyForTransfer — data ready flag" },
+            { "bits": "4", "name": "Error" },
+            { "bits": "5", "name": "RetryCounter0" },
+            { "bits": "6", "name": "NotPresent — interface not installed" },
+            { "bits": "7", "name": "Busy" },
+            { "bits": "8", "name": "ParityError" },
+            { "bits": "15", "name": "Master flag" }
+          ]
+        },
+        { "offset": 7, "label_suffix": "OUT_WRITE_CTRL", "name": "Output Write Control", "direction": "Write", "description": "Same control bits as Input Write Control" }
+      ]
+    },
+    "scsi": {
+      "description": "SCSI Disc Controller",
+      "register_count": 8,
+      "registers": [
+        { "offset": 0, "label_suffix": "RLMAR", "name": "Memory Address Register LSB", "direction": "Read", "description": "Read MAR bits 0-15" },
+        { "offset": 1, "label_suffix": "WLMAR", "name": "Memory Address Register LSB", "direction": "Write", "description": "Write MAR bits 0-15" },
+        { "offset": 2, "label_suffix": "REDAT", "name": "Read Data", "direction": "Read", "description": "Read 16-bit data (IOX mode only)" },
+        { "offset": 3, "label_suffix": "WRDAT", "name": "Write Data", "direction": "Write", "description": "Write 16-bit data (IOX mode only)" },
+        { "offset": 4, "label_suffix": "RSTAU", "name": "Read Status Register", "direction": "Read",
+          "bit_fields": [
+            { "bits": "0", "name": "InterruptEnabled" },
+            { "bits": "2", "name": "Interrupt set for ND-100" },
+            { "bits": "4", "name": "Reset Active" },
+            { "bits": "5", "name": "Halt" }
+          ]
+        },
+        { "offset": 5, "label_suffix": "WCONT", "name": "Write Control Register", "direction": "Write",
+          "bit_fields": [
+            { "bits": "0", "name": "InterruptEnable — IRQ level 11 when ready" },
+            { "bits": "1", "name": "Active — start operation (set after command)" },
+            { "bits": "2", "name": "TestMode — MAR incremented on IOX read" },
+            { "bits": "4", "name": "ResetOnSCSIBus — assert SCSI bus reset" },
+            { "bits": "5", "name": "DataRequestFromNCR5386" },
+            { "bits": "6", "name": "InterruptFromNCR5386" },
+            { "bits": "7", "name": "DMAEnable — enable DMA transfers" },
+            { "bits": "8", "name": "WriteNDMemory — enable write to ND-100 memory" }
+          ]
+        },
+        { "offset": 6, "label_suffix": "RHMAR", "name": "Memory Address Register MSB", "direction": "Read", "description": "Read MAR bits 16-23 (24-bit addressing)" },
+        { "offset": 7, "label_suffix": "WHMAR", "name": "Memory Address Register MSB", "direction": "Write", "description": "Write MAR bits 16-23" }
+      ]
+    },
+    "ethernet": {
+      "description": "Ethernet II Controller",
+      "register_count": 4,
+      "registers": [
+        { "offset": 0, "label_suffix": "DATA_LO", "name": "Data Register Low", "direction": "Read/Write", "description": "ND-100 data exchange with 68000 local memory (low word)" },
+        { "offset": 1, "label_suffix": "DATA_HI", "name": "Data Register High", "direction": "Read/Write", "description": "ND-100 data exchange with 68000 local memory (high word)" },
+        { "offset": 2, "label_suffix": "ADDR", "name": "Address Register", "direction": "Read/Write", "description": "68000 local memory address for bank window access" },
+        { "offset": 3, "label_suffix": "CTRL", "name": "Control/Status Register", "direction": "Read/Write",
+          "description": "Internal 68000 CPU (10 MHz) with 512KB DRAM, LANCE Am7990 Ethernet, MFP MC68901",
+          "bit_fields": [
+            { "bits": "0", "name": "InterruptEnable — triggers IRQ 12 to ND-100" },
+            { "bits": "1", "name": "Reset 68000 CPU" },
+            { "bits": "2", "name": "Bank select" },
+            { "bits": "3", "name": "Ready" }
+          ]
+        }
+      ]
+    }
+  },
+  "device_instances": [
+    { "type": "rtc", "prefix": "RTC1", "unit": "1", "base_address_hex": "0x8", "octal_range": "010-013", "irq_level": "13", "ident_octal": "01" },
+    { "type": "rtc", "prefix": "RTC2", "unit": "2", "base_address_hex": "0xC", "octal_range": "014-017", "irq_level": "13", "ident_octal": "02" },
+    { "type": "rtc", "prefix": "RTC3", "unit": "3", "base_address_hex": "0x10", "octal_range": "020-023", "irq_level": "13", "ident_octal": "06" },
+
+    { "type": "terminal", "prefix": "CON", "unit": "Console (Terminal 1)", "base_address_hex": "0xC0", "octal_range": "0300-0307", "irq_level": "10/12", "ident_octal": "01" },
+
+    { "type": "paper_tape", "prefix": "PTR1", "unit": "1", "base_address_hex": "0x100", "octal_range": "0400-0403", "irq_level": "12", "ident_octal": "02" },
+    { "type": "paper_tape", "prefix": "PTR2", "unit": "2", "base_address_hex": "0x104", "octal_range": "0404-0407", "irq_level": "12", "ident_octal": "022" },
+
+    { "type": "line_printer", "prefix": "LP3", "unit": "3", "base_address_hex": "0x70", "octal_range": "0160-0163", "irq_level": "10", "ident_octal": "035" },
+    { "type": "line_printer", "prefix": "LP4", "unit": "4", "base_address_hex": "0x74", "octal_range": "0164-0167", "irq_level": "10", "ident_octal": "036" },
+    { "type": "line_printer", "prefix": "LP5", "unit": "5", "base_address_hex": "0x78", "octal_range": "0170-0173", "irq_level": "10", "ident_octal": "033" },
+    { "type": "line_printer", "prefix": "LP6", "unit": "6", "base_address_hex": "0x7C", "octal_range": "0174-0177", "irq_level": "10", "ident_octal": "032" },
+    { "type": "line_printer", "prefix": "LP1", "unit": "1", "base_address_hex": "0x118", "octal_range": "0430-0433", "irq_level": "10", "ident_octal": "03" },
+    { "type": "line_printer", "prefix": "LP2", "unit": "2", "base_address_hex": "0x11C", "octal_range": "0434-0437", "irq_level": "10", "ident_octal": "023" },
+
+    { "type": "smd", "prefix": "SMD3", "unit": "3", "base_address_hex": "0x160", "octal_range": "0540-0547", "irq_level": "11", "ident_octal": "023" },
+    { "type": "smd", "prefix": "SMD4", "unit": "4", "base_address_hex": "0x168", "octal_range": "0550-0557", "irq_level": "11", "ident_octal": "06" },
+
+    { "type": "nd500_interface", "prefix": "ND500_1", "unit": "1", "base_address_hex": "0x30", "octal_range": "060-077", "irq_level": "12", "ident_octal": "016" },
+    { "type": "nd500_interface", "prefix": "ND500_5", "unit": "5", "base_address_hex": "0x170", "octal_range": "0560-0577", "irq_level": "12", "ident_octal": "076" },
+    { "type": "nd500_interface", "prefix": "ND500_3", "unit": "3", "base_address_hex": "0x1B0", "octal_range": "0660-0677", "irq_level": "12", "ident_octal": "036" },
+    { "type": "nd500_interface", "prefix": "ND500_4", "unit": "4", "base_address_hex": "0x1F0", "octal_range": "0760-0777", "irq_level": "12", "ident_octal": "0114" },
+    { "type": "nd500_interface", "prefix": "ND500_2", "unit": "2", "base_address_hex": "0x230", "octal_range": "01060-01077", "irq_level": "12", "ident_octal": "0116" },
+
+    { "type": "smd", "prefix": "SMD1", "unit": "1", "base_address_hex": "0x360", "octal_range": "01540-01547", "irq_level": "11", "ident_octal": "017" },
+    { "type": "smd", "prefix": "SMD2", "unit": "2", "base_address_hex": "0x368", "octal_range": "01550-01557", "irq_level": "11", "ident_octal": "020" },
+
+    { "type": "floppy_dma", "prefix": "FLP1", "unit": "1", "base_address_hex": "0x370", "octal_range": "01560-01567", "irq_level": "11", "ident_octal": "021" },
+    { "type": "floppy_dma", "prefix": "FLP2", "unit": "2", "base_address_hex": "0x378", "octal_range": "01570-01577", "irq_level": "11", "ident_octal": "022" },
+
+    { "type": "hdlc", "prefix": "HDLC1", "unit": "1", "base_address_hex": "0x3A0", "octal_range": "01640-01657", "irq_level": "12/13", "ident_octal": "0150" },
+    { "type": "hdlc", "prefix": "HDLC2", "unit": "2", "base_address_hex": "0x3B0", "octal_range": "01660-01677", "irq_level": "12/13", "ident_octal": "0151" },
+    { "type": "hdlc", "prefix": "HDLC3", "unit": "3", "base_address_hex": "0x3C0", "octal_range": "01700-01717", "irq_level": "12/13", "ident_octal": "0152" },
+    { "type": "hdlc", "prefix": "HDLC4", "unit": "4", "base_address_hex": "0x3D0", "octal_range": "01720-01737", "irq_level": "12/13", "ident_octal": "0153" },
+    { "type": "hdlc", "prefix": "HDLC5", "unit": "5", "base_address_hex": "0x3E0", "octal_range": "01740-01757", "irq_level": "12/13", "ident_octal": "0154" },
+    { "type": "hdlc", "prefix": "HDLC6", "unit": "6", "base_address_hex": "0x3F0", "octal_range": "01760-01777", "irq_level": "12/13", "ident_octal": "0155" },
+
+    { "type": "octobus", "prefix": "OCT1", "unit": "1", "base_address_hex": "0x8100", "octal_range": "100400-100407", "irq_level": "13", "ident_octal": "040/041" },
+    { "type": "octobus", "prefix": "OCT2", "unit": "2", "base_address_hex": "0x8108", "octal_range": "100410-100417", "irq_level": "13", "ident_octal": "042/043" },
+    { "type": "octobus", "prefix": "OCT3", "unit": "3", "base_address_hex": "0x8110", "octal_range": "100420-100427", "irq_level": "13", "ident_octal": "044/045" },
+    { "type": "octobus", "prefix": "OCT4", "unit": "4", "base_address_hex": "0x8118", "octal_range": "100430-100437", "irq_level": "13", "ident_octal": "046/047" },
+
+    { "type": "ethernet", "prefix": "ETH1", "unit": "1", "base_address_hex": "0xC0F0", "octal_range": "140360-140363", "irq_level": "12", "ident_octal": "0140034" },
+    { "type": "ethernet", "prefix": "ETH2", "unit": "2", "base_address_hex": "0xC0F4", "octal_range": "140364-140367", "irq_level": "12", "ident_octal": "0140035" },
+
+    { "type": "scsi", "prefix": "SCSI1", "unit": "1", "base_address_hex": "0xC8C0", "octal_range": "144300-144377", "irq_level": "11", "ident_octal": "0140440" },
+    { "type": "scsi", "prefix": "SCSI2", "unit": "2", "base_address_hex": "0xC900", "octal_range": "144400-144477", "irq_level": "11", "ident_octal": "0140441" }
+  ]
+}

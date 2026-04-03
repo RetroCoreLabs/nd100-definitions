@@ -1,0 +1,35 @@
+register:
+  name: ALD
+  description: Automatic Load Descriptor register used during system initialization to control automatic program loading (tells ND machine what to do upon boot)
+  size: 16
+  type: control
+  bits:
+    - name: DEVICE
+      position: 0
+      size: 6
+      description: Device Number - The device number to load from (0-63)
+    - name: UNIT
+      position: 6
+      size: 2
+      description: Unit Number - The unit number within the device (0-3)
+    - name: LOAD_TYPE
+      position: 8
+      size: 2
+      description: Load Type - Type of load operation (0=Program, 1=OS, 2=Diagnostic, 3=Custom)
+    - name: AUTO_START
+      position: 10
+      size: 1
+      description: Auto Start - When set, automatically start execution after loading
+    - name: VERIFY
+      position: 11
+      size: 1
+      description: Verify - When set, verify the load but don't execute
+    - name: LOAD_ADDR
+      position: 12
+      size: 4
+      description: Load Address - High 4 bits of the memory address to load into
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: false
+  group: system 

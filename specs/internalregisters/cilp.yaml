@@ -1,0 +1,23 @@
+register:
+  name: CILP
+  description: Cache Inhibit Page register that defines specific memory pages where caching is inhibited
+  size: 16
+  type: control
+  bits:
+    - name: PAGE_NUM
+      position: 0
+      size: 10
+      description: Page number where caching is inhibited
+    - name: ENABLE
+      position: 10
+      size: 1
+      description: Enable bit - When set, caching is inhibited for the specified page
+    - name: reserved
+      position: 11
+      size: 5
+      description: Reserved for future use
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: false
+  group: cache 

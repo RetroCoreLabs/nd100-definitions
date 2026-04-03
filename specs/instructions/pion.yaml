@@ -1,0 +1,13 @@
+instruction:
+  name: PION
+  description: |
+    Memory management and interrupt system ON
+    
+    Enable both the memory management and interrupt systems. This combines the functions of the ION and PON instructions.
+  before_use: |
+    Check conditions of ION and PON instructions.
+  format: PION
+  opcode: "150412"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Memory Management Instructions"
+  privilege: "user" 

@@ -1,0 +1,51 @@
+register:
+  name: CSR
+  description: Cache Status Register that contains information about the current state of the instruction and data caches
+  size: 16
+  type: control
+  bits:
+    - name: I_CACHE_EN
+      position: 0
+      size: 1
+      description: Instruction Cache Enable - Indicates whether the instruction cache is enabled
+    - name: D_CACHE_EN
+      position: 1
+      size: 1
+      description: Data Cache Enable - Indicates whether the data cache is enabled
+    - name: I_CACHE_HIT
+      position: 2
+      size: 1
+      description: Instruction Cache Hit - Indicates the last instruction access hit in the cache
+    - name: D_CACHE_HIT
+      position: 3
+      size: 1
+      description: Data Cache Hit - Indicates the last data access hit in the cache
+    - name: I_CACHE_VALID
+      position: 4
+      size: 1
+      description: Instruction Cache Valid - Indicates the instruction cache contains valid data
+    - name: D_CACHE_VALID
+      position: 5
+      size: 1
+      description: Data Cache Valid - Indicates the data cache contains valid data
+    - name: D_CACHE_DIRTY
+      position: 6
+      size: 1
+      description: Data Cache Dirty - Indicates the data cache contains modified data
+    - name: CACHEABLE
+      position: 7
+      size: 1
+      description: Cacheable Region - Indicates the last memory access was to a cacheable region
+    - name: I_CACHE_SIZE
+      position: 8
+      size: 4
+      description: Instruction Cache Size - Size of instruction cache (0=1K, 1=2K, 2=4K, 3=8K, etc.)
+    - name: D_CACHE_SIZE
+      position: 12
+      size: 4
+      description: Data Cache Size - Size of data cache (0=1K, 1=2K, 2=4K, 3=8K, etc.)
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: cache 

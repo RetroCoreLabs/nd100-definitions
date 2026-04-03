@@ -1,0 +1,35 @@
+instruction:
+  name: "RAND"
+  description: |
+    Logical AND to destination 
+    (dr): = (dr) & (sr)
+
+  detailed_description: |
+    Optional sub-instructions:
+
+    - **CLD=1**: Zero is used instead of the destination register as an operand (dr register contents are unchanged).
+    - **CM1=1**: The 1's complement of the source register is used as an operand (sr register contents are unchanged).
+
+    ---
+
+    ### Instruction combinations
+
+    RAND <sr> <dr>           dr ⟵ dr AND sr
+    RAND CLD <sr> <dr>       dr ⟵ 0
+    RAND CM1 <sr> <dr>       dr ⟵ dr AND ~sr
+    RAND CM1 CLD <sr> <dr>   dr ⟵ 0
+
+  opcode: "144400"  # Octal
+  mask: "1111_1111_1100_0000"  # Matches bit pattern from image
+  format: "RAND [sub-instruction(s)] <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_logical"
+  privilege: "user"
+
+  examples:
+    - description: "AND the contents of the L and X registers. Store the result in the X register. (144447₈)"
+      code: "RAND SL DX"
+    - description: |
+        AND the contents of the T and B registers, taking the 1's complement of the sr as the source operand. (144663₈)
+        Result in B.
+      code: "RAND CM1 ST DB"

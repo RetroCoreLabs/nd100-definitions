@@ -1,0 +1,16 @@
+instruction:
+  name: "SHA"
+  description: 
+    Shift A register
+
+    Every shift instruction places the last bit discarded in the multi-shift flag (M). 
+    M can be used as an inputfor the next shift instruction. M is bit 8 of the STS Register.
+  opcode: "0154400"  # Octal
+  mask: "1111_1001_1000_0000" # top 5 bit are the opcode and bit 8-7 are register, part of decoding
+  format: "SHA <shift_type> <shift_counter>"
+  category: "Shift Instructions"
+  instruction_class: "shift_instructions"
+  privilege: "user"
+  flags_affected:
+    - M
+  

@@ -1,0 +1,120 @@
+function:
+  name: "do_add"
+  description: "Add two 16-bit values with carry, update flags C, O, Q"
+  
+  parameters:
+    - name: "a"
+      type: "uint16"
+      description: "First operand"
+    - name: "b"
+      type: "uint16"
+      description: "Second operand"
+    - name: "k"
+      type: "uint16"
+      description: "Carry-in (0 or 1)"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "C"
+    - "O"
+    - "Q"
+  
+  body:
+    scriban: |
+      {{% assign tmp = cast("int32", a) + cast("int32", b) + cast("int32", k) %}}
+      
+      {{% if tmp & 0xFFFF0000 %}}
+        {{% set_flag "C" true %}}
+      {{% else %}}
+        {{% set_flag "C" false %}}
+      {{% end %}}
+      
+      {{% assign is_diff = ((a ^ b) & 0x8000) != 0 %}}
+      
+      {{% if !is_diff and ((a ^ tmp) & 0x8000) %}}
+        {{% set_flag "O" true %}}
+        {{% set_flag "Q" true %}}
+      {{% else %}}
+        {{% set_flag "Q" false %}}
+      {{% end %}}
+      
+      {{% return tmp & 0xFFFF %}}
+    
+    c: |
+      // C implementation
+      uint32_t tmp = (uint32_t)a + (uint32_t)b + (uint32_t)k;
+      if (tmp & 0xFFFF0000) {
+        flags.C = 1;
+      } else {
+        flags.C = 0;
+      }
+      
+      int is_diff = ((a ^ b) & 0x8000) != 0;
+      
+      if (!is_diff && ((a ^ (tmp & 0xFFFF)) & 0x8000)) {
+        flags.O = 1;
+        flags.Q = 1;
+      } else {
+        flags.Q = 0;
+      }
+      
+      return (uint16_t)(tmp & 0xFFFF);
+    
+    csharp: |
+      // C# implementation
+      uint tmp = (uint)a + (uint)b + (uint)k;
+      if ((tmp & 0xFFFF0000) != 0) {
+        flags.C = true;
+      } else {
+        flags.C = false;
+      }
+      
+      bool isDiff = ((a ^ b) & 0x8000) != 0;
+      
+      if (!isDiff && ((a ^ (tmp & 0xFFFF)) & 0x8000) != 0) {
+        flags.O = true;
+        flags.Q = true;
+      } else {
+        flags.Q = false;
+      }
+      
+      return (ushort)(tmp & 0xFFFF);
+    
+    python: |
+      # Python implementation
+      tmp = int(a) + int(b) + int(k)
+      if tmp & 0xFFFF0000:
+          flags.C = True
+      else:
+          flags.C = False
+      
+      is_diff = ((a ^ b) & 0x8000) != 0
+      
+      if not is_diff and ((a ^ (tmp & 0xFFFF)) & 0x8000):
+          flags.O = True
+          flags.Q = True
+      else:
+          flags.Q = False
+      
+      return tmp & 0xFFFF
+    
+    typescript: |
+      // TypeScript implementation
+      let tmp: number = a + b + k;
+      if (tmp & 0xFFFF0000) {
+          flags.C = true;
+      } else {
+          flags.C = false;
+      }
+      
+      const isDiff: boolean = ((a ^ b) & 0x8000) !== 0;
+      
+      if (!isDiff && ((a ^ (tmp & 0xFFFF)) & 0x8000)) {
+          flags.O = true;
+          flags.Q = true;
+      } else {
+          flags.Q = false;
+      }
+      
+      return tmp & 0xFFFF; 

@@ -1,0 +1,10 @@
+register:
+  name: DX
+  description: Index (X) register used for indexed addressing and loop counters
+  size: 16
+  type: general
+  bits:
+    - name: value
+      position: 0
+      size: 16
+      description: Index value used for memory addressing and loop operations 

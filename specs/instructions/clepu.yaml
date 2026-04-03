@@ -1,0 +1,32 @@
+instruction:
+  name: CLEPU
+  description: |
+    Clear page tables and collect PGU information.
+
+  detailed_description: |  
+    This instruction collects information on the PGU (page used) bit of a page table entry whilst executing CLEPT.
+    
+    The instruction places PGU information in an eight word table called the page map bank. Each bit in the bank represents the status of a page's PGU bit as follows:
+    
+      15                                              0
+    +-------------------------------------------------+
+    |     |     |     |     |     |     |     |   β   | <- word 0
+    +-------------------------------------------------+
+    |     |  ε  |     |     |     |     |     |       | <- word 1
+    +-------------------------------------------------+
+    .                                                 .
+    .                                                 .
+    +-------------------------------------------------+
+    |  Δ  |     |     |     |     |     |     |       | <- word 7
+    +-------------------------------------------------+
+
+    Δ denotes page 177₈ PGU bit
+    ε denotes page 32₈ PGU bit
+    β denotes page 0₈ PGU bit
+
+    The L register contains the address of the map entry.
+  format: CLEPU
+  opcode: "140304"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

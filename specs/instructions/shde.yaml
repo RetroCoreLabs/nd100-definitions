@@ -1,0 +1,51 @@
+instruction:
+  name: SHDE
+  description: |
+    Decimal shift.
+    
+    (op2) ⟵ (op1) shifted
+    
+    This instruction is used to normalize operands for decimal operations.
+    
+    The shift count determines whether the operand is shifted to the left or right:
+      (op2 - op1) positive then shift op1 to right
+      (op2 - op1) negative then shift op1 to left
+    
+    If significant digits are lost by carrying out a left shift, an error is generated, directing the program counter to the instruction after the SHDE (the error return). If no errors occur this instruction is skipped.
+    
+    The digits of the first operand are shifted and the result is placed in the second operand's memory location.
+    
+    The number of places shifted is given by the difference in decimal position of the two operands. This normalizes the first operand (op1) to the second (op2) for decimal operations such as ADDD.
+    
+    The sign of the normalized operand (op1) is as follows:
+
+        BCD    Sign
+        14₈    +
+        15₈    -
+    
+    An unsigned operand is converted to a plus unless bit 13 of the descriptor D2 is set, when the BCD equivalent of unsigned (17₈) is used.
+    The sign and digits of the first operand are checked before execution and any illegal digit codes reported.
+    
+    If bit 10 of descriptor D2 (op2) is set the result is rounded, that is a 1 is added to the operand if the last digit shifted out of the field is ≥ 5.
+    
+    **Instruction sequence:**
+    
+        SHDE
+        error handling instruction
+        next instruction after SHDE or after error handling routine
+    
+    **Example:**
+    
+        SHDE
+        JMP *10₈
+        SAD 20₈
+    
+    The SHDE instruction causes the program counter to skip the next instruction UNLESS an error has been generated, when the instruction immediately following the SHDE will handle the error in some way (in this example a jump is executed on error to (P) + 10₈)).
+    
+    (* is the assembler mnemonic for the P register)
+  opcode: "0140126" # Octal
+  format: "SHDE"
+  mask: "1111_1111_1111_1111"
+  category: "Decimal Instructions"
+  instruction_class:
+  privilege: "user" 

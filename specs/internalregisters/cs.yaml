@@ -1,0 +1,17 @@
+register:
+  name: CS
+  description: Control Store register that provides access to the CPU's microcode control store
+  size: 16
+  type: special
+  bits:
+    - name: DATA
+      position: 0
+      size: 16
+      description: Control Store Data - Data read from or written to the microcode control store
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: true
+  group: system
+  preserved: true
+  volatile: false 

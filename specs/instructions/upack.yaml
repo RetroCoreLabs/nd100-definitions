@@ -1,0 +1,33 @@
+instruction:
+  name: UPACK
+  description: |
+    Convert to ASCII.
+    
+    (op2) ⟵ (op1) in ASCII format
+    
+    Convert the first operand from its BCD format to ASCII format, placing the result in the second operand location.
+    
+    **Conversion process:**
+    The instruction carries out the following steps:
+    1. Checks the sign and digits of the operand (op1) are encoded as BCD digits. (Illegal codes generate an error code 2.)
+    2. Takes each BCD digit as the lower nibble of an equivalent ASCII digit. Sets the upper nibble of the ASCII byte (the zone) to 0011₂.
+    3. Converts the BCD sign of the operand to ASCII:
+
+           BCD   ASCII   Sign
+           0     53₈     +
+           1     55₈     -
+        Note: If bit 13 of the descriptor D2 is set then the code 17₈ (BCD unsigned) is used.
+    4. Extends the second operand field (op2) with ASCII zeros (60₈) if the result is too small to fill the field. Reports overflow has occurred (error code 3), if the second operand field length is too short to contain the significant digits of the result (the remaining digits are ignored).
+    
+    **Error code:**
+    An error code is placed in bits 0 to 4 of the D register if an illegal code conversion is attempted or if overflow occurs. The first detected error will be reported.
+    
+        Error code: 2   illegal code†
+                    3   overflow
+        † bit 15 of both the A and D registers point to the byte containing the illegal code.
+  opcode: "0140125" # Octal
+  format: "UPACK"
+  mask: "1111_1111_1111_1111"
+  category: "Decimal Instructions"
+  instruction_class:
+  privilege: "user" 

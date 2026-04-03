@@ -1,0 +1,15 @@
+instruction:
+  name: BLDC
+  description: |
+    Load K and complement
+
+    K ⟵ (B) (complemented)
+
+  opcode: "176400"  # Octal
+  mask: "1111_1111_1000_0000" # top 9 bits are opcode
+  format: "BLDC"    
+  category: "Bit instructions"
+  privilege: "user"
+  flags_affected:
+    - K  # 1-bit accumulator (K)
+    

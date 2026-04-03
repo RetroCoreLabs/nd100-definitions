@@ -1,0 +1,43 @@
+register:
+  name: ECCR
+  description: Error Correction Control Register that controls memory error correction operations
+  size: 16
+  type: control
+  bits:
+    - name: ECC_EN
+      position: 0
+      size: 1
+      description: ECC Enable - Enables error correction code checking and correction
+    - name: SINGLE_EN
+      position: 1
+      size: 1
+      description: Single Error Correction Enable - Enables correction of single-bit errors
+    - name: MULTI_DET
+      position: 2
+      size: 1
+      description: Multi-bit Error Detection Enable - Enables detection of multi-bit errors
+    - name: SCRUB_EN
+      position: 3
+      size: 1
+      description: Memory Scrubbing Enable - Enables background memory scrubbing
+    - name: INT_EN
+      position: 4
+      size: 1
+      description: Error Interrupt Enable - Enables interrupts on error detection
+    - name: LOG_EN
+      position: 5
+      size: 1
+      description: Error Logging Enable - Enables logging of detected errors
+    - name: SYNDROME
+      position: 6
+      size: 6
+      description: Error Syndrome - Contains the syndrome of the last detected error
+    - name: ERROR_COUNT
+      position: 12
+      size: 4
+      description: Error Counter - Counts the number of detected errors
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: false
+  group: memory 

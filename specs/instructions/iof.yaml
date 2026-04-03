@@ -1,0 +1,13 @@
+instruction:
+  name: IOF
+  description: |
+    Interrupt System OFF
+
+    Disables the interrupt system.
+    On IOF the ND-110 continues operation at the same program level.
+  opcode: "150401"  # Octal
+  mask: "1111_1111_1111_1111" # top 16 bits are opcode
+  format: "IOF"    
+  category: "Interrupt Control Instructions"
+  instruction_class:
+  privilege: "privileged"

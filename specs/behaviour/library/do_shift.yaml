@@ -1,0 +1,91 @@
+function:
+  name: "do_shl"
+  description: "Perform left shift on a 16-bit value, update flags C, Q, Z"
+  
+  parameters:
+    - name: "a"
+      type: "uint16"
+      description: "Value to shift"
+    - name: "count"
+      type: "uint8"
+      description: "Number of positions to shift"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "C"
+    - "Q"
+    - "Z"
+  
+  body:
+    meta: |
+      # Perform left shift
+      result = a << count
+      
+      # Set carry flag if any bits were shifted out
+      if (count > 0 and (a & (0x8000 >> (count - 1)))):
+        set_flag(C, true)
+      else:
+        set_flag(C, false)
+      
+      # Set sign flag if result is negative
+      if (result & 0x8000):
+        set_flag(Q, true)
+      else:
+        set_flag(Q, false)
+      
+      # Set zero flag if result is zero
+      if (result == 0):
+        set_flag(Z, true)
+      else:
+        set_flag(Z, false)
+      
+      # Return the result
+      return result
+
+---
+
+function:
+  name: "do_shr"
+  description: "Perform right shift on a 16-bit value, update flags C, Q, Z"
+  
+  parameters:
+    - name: "a"
+      type: "uint16"
+      description: "Value to shift"
+    - name: "count"
+      type: "uint8"
+      description: "Number of positions to shift"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "C"
+    - "Q"
+    - "Z"
+  
+  body:
+    meta: |
+      # Perform right shift
+      result = a >> count
+      
+      # Set carry flag if any bits were shifted out
+      if (count > 0 and (a & (1 << (count - 1)))):
+        set_flag(C, true)
+      else:
+        set_flag(C, false)
+      
+      # Set sign flag if result is negative
+      if (result & 0x8000):
+        set_flag(Q, true)
+      else:
+        set_flag(Q, false)
+      
+      # Set zero flag if result is zero
+      if (result == 0):
+        set_flag(Z, true)
+      else:
+        set_flag(Z, false)
+      
+      # Return the result
+      return result 

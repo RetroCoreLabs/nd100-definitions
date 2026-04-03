@@ -1,0 +1,43 @@
+instruction:
+  name: "SRB"
+  description: |
+    Store register block
+
+    Load the register block of the program level given in the instruction into the memory block pointed to by the X register.
+
+    If the instruction specifies the current program level, the P register points to the instruction following SRB.
+
+  detailed_description: |
+    The register block of the specified program level is stored in the memory block pointed to by the X register. The mapping is as follows:
+
+        (ea)     ⟵ P (level N)
+        (ea + 1) ⟵ X (level N)
+        (ea + 2) ⟵ T (level N)
+        (ea + 3) ⟵ A (level N)
+        (ea + 4) ⟵ D (level N)
+        (ea + 5) ⟵ L (level N)
+        (ea + 6) ⟵ STS (level N)
+        (ea + 7) ⟵ B (level N)
+
+    Where (ea) is the address in memory pointed to by the X register.
+
+    If the current program level is specified, the P register points to the instruction following SRB.
+
+
+  opcode: "152402"  # Octal
+  mask: "1111_1111_1100_0000"  # Matches bit pattern from image
+  format: "SRB <level>"
+  category: "Register Block Instructions"
+  instruction_class: "register_block"
+  privilege: "privileged"
+  examples:
+    - description: |
+        SRB 100₈ (152702₈)
+
+        Store the register block of program level 8 in the memory block pointed to by X.
+
+            (ea)     ⟵ P (level 8)
+            (ea + 1) ⟵ X (level 8)
+            ↓         ↓
+            (ea + 7) ⟵ B (level 8)
+      code: "SRB 100"

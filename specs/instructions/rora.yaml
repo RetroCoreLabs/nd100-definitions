@@ -1,0 +1,35 @@
+instruction:
+  name: "RORA"
+  description: |
+    OR register
+    
+    dr ⟵ dr OR sr
+
+  detailed_description: |
+    Optional sub-instructions:
+
+    - **CLD=1**: Zero is used instead of the destination register as an operand (dr register contents are unchanged).
+    - **CM1=1**: The 1's complement of the source register is used as an operand (sr register contents are unchanged).
+
+    ---
+
+    ### Instruction combinations
+
+    RORA <sr> <dr>           dr ⟵ dr OR sr
+    RORA CLD <sr> <dr>       dr ⟵ sr
+    RORA CM1 <sr> <dr>       dr ⟵ dr OR ~sr
+    RORA CM1 CLD <sr> <dr>   dr ⟵ ~sr
+
+  opcode: "145400"  # Octal
+  mask: "1111_1111_1100_0000"  # Top 10 bits are opcode
+  format: "RORA <sub-instruction(s)> <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_logical"
+  privilege: "user"
+
+  flags_affected: ["C", "O", "Q"]
+  examples:
+    - description: "OR the contents of the B and T registers leaving the result in B. (145463₈)"
+      code: "RORA ST DB"
+  
+  

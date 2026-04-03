@@ -1,0 +1,33 @@
+instruction:
+  name: CLEPT
+  description: |
+    Clear page tables.
+    
+    
+  detailed_description: |
+    This instruction can replace the following instructions:
+      CLEPT: JXZ * 10₈
+             LDBTX 10₈
+             LDA ,B
+             JAZ *3₈
+             STATX 20₈
+             STZ ,B
+             LDXTX 00
+             JMP *-7₈
+    
+    Each time the loop is executed (until X becomes zero) the physical memory location addressed by X is loaded into the B register.
+
+    The B register contents provide the address of a page table entry, which is loaded into the A register.
+    
+    If the page table entry is zero (unused) the loop is restarted.
+    
+    If the page table entry is not zero (used) it is stored in a physical location addressed by X (8 locations away from its original entry) and the original page table entry cleared by placing zero in the location addressed by the B register.
+    
+    The physical location addressed by X is then loaded into the X register itself and the loop restarted.
+    
+    * is the mnemonic for P relative addressing.
+  format: CLEPT
+  opcode: "140301"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

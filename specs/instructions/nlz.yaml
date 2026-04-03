@@ -1,0 +1,52 @@
+instruction:
+  name: "NLZ"
+  description: |
+    Normalize
+   
+    Convert the number in A to a floating number in TAD
+
+  detailed_description: |
+
+    The number in the A register is converted to its floating point equivalent in the floating point accumulator (A and D registers), 
+    using the scaling factor given, For integers, a scaling factor of +16 will give a floating point number with the same value as the integer.
+    The larger the scaling factor, the larger the Ploating point number. 
+  
+    The D register will be cleared when using single precision fixed point numbers.
+
+
+    Comments on 48-bit floating point CP
+    For the ND-110, 48-bit floating point CPU option, a further register (T) and memory location fea + 2) are used. In this case, the T register is linked to location ea, A to ea + 1 and D to ea + 2.
+
+    How to test for a 32-bit or 48-bit floating point CPU:
+      SAT 0
+      SAA 1
+      NLZ 20
+
+    This tests whether T is changed, if so, the CPU is 48-bit; otherwise it is 32-bit.
+
+  opcode: "0151400"  # Octal
+  mask: "1111_1111_0000_0000"  # Standard mask format
+  format: "NLZ <scaling_factor>"
+  category: "Floating Conversion (Standard Format)"
+  instruction_class: 
+  privilege: "user"
+  
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode for floating conversion"
+
+
+    - name: "scaling_factor"
+      bits: "7-0"
+      type: "numeric"
+      description: "Scaling factor in range -128 to 127 (gives converting range from 10^-39 to 10^39)" 
+
+  examples:
+    - code: "NLZ"
+      description: "Convert the number in A to a floating number in TAD"
+    - code: "NLZ +20"
+      description: "Integer to floating conversation"
+      
+

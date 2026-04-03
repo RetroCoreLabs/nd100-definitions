@@ -1,0 +1,19 @@
+instruction:
+  name: "LBYT"
+  description: |
+    Load byte from memory to A register
+
+    Addressing: EL = (T) + (X)/2
+    - If least significant bit of X = 1: Load right byte
+    - If least significant bit of X = 0: Load left byte
+
+    Load the byte addressed by the contents of the T and X register into the lower byte of the A register. The higher byte of the A register is cleared.
+
+    The contents of T point to the beginning of a character string and the contents of X to a byte within the string.
+
+  opcode: "142200"  # Octal
+  mask: "1111_1111_1111_1111"  # Standard mask format
+  format: "LBYT"
+  category: "Byte Instructions"
+  instruction_class: 
+  privilege: "user"

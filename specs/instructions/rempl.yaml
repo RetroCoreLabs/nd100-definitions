@@ -1,0 +1,9 @@
+instruction:
+  name: REMPL
+  description: |
+    Remove page from page list.
+  format: REMPL
+  opcode: "140503"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

@@ -1,0 +1,850 @@
+metadata:
+  cpu_name: "ND-100"
+  word_size: 16
+  endianness: "big"
+  paths:
+    instructions: "instructions/"
+    behavior: "behavior/"
+    library: "behavior/library/"
+
+  tokens:
+    identifier:
+      pattern: "[a-zA-Z_][a-zA-Z0-9_]*"
+      description: "Identifier token"
+    number:
+      pattern: "[0-9]+"
+      description: "Number token"
+    string:
+      pattern: "\"[^\"]*\""
+      description: "String token"
+    comment:
+      pattern: "#.*"
+      description: "Comment token"
+
+  registers:
+    - name: "STS"
+      size: 16
+      program_levels: 16 # 16 bit program levels (for the lower 8 bits)
+      description: "Status register (user)"
+      code: 0
+      bits:
+        - name: "PTM"
+          size: 1
+          description: "Page Table Flag"
+          position: 0
+        - name: "TG"
+          size: 1
+          description: "Floating point roundung flag"
+          position: 1
+        - name: "K"
+          size: 1
+          description: "Accumulator"
+          position: 2
+        - name: "Z"
+          size: 1
+          description: "Error flag"
+          position: 3
+        - name: "Q"
+          size: 1
+          description: "Dynamic overflow flag"
+          position: 4
+        - name: "O"
+          size: 1
+          description: "Static overflow flag"
+          position: 5
+        - name: "C"
+          size: 1
+          description: "Carry flag"
+          position: 6
+        - name: "M"
+          size: 1
+          description: "Multi-shift link flag"
+          position: 7
+        - name: "PIL"
+          size: 4
+          description: "Program Level"
+          position: 8 # 4 bits for the lower 8 bits of the program level
+        - name: "N100"
+          size: 1
+          description: "ND-100 flag" # Always 1 on the ND-100 series of CPUs (ie not ND-10)
+          position: 12
+        - name: "SEXI"
+          size: 1
+          description: "Memory management is in extended mode (24-bit address used, not 19 bit)"
+          position: 13
+        - name: "PONI"
+          size: 1
+          description: "Memory management ON flag"
+          position: 14
+        - name: "IONI"
+          size: 1
+          description: "Interrupt system ON flag"
+          position: 15
+    - name: "D"
+      size: 16
+      program_levels: 16
+      description: "Data register"
+      mnemonic_source: "DS"
+      mnemonic_target: "DT"
+      code: 1
+    - name: "P"
+      size: 16
+      program_levels: 16
+      description: "Program counter"
+      code: 2
+      mnemonic_source: "DP"
+      mnemonic_target: "SP"
+    - name: "B"
+      size: 16
+      program_levels: 16
+      description: "Base register for addressing"
+      code: 3
+      mnemonic_source: "SB"
+      mnemonic_target: "TB"
+    - name: "L"
+      size: 16
+      program_levels: 16
+      description: "Link register"
+      code: 4
+      mnemonic_source: "SL"
+      mnemonic_target: "TL"
+    - name: "A"
+      size: 16
+      program_levels: 16
+      description: "Accumulator register"
+      code: 5
+      mnemonic_source: "SA"
+      mnemonic_target: "TA"
+    - name: "T"
+      size: 16
+      program_levels: 16
+      description: "Temporary register"
+      code: 6
+      mnemonic_source: "ST"
+      mnemonic_target: "TT"
+    - name: "X"
+      size: 16
+      program_levels: 16
+      description: "Index register"
+      code: 7
+      mnemonic_source: "SX"
+      mnemonic_target: "TX"
+
+  instruction_classes:
+    - name: "memory_transfer"
+      mask: "1111_1000_0000_0000" # top 5 bits are opcode
+      description: |
+        Memory transfer instructions specify memory transfers.
+        These are the only instructions that use the addressing modes in their format.
+      format: "<opcode> <address mode> <disp>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-11"  # Fixed: Top 5 bits are opcode (15-11)
+          description: "The opcode determines what type of operation occurs"
+        - name: "addressing_mode"
+          type: "addressing_modes"
+          bits: "10-8"  # Correct: 3 bits for addressing mode (10-8)
+          description: "These three bits give the addressing mode for the instruction"
+        - name: "displacement"
+          type: "displacement"
+          bits: "7-0"
+          description: "8-bit signed field gives the memory address displacement (2's complement notation giving a displacement range of -128 to 127 memory locations)"
+    - name: "jump_on_condition"
+      mask: "1111_1111_0000_0000" # top 8 bits are opcode
+      description: |
+        Jump on condition instructions specify a jump to a specified address if a condition is met.
+        The condition is specified by the condition code bits in the status register.
+      format: "<opcode> <displacement>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-8"
+          description: "The opcode determines what type of operation occurs"
+        - name: "displacement"
+          type: "displacement"
+          bits: "7-0"
+          description: "8-bit signed field gives the memory address displacement (2's complement notation giving a displacement range of -128 to 127 memory locations)"
+
+    - name: "register_block"
+      mask: "1111_1111_1000_0000" # top 9 bits are opcode
+      description: |
+        Register block instructions specify a register block to be loaded from memory.
+      format: "<opcode> <level> <type>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-11"
+          description: "The opcode determines what type of operation occurs"
+        - name: "level"
+          type: "uint4"
+          bits: "6-3"
+          description: "The level to load the register block to"
+        - name: "type"
+          type: "enum"
+          bits: "2-0"
+          description: "The type of register block function"
+          hide: true # TODO, hide this field for VS Code language server (the bits are given implicitly by the opcode)
+          enum:
+            - name: "SRB"
+              value: "0" # bianry 000
+              description: "Store Register Block"
+            - name: "LRB"
+              value: "2" #binary 010
+              description: "Load Register Block"
+
+    - name: "register_src_dst"
+      mask: "1111_1111_1100_0000" # top 9 bits are opcode
+      description: Class where we can specify a source and destination register
+      format: "<opcode> <source> <destination>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-6"
+          description: "The opcode for register arithmetic"
+        - name: "source"
+          bits: "5-3"
+          type: "enum"
+          description: "Source register (sr)"
+          enum:
+            - name: "SD"
+              value: "000010"
+              description: "D register as source"
+            - name: "SP"
+              value: "000020"
+              description: "P register as source"
+            - name: "SB"
+              value: "000030"
+              description: "B register as source"
+            - name: "SL"
+              value: "000040"
+              description: "L register as source"
+            - name: "SA"
+              value: "000050"
+              description: "A register as source"
+            - name: "ST"
+              value: "000060"
+              description: "T register as source"
+            - name: "SX"
+              value: "000070"
+              description: "X register as source"
+            - name: "ZERO"
+              value: "000000"
+              description: "Source value equals zero"
+        
+        - name: "destination"
+          bits: "2-0"
+          type: "enum"
+          description: "Destination register (dr)"
+          enum:
+            - name: "DD"
+              value: "000001"
+              description: "D register as destination"
+            - name: "DP"
+              value: "000002"
+              description: "P register as destination"
+            - name: "DB"
+              value: "000003"
+              description: "B register as destination"
+            - name: "DL"
+              value: "000004"
+              description: "L register as destination"
+            - name: "DA"
+              value: "000005"
+              description: "A register as destination"
+            - name: "DT"
+              value: "000006"
+              description: "T register as destination"
+            - name: "DX"
+              value: "000007"
+              description: "X register as destination"          
+
+    - name: "register_dst"
+      mask: "1111_1111_1111_1000" # top 13 bits are opcode
+      description: Class where we can specify a destination register
+      format: "<opcode> <destination>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-4"
+          description: "The opcode for register arithmetic"
+        - name: "destination"
+          bits: "2-0"
+          type: "enum"
+          description: "Destination register (dr)"
+          enum:
+            - name: "DD"
+              value: "000001"
+              description: "D register as destination"
+            - name: "DP"
+              value: "000002"
+              description: "P register as destination"
+            - name: "DB"
+              value: "000003"
+              description: "B register as destination"
+            - name: "DL"
+              value: "000004"
+              description: "L register as destination"
+            - name: "DA"
+              value: "000005"
+              description: "A register as destination"
+            - name: "DT"
+              value: "000006"
+              description: "T register as destination"
+            - name: "DX"
+              value: "000007"
+              description: "X register as destination"       
+
+    - name: "register_arithmetic"
+      mask: "1111_1100_0000_0000" # top 9 bits are opcode
+      description: Register arithmetic instructions
+      format: "<opcode>  <ADC> <AD1> <CM1> <CM2> <source> <destination>"
+      operands:
+      - name: "opcode"
+        type: "opcode"
+        bits: "15-11"
+        description: "The opcode for register inclusive OR"
+      
+      - name: "rad"
+        bits: "10"
+        type: "constant"
+        value: "1"
+        hide: true # TODO, hide this field for VS Code language server, as its the opcode that sets this automatically. Field not used on register arithmetic instructions ?
+        description: "Arithmetic operation flag"
+
+      - name: "ADC"
+        bits: "9"
+        type: "flag"
+        description: "Also addd old carry to destination"
+
+      - name: "AD1"
+        bits: "8"
+        type: "flag"
+        description: "Also add one to destination"
+
+      - name: "CM1"
+        bits: "7"
+        type: "flag"
+        description: "Use one's complement of source"
+
+      - name: "CM2"
+        bits: "8-7"
+        type: "flag" 
+        description: "Two's complement (CM1 AD1)" # For the assembler, as this overlaps with bits AD1 and CM
+
+      - name: "CLD"
+        bits: "6"
+        type: "flag"
+        description: "Clear destination before operation"
+
+      - name: "source"
+        bits: "5-3"
+        type: "enum"
+        description: "Source register (sr)"
+        enum:
+          - name: "SD"
+            value: "000010"
+            description: "D register as source"
+          - name: "SP"
+            value: "000020"
+            description: "P register as source"
+          - name: "SB"
+            value: "000030"
+            description: "B register as source"
+          - name: "SL"
+            value: "000040"
+            description: "L register as source"
+          - name: "SA"
+            value: "000050"
+            description: "A register as source"
+          - name: "ST"
+            value: "000060"
+            description: "T register as source"
+          - name: "SX"
+            value: "000070"
+            description: "X register as source"
+          - name: "ZERO"
+            value: "000000"
+            description: "Source value equals zero"
+      
+      - name: "destination"
+        bits: "2-0"
+        type: "enum"
+        description: "Destination register (dr)"
+        enum:
+          - name: "DD"
+            value: "000001"
+            description: "D register as destination"
+          - name: "DP"
+            value: "000002"
+            description: "P register as destination"
+          - name: "DB"
+            value: "000003"
+            description: "B register as destination"
+          - name: "DL"
+            value: "000004"
+            description: "L register as destination"
+          - name: "DA"
+            value: "000005"
+            description: "A register as destination"
+          - name: "DT"
+            value: "000006"
+            description: "T register as destination"
+          - name: "DX"
+            value: "000007"
+            description: "X register as destination" 
+
+    - name: "register_logical"
+      mask: "1111_1100_0000_0000" # top 9 bits are opcode
+      description: Register logical instructions
+      format: "<opcode>  <ADC> <AD1> <CM1> <CM2> <source> <destination>"
+      operands:      
+      - name: "opcode"
+        type: "opcode"
+        bits: "15-11"
+        description: "The opcode for register inclusive OR"
+      
+      - name: "rad"
+        bits: "10"
+        type: "constant"
+        value: "0"
+        hide: true # TODO, hide this field for VS Code language server, as its the opcode that sets this automatically. Field not used on logical operations ?
+        description: "Logical operation flag"
+
+      - name: "ADC"
+        bits: "9"
+        type: "flag"
+        description: "Also addd old carry to destination"
+        hide: true # TODO, hide this field for VS Code language server, as its the opcode that sets this automatically. Field not used on logical operations ?
+
+      - name: "AD1"
+        bits: "8"
+        type: "flag"
+        description: "Also add one to destination"
+        hide: true # TODO, hide this field for VS Code language server, as its the opcode that sets this automatically. Field not used on logical operations ?
+
+      - name: "CM1"
+        bits: "7"
+        type: "flag"
+        description: "Use one's complement of source"
+
+      - name: "CM2"
+        bits: "8-7"
+        type: "flag" 
+        description: "Two's complement (CM1 AD1)" # For the assembler, as this overlaps with bits AD1 and CM
+
+      - name: "CLD"
+        bits: "6"
+        type: "flag"
+        description: "Clear destination before operation"
+      - name: "source"
+        bits: "5-3"
+        type: "enum"
+        description: "Source register (sr)"
+        enum:
+          - name: "SD"
+            value: "000010"
+            description: "D register as source"
+          - name: "SP"
+            value: "000020"
+            description: "P register as source"
+          - name: "SB"
+            value: "000030"
+            description: "B register as source"
+          - name: "SL"
+            value: "000040"
+            description: "L register as source"
+          - name: "SA"
+            value: "000050"
+            description: "A register as source"
+          - name: "ST"
+            value: "000060"
+            description: "T register as source"
+          - name: "SX"
+            value: "000070"
+            description: "X register as source"
+          - name: "ZERO"
+            value: "000000"
+            description: "Source value equals zero"
+      
+      - name: "destination"
+        bits: "2-0"
+        type: "enum"
+        description: "Destination register (dr)"
+        enum:
+          - name: "DD"
+            value: "000001"
+            description: "D register as destination"
+          - name: "DP"
+            value: "000002"
+            description: "P register as destination"
+          - name: "DB"
+            value: "000003"
+            description: "B register as destination"
+          - name: "DL"
+            value: "000004"
+            description: "L register as destination"
+          - name: "DA"
+            value: "000005"
+            description: "A register as destination"
+          - name: "DT"
+            value: "000006"
+            description: "T register as destination"
+          - name: "DX"
+            value: "000007"
+            description: "X register as destination" 
+
+    - name: "bit_instructions"
+      description: Bit instructions
+      format: "<opcode> <function> <bit_no> <destination>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-7"
+          description: "The opcode determines what type of operation occurs"       
+              
+        - name: "bit_no"
+          type: "numeric"
+          bits: "7-3"
+          description: "Specify bit number"
+        - name: "destination"
+          bits: "2-0"
+          type: "enum"
+          description: "Destination register (dr)"
+          enum:
+            - name: "STS"
+              value: "000000"
+              description: "STS register as destination"
+            - name: "DD"
+              value: "000001"
+              description: "D register as destination"
+            - name: "DP"
+              value: "000002"
+              description: "P register as destination"
+            - name: "DB"
+              value: "000003"
+              description: "B register as destination"
+            - name: "DL"
+              value: "000004"
+              description: "L register as destination"
+            - name: "DA"
+              value: "000005"
+              description: "A register as destination"
+            - name: "DT"
+              value: "000006"
+              description: "T register as destination"
+            - name: "DX"
+              value: "000007"
+              description: "X register as destination" 
+
+    - name: "bit_instructions_with_condition" # BSKP and BSET
+      description: Bit instructions
+      format: "<opcode> <condition> <bit_no> <destination>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-11"
+          description: "The opcode determines what type of operation occurs"
+        - name: "condition"
+          type: "enum"
+          bits: "10-7"
+          description: "Specify condition for BSKP and BSET" ## MAYBE We need a special class for these two
+          enum:
+            - name: "ZRO"
+              value: "0000"
+              description: "Specificed bit equals zero"
+            - name: "ONE"
+              value: "0001" # 0200
+              description: "Specified bit equals one"
+            - name: "BAC"
+              value: "0002" # 0400
+              description: "Specified bit equals K"
+            - name: "BCM"
+              value: "0003" # 0600
+              description: "Complement specified bit"
+              
+        - name: "bit_no"
+          type: "numeric"
+          bits: "7-3"
+          description: "Specify bit number for <dsestination> = STS"
+          enum: # ENUM when dst = STS (0), else octal value like 0160 for bit 14 in <destination>
+            - name: "SSPTM"
+              value: "000000"
+              description: "Page table flag"
+            - name: "SSTG"
+              value: "000010"
+              description: "Floating rounding flag"
+            - name: "SSK"
+              value: "000020"
+              description: "1-bit accumulator (K)"  
+            - name: "SSZ"
+              value: "000030"
+              description: "Error flag (Z)"
+            - name: "SSQ"
+              value: "000040"
+              description: "Dynamic overflow flag (Q)"  
+            - name: "SSO"
+              value: "000050"
+              description: "Static overflow flag (O)"
+            - name: "SSC"
+              value: "000060"
+              description: "Page table flag"  
+            - name: "SSM"
+              value: "000070"
+              description: "Page table flag"    
+
+        - name: "destination" # bits 2-0 (Destination) are not used on BSKP and BSET
+          bits: "2-0"
+          type: "enum"
+          description: "Destination register (dr)"
+          enum:
+            - name: "STS"
+              value: "000000"
+              description: "STS register as destination"
+            - name: "DD"
+              value: "000001"
+              description: "D register as destination"
+            - name: "DP"
+              value: "000002"
+              description: "P register as destination"
+            - name: "DB"
+              value: "000003"
+              description: "B register as destination"
+            - name: "DL"
+              value: "000004"
+              description: "L register as destination"
+            - name: "DA"
+              value: "000005"
+              description: "A register as destination"
+            - name: "DT"
+              value: "000006"
+              description: "T register as destination"
+            - name: "DX"
+              value: "000007"
+              description: "X register as destination" 
+          
+
+    - name: "shift_instructions"
+      mask: "1111_1000_0000_0000" # top 5 bits are opcode
+      description: |
+        Shift instructions
+      
+      #format: "<opcode> <shift_type> <reg> <shift_counter>" # not used, as the register is set by the opcode
+      format: "<opcode> <shift_type> <shift_counter>"
+      operands:
+        - name: "opcode"
+          type: "opcode"
+          bits: "15-11"  # Fixed: Top 5 bits are opcode (15-11)
+          description: "The opcode determines what type of operation occurs"
+        - name: "shift_type"
+          type: "enum"
+          bits: "10-9"  
+          enum:
+            - name: "Arithmetic"
+              value: "00"
+              description: "Arithmetic shift. During right shift, bit 15 is extended. During left shift, zeros are shifted in from right."
+            - name: "ROT"
+              value: "01"
+              description: "Rotational shift. Most and least significant bits are connected."
+            - name: "ZIN"
+              value: "10"
+              description: "Zero end input"
+            - name: "LIN"
+              value: "11"
+              description: "Link end input. The last vacated bit is fed to M after every shift instruction."
+        - name: "register"
+          type: "enum"
+          bits: "7-8"
+          hide: true # TODO, hide this field for VS Code language server, as its the opcode that sets this automatically
+          description: "The register to shift"
+        - name: "mask6"
+          type: "numeric"
+          bits: "6"
+          description: "Always 0" 
+          hide: true # TODO, hide this field for VS Code language server
+        - name: SHR
+          type: "assembler_flag" # This is a feature of the assembler.  # todo:implement in assembler an VS code integrations
+          bits: 0
+          description:  This a feature of the assembler. This mnemonic can be used to specify shift right, so that instead of calculating the 2's complement for the number of right shifts required, SHR can be used. 
+
+            # The instruction which shifts the A register contents three places to the right can be written as:
+            # SHA 75
+            # SHA 100, - 39            
+            # SHA SHR 33
+
+            
+        - name: "shift_counter"
+          type: "int6"
+          bits: "5-0"
+          description: |
+            The number of bits to shift the register.
+            Bits 0-4 are the number of shifts.
+            Bit 5=1, then shift right (max 32 times)
+            Bit 5=0, then shift left (max 31 times)
+
+  operand_types:
+    - name: "opcode"
+      description: "The opcode determines what type of operation occurs"
+      type: "opcode"
+
+    - name: "uint5"
+      description: "5-bit unsigned integer"
+      bit_size: 5
+      type: "numeric"
+      signed: false
+
+    - name: "int6"
+      description: "6-bit signed integer"
+      bit_size: 6
+      type: "numeric"
+      signed: true
+
+    - name: "uint4"
+      description: "4-bit unsigned integer"
+      bit_size: 4
+      type: "numeric"
+      signed: false
+
+    - name: "displacement"
+      description: "8-bit signed integer"
+      bit_size: 8
+      type: "numeric"
+      signed: true
+
+    - name: "addressing_modes"
+      description: "These three bits give the addressing mode for the instruction"
+      bit_size: 3
+      type: "addressing_mode"
+      subfields:
+        - name: "X"
+          position: 10
+          bit_size: 1
+          description: "Index register flag"
+          effect_when_set: "Address is indexed by X register"
+        - name: "I" 
+          position: 9
+          bit_size: 1
+          description: "Indirect addressing flag"
+          effect_when_set: "Address is indirect"
+        - name: "B"
+          position: 8
+          bit_size: 1
+          description: "Base register flag"
+          effect_when_set: "Base-relative instead of P-relative"
+      composite_effects:
+        - condition: "X=1"
+          format_addition: ",X"
+          position: "prefix"
+        - condition: "I=1"
+          format_addition: "I"
+          position: "prefix"
+        - condition: "B=1"
+          format_addition: ",B"
+          position: "suffix"
+      values:
+        - name: "prelative"
+          value: 0
+          mode: "P relative addressing"
+          description: "The address is the program counter plus the displacement"
+          bit_pattern: "000"
+          format: "<disp>"
+          example: "STA *2"
+          fields:
+            - X: 0
+            - I: 0
+            - B: 0
+          effective_address: "(P) + disp"
+
+        - name: "brelative"
+          value: 1
+          mode: "B-relative addressing"
+          description: "The address is the base register plus the displacement"
+          bit_pattern: "001"
+          format: "<disp>, B"
+          example: "LDA -4,B"
+          fields:
+            - X: 0
+            - I: 0
+            - B: 1
+          effective_address: "(B) + disp"
+
+        - name: "indirect_prelative"
+          value: 2
+          mode: "P indirect addressing"
+          description: "The address is the program counter plus the displacement, and the address is indirect"
+          bit_pattern: "010"
+          format: "I <disp>"
+          example: "LDA I *22"
+          fields:
+            - X: 0
+            - I: 1
+            - B: 0
+          effective_address: "((P) + disp)"
+
+        - name: "indirect_brelative"
+          value: 3
+          mode: "B indirect addressing"
+          description: "The address is the base register plus the displacement, and the address is indirect"
+          bit_pattern: "011"
+          format: "I <disp> ,B"
+          example: "JPL I 3,B"
+          fields:
+            - X: 0
+            - I: 1
+            - B: 1
+          effective_address: "((B) + disp)"
+
+        - name: "xrelative"
+          value: 4
+          mode: "X relative addressing"
+          description: "The address is the index register plus the displacement"
+          bit_pattern: "100"
+          format: "<disp>,X"
+          example: "LDA 0,X"
+          fields:
+            - X: 1
+            - I: 0
+            - B: 0
+          effective_address: "(X) + disp"
+
+        - name: "brelative_indexed"
+          value: 5
+          mode: "B indexed addressing"
+          description: "The address is the base register plus the displacement, and the address is indexed by the index register"
+          bit_pattern: "101"
+          format: "<disp>,B,X"
+          example: "LDA 17,B ,X"
+          fields:
+            - X: 1
+            - I: 0
+            - B: 1
+          effective_address: "(B) + disp + (X)"
+        
+        - name: "indirect_prelative_indexed"
+          value: 6
+          mode: "P indirect indexed addressing"
+          description: "The address is the program counter plus the displacement, and the address is indirect, and the address is indexed by the index register"
+          bit_pattern: "110"
+          format: ",X I <disp>"
+          example: "LDA ,X I *4"
+          fields:
+            - X: 1
+            - I: 1
+            - B: 0
+          effective_address: "((P) + disp) + (X)"
+
+        - name: "indirect_brelative_indexed"
+          value: 7
+          mode: "B indirect indexed addressing"
+          description: "The address is the base register plus the displacement, and the address is indirect, and the address is indexed by the index register"
+          bit_pattern: "111"
+          format: ",X I ,B <disp>"
+          example: "LDA ,X I ,B *4"
+          fields:
+            - X: 1
+            - I: 1
+            - B: 1
+          effective_address: "((B) + disp) + (X)"
+
+
+

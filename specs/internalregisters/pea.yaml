@@ -1,0 +1,15 @@
+register:
+  name: PEA
+  description: Parity Error Address Register that contains the memory address where a parity error was detected
+  size: 16
+  type: control
+  bits:
+    - name: ADDR
+      position: 0
+      size: 16
+      description: Error Address - The memory address where a parity error was detected
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: memory 

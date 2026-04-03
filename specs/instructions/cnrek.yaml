@@ -1,0 +1,9 @@
+instruction:
+  name: CNREK
+  description: |
+    Clear non reentrant pages (SINTRAN K only).    
+  format: CNREK
+  opcode: "140504"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

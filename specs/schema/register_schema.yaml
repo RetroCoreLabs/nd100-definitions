@@ -1,0 +1,53 @@
+$schema: http://json-schema.org/draft-07/schema#
+
+type: object
+required:
+  - name
+  - description
+  - size
+  - type
+  - group
+properties:
+  name:
+    type: string
+    description: "Register name"
+  description:
+    type: string
+    description: "Register description"
+  size:
+    type: integer
+    minimum: 1
+    description: "Register size in bits"
+  type:
+    type: string
+    description: "Register type (general, status, control, etc.)"
+  group:
+    type: string
+    description: "Register group name"
+  bit_position:
+    type: integer
+    minimum: 0
+    description: "Bit position in instruction (if encoded in instruction)"
+  program_level:
+    type: boolean
+    description: "Whether register has multiple sets per program level"
+  preserved:
+    type: boolean
+    description: "Whether register is preserved across function calls"
+  volatile:
+    type: boolean
+    description: "Whether register is volatile across function calls"
+  read_only:
+    type: boolean
+    description: "Whether register is read-only"
+  write_only:
+    type: boolean
+    description: "Whether register is write-only"
+  hidden:
+    type: boolean
+    description: "Whether register is hidden from user"
+  aliases:
+    type: array
+    description: "Register aliases"
+    items:
+      type: string 

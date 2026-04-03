@@ -1,0 +1,15 @@
+instruction:
+  name: LDBTX
+  description: |
+    Load B register
+    
+    (B) ⟵ 177000₈ OR (2(ea))
+    
+    Load the contents of the physical memory location pointed to by twice the effective address contents into the B register, then OR the value with 177000₈.
+    
+    See description for usage.
+  format: LDBTX <displacement>
+  opcode: "143303"  # Octal, Δ denotes 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Memory Transfer Instructions"
+  privilege: "privileged" 

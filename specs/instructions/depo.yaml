@@ -1,0 +1,11 @@
+instruction:
+  name: DEPO
+  description: |
+    Deposit
+    
+    Store the contents of the T register in the physical memory location pointed to by the A and D register contents.
+  format: DEPO
+  opcode: "150417"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Physical Memory Control Instructions"
+  privilege: "privileged" 

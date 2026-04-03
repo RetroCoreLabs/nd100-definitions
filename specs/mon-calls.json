@@ -1,0 +1,2083 @@
+{
+  "mon_calls": [
+    {
+      "octal": "0B",
+      "decimal": 0,
+      "name": "ExitFromProgram",
+      "short_name": "LEAVE",
+      "description": "Terminates the program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "1B",
+      "decimal": 1,
+      "name": "InByte",
+      "short_name": "INBT",
+      "description": "Reads one byte from a character device, e.g. a terminal or an opened file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "2B",
+      "decimal": 2,
+      "name": "OutByte",
+      "short_name": "OUTBT",
+      "description": "Writes one byte to a character device, e.g. a terminal or an opened file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "3B",
+      "decimal": 3,
+      "name": "SetEcho",
+      "short_name": "ECHOM",
+      "description": "When you press a key on the terminal, a character is normally displayed.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "4B",
+      "decimal": 4,
+      "name": "SetBreak",
+      "short_name": "BRKM",
+      "description": "Sets the break characters for a terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "5B",
+      "decimal": 5,
+      "name": "ReadScratchFile",
+      "short_name": "RDISK",
+      "description": "Reads randomly from the scratch file.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "6B",
+      "decimal": 6,
+      "name": "WriteScratchFile",
+      "short_name": "WDISK",
+      "description": "Writes randomly to the scratch file.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "7B",
+      "decimal": 7,
+      "name": "ReadBlock",
+      "short_name": "RPAGE",
+      "description": "Reads randomly from a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "10B",
+      "decimal": 8,
+      "name": "WriteBlock",
+      "short_name": "WPAGE",
+      "description": "Writes randomly to a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "11B",
+      "decimal": 9,
+      "name": "GetBasicTime",
+      "short_name": "TIME",
+      "description": "**Time**  Gets the current internal time.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "12B",
+      "decimal": 10,
+      "name": "SetCommandBuffer",
+      "short_name": "SETCM",
+      "description": "Transfers a string to the command buffer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "13B",
+      "decimal": 11,
+      "name": "ClearInBuffer",
+      "short_name": "CIBUF",
+      "description": "Clears a device input buffer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "14B",
+      "decimal": 12,
+      "name": "ClearOutBuffer",
+      "short_name": "COBUF",
+      "description": "Clears a device output buffer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "16B",
+      "decimal": 14,
+      "name": "GetTerminalType",
+      "short_name": "MGTTY",
+      "description": "Gets the terminal type.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "17B",
+      "decimal": 15,
+      "name": "SetTerminalType",
+      "short_name": "MSTTY",
+      "description": "Sets the type of a terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "21B",
+      "decimal": 17,
+      "name": "InUpTo8Bytes",
+      "short_name": "M8INB",
+      "description": "See also In8Bytes, InByte, InString, In4x2Bytes, and Out8Bytes.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "22B",
+      "decimal": 18,
+      "name": "OutUpTo8Bytes",
+      "short_name": "M8OUT",
+      "description": "Writes up to 8 characters to a device, e.g. a terminal or an internal device.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "23B",
+      "decimal": 19,
+      "name": "In8Bytes",
+      "short_name": "B8INB",
+      "description": "Reads 8 bytes from a device.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "24B",
+      "decimal": 20,
+      "name": "Out8Bytes",
+      "short_name": "B8OUT",
+      "description": "Writes 8 bytes to a character device, e.g. a terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "26B",
+      "decimal": 22,
+      "name": "GetLastByte",
+      "short_name": "LASTC",
+      "description": "Gets the last character typed on a terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "27B",
+      "decimal": 23,
+      "name": "GetRTDescr",
+      "short_name": "RTDSC",
+      "description": "Reads an RT description.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "30B",
+      "decimal": 24,
+      "name": "GetOwnRTAddress",
+      "short_name": "GETRT",
+      "description": "Gets the address of the calling program's RT description.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "31B",
+      "decimal": 25,
+      "name": "IOInstruction",
+      "short_name": "EXIOX",
+      "description": "Executes an IOX machine instruction.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "32B",
+      "decimal": 26,
+      "name": "OutMessage",
+      "short_name": "MSG",
+      "description": "Writes a message to the user's terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "33B",
+      "decimal": 27,
+      "name": "AltPageTable",
+      "short_name": "ALTON",
+      "description": "Switches page table.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "34B",
+      "decimal": 28,
+      "name": "NormalPageTable",
+      "short_name": "ALTOFF",
+      "description": "Sets the alternative page table equal to the normal page table.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "35B",
+      "decimal": 29,
+      "name": "OutNumber",
+      "short_name": "IOUT",
+      "description": "Writes a number to the user's terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "36B",
+      "decimal": 30,
+      "name": "NoWaitSwitch",
+      "short_name": "NOWT",
+      "description": "Switches No Wait on and off.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "37B",
+      "decimal": 31,
+      "name": "ReadADChannel",
+      "short_name": "AIRDW",
+      "description": "Reads an analog to digital channel.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "40B",
+      "decimal": 32,
+      "name": "CloseSpoolingFile",
+      "short_name": "SPCLO",
+      "description": "Appends an opened file to a spooling queue.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "41B",
+      "decimal": 33,
+      "name": "ReadObjectEntry",
+      "short_name": "ROBJE",
+      "description": "Gets information about an opened file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "43B",
+      "decimal": 35,
+      "name": "CloseFile",
+      "short_name": "CLOSE",
+      "description": "Closes one or more files.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "44B",
+      "decimal": 36,
+      "name": "GetUserEntry",
+      "short_name": "RUSER",
+      "description": "Gets information about a user.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "50B",
+      "decimal": 40,
+      "name": "OpenFile",
+      "short_name": "OPEN",
+      "description": "Opens a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "52B",
+      "decimal": 42,
+      "name": "TerminalMode",
+      "short_name": "TERMO",
+      "description": "Selects various terminal functions.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "53B",
+      "decimal": 43,
+      "name": "GetSegmentEntry",
+      "short_name": "RSEGM",
+      "description": "Gets information about a segment in the ND-100.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "54B",
+      "decimal": 44,
+      "name": "DeleteFile",
+      "short_name": "MDLFI",
+      "description": "Deletes a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "55B",
+      "decimal": 45,
+      "name": "GetSpoolingEntry",
+      "short_name": "RSQPE",
+      "description": "Gets the next spooling queue entry, that is, the next file to be printed.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "56B",
+      "decimal": 46,
+      "name": "SetUserParam",
+      "short_name": "PASET",
+      "description": "Sets information about a background program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "57B",
+      "decimal": 47,
+      "name": "GetUserParam",
+      "short_name": "PAGEI",
+      "description": "Gets information about why the last program terminated.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "60B",
+      "decimal": 48,
+      "name": "N500M",
+      "short_name": "ND500Function",
+      "description": "ND-500 Monitor Function - The primary way ND-100 programs control the ND-500.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "61B",
+      "decimal": 49,
+      "name": "MemoryAllocation",
+      "short_name": "FIXC5",
+      "description": "Fixes or unfixes ND-100 segments to be used by the ND-500 Monitor.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "62B",
+      "decimal": 50,
+      "name": "GetBytesInFile",
+      "short_name": "RMAX",
+      "description": "Gets the number of bytes in a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "63B",
+      "decimal": 51,
+      "name": "In4x2Bytes",
+      "short_name": "B41NW",
+      "description": "Reads 8 bytes from a word-oriented or character-oriented device, e.g. internal devices.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "64B",
+      "decimal": 52,
+      "name": "WarningMessage",
+      "short_name": "ERMSG",
+      "description": "Outputs a file system error message.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "65B",
+      "decimal": 53,
+      "name": "ErrorMessage",
+      "short_name": "QERMS",
+      "description": "Displays a file system error message.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "66B",
+      "decimal": 54,
+      "name": "InBufferSpace",
+      "short_name": "ISIZE",
+      "description": "Gets the current number of bytes in the input buffer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "67B",
+      "decimal": 55,
+      "name": "OutBufferSpace",
+      "short_name": "OSIZE",
+      "description": "Gets the number of free bytes in the output buffer (number of bytes which can be written before the program must wait).",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "70B",
+      "decimal": 56,
+      "name": "CallCommand",
+      "short_name": "COMMND",
+      "description": "Executes a SINTRAN III command from a program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "71B",
+      "decimal": 57,
+      "name": "DisableEscape",
+      "short_name": "DESCF",
+      "description": "The ESCAPE key on the terminal normally terminates a program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "72B",
+      "decimal": 58,
+      "name": "EnableEscape",
+      "short_name": "EESCF",
+      "description": "Enables the ESCAPE key on the terminal.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "73B",
+      "decimal": 59,
+      "name": "SetMaxBytes",
+      "short_name": "SMAX",
+      "description": "Sets the value of the maximum byte pointer in an opened file (i.e. the number of bytes minus 1).",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "74B",
+      "decimal": 60,
+      "name": "SetStartByte",
+      "short_name": "SETBT",
+      "description": "Sets the next byte to be read or written in an opened mass-storage file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "75B",
+      "decimal": 61,
+      "name": "GetStartByte",
+      "short_name": "REABT",
+      "description": "Gets the number of the next byte to access in a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "76B",
+      "decimal": 62,
+      "name": "SetBlockSize",
+      "short_name": "SETBS",
+      "description": "Sets the block size of an opened file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "77B",
+      "decimal": 63,
+      "name": "SetStartBlock",
+      "short_name": "SETBL",
+      "description": "Sets the next block to be read or written in an opened file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "100B",
+      "decimal": 64,
+      "name": "StartRTProgram",
+      "short_name": "RT",
+      "description": "Starts an RT program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "101B",
+      "decimal": 65,
+      "name": "DelayStart",
+      "short_name": "SET",
+      "description": "Starts an RT program after a specified time.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "102B",
+      "decimal": 66,
+      "name": "StartupTime",
+      "short_name": "ABSET",
+      "description": "Starts an RT program at a specified time of the day.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "103B",
+      "decimal": 67,
+      "name": "StartupInterval",
+      "short_name": "INTV",
+      "description": "Prepares an RT program for periodic execution.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "104B",
+      "decimal": 68,
+      "name": "SuspendProgram",
+      "short_name": "HOLD",
+      "description": "Suspends the execution of your program for a given time.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "105B",
+      "decimal": 69,
+      "name": "StopRTProgram",
+      "short_name": "ABORT",
+      "description": "Stops an RT program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "106B",
+      "decimal": 70,
+      "name": "StartOnInterrupt",
+      "short_name": "CONCT",
+      "description": "StartOnInterrupt connects an RT program to interrupts from a device.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "107B",
+      "decimal": 71,
+      "name": "NoInterruptStart",
+      "short_name": "DSCNT",
+      "description": "StartOnInterrupt connects an RT program to interrupts from a device.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "110B",
+      "decimal": 72,
+      "name": "SetRTPriority",
+      "short_name": "PRIOR",
+      "description": "Sets the priority of an RT program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "111B",
+      "decimal": 73,
+      "name": "SetClock",
+      "short_name": "UPDAT",
+      "description": "Gives new values to the computer's clock and calendar.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "112B",
+      "decimal": 74,
+      "name": "AdjustClock",
+      "short_name": "CLADJ",
+      "description": "Sets the computer's clock (i.e. the current system time) forward or back.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "113B",
+      "decimal": 75,
+      "name": "GetCurrentTime",
+      "short_name": "CLOCK",
+      "description": "Gets the current system time and date.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "114B",
+      "decimal": 76,
+      "name": "GetTimeUsed",
+      "short_name": "TUSED",
+      "description": "Gets the time you have used the CPU since you logged in.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "115B",
+      "decimal": 77,
+      "name": "FixScattered",
+      "short_name": "FIX",
+      "description": "Place a segment in physical memory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "116B",
+      "decimal": 78,
+      "name": "UnfixSegment",
+      "short_name": "UNFIX",
+      "description": "Releases a fixed segment and removes it from the Page Index Table (PIT).",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "117B",
+      "decimal": 79,
+      "name": "ReadFromFile",
+      "short_name": "RFILE",
+      "description": "Reads any number of bytes from a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "120B",
+      "decimal": 80,
+      "name": "WriteToFile",
+      "short_name": "WFILE",
+      "description": "Writes any number of bytes to a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "121B",
+      "decimal": 81,
+      "name": "AwaitFileTransfer",
+      "short_name": "WAITF",
+      "description": "Checks that a data transfer to or from a mass-storage file is completed.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "122B",
+      "decimal": 82,
+      "name": "ReserveResource",
+      "short_name": "RESRV",
+      "description": "Reserves a device or file for your program only.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "123B",
+      "decimal": 83,
+      "name": "ReleaseResource",
+      "short_name": "RELES",
+      "description": "Releases a reserved device or file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "124B",
+      "decimal": 84,
+      "name": "ForceReserve",
+      "short_name": "PRSRV",
+      "description": "Reserves a device for an RT program other than that which is calling.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "125B",
+      "decimal": 85,
+      "name": "ForceRelease",
+      "short_name": "PRLRS",
+      "description": "Releases a device reserved by an RT program other than that which is calling.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "126B",
+      "decimal": 86,
+      "name": "ExactDelayStart",
+      "short_name": "DSET",
+      "description": "Sets an RT program to start after a given period.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "127B",
+      "decimal": 87,
+      "name": "ExactStartup",
+      "short_name": "DABST",
+      "description": "Starts an RT program at a specific time.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "130B",
+      "decimal": 88,
+      "name": "ExactInterval",
+      "short_name": "DINTV",
+      "description": "Prepares an RT program for periodic execution.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "131B",
+      "decimal": 89,
+      "name": "DataTransfer",
+      "short_name": "ABSTR",
+      "description": "Transfers data between physical memory and a mass-storage device, e.g. a disk or magnetic tape.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "132B",
+      "decimal": 90,
+      "name": "JumpToSegment",
+      "short_name": "MCALL",
+      "description": "Calls a routine on another segment in the ND-100.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "133B",
+      "decimal": 91,
+      "name": "ExitFromSegment",
+      "short_name": "MEXIT",
+      "description": "Exchanges one or both current segments.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "134B",
+      "decimal": 92,
+      "name": "ExitRTProgram",
+      "short_name": "RTEXT",
+      "description": "Terminates the calling RT or background program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "135B",
+      "decimal": 93,
+      "name": "WaitForRestart",
+      "short_name": "RTWT",
+      "description": "Sets the RT program in a waiting state.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "136B",
+      "decimal": 94,
+      "name": "EnableRTStart",
+      "short_name": "RTON",
+      "description": "RTON RT programs cannot be started after DisableRTStart has been executed.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "137B",
+      "decimal": 95,
+      "name": "DisableRTStart",
+      "short_name": "RTOFF",
+      "description": "Disables start of RT programs.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "140B",
+      "decimal": 96,
+      "name": "ReservationInfo",
+      "short_name": "WHDEV",
+      "description": "Checks that a device is not reserved.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "141B",
+      "decimal": 97,
+      "name": "DeviceControl",
+      "short_name": "IOSET",
+      "description": "Sets control information for a character device, e.g. a terminal or a printer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "142B",
+      "decimal": 98,
+      "name": "ToErrorDevice",
+      "short_name": "ERMON",
+      "description": "Outputs a user-defined, real-time error.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "143B",
+      "decimal": 99,
+      "name": "ExecutionInfo",
+      "short_name": "RSIO",
+      "description": "Gets information about the execution of the calling program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "144B",
+      "decimal": 100,
+      "name": "DeviceFunction",
+      "short_name": "MAGTP",
+      "description": "Performs various operations on floppy disks, magnetic tapes, Versatec plotters, and SCSI streamers.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "146B",
+      "decimal": 102,
+      "name": "PrivInstruction",
+      "short_name": "IPRIV",
+      "description": "Executes a privileged machine instruction on the ND-100.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "147B",
+      "decimal": 103,
+      "name": "CAMACFunction",
+      "short_name": "CAMAC",
+      "description": "Operates the CAMAC, i.e. executes the NAF register.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "150B",
+      "decimal": 104,
+      "name": "CAMACGLRegister",
+      "short_name": "GL",
+      "description": "Read the CAMAC GL (Graded LAM - \"look at me\") register or the last CAMAC identification number.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "151B",
+      "decimal": 105,
+      "name": "GetRTAddress",
+      "short_name": "GRTDA",
+      "description": "Gets the address of an RT description.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "152B",
+      "decimal": 106,
+      "name": "GetRTName",
+      "short_name": "GRTNA",
+      "description": "Gets the name of an RT program.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "153B",
+      "decimal": 107,
+      "name": "CAMACIOInstruction",
+      "short_name": "IOXN",
+      "description": "Executes a single IOX instruction for CAMAC.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "154B",
+      "decimal": 108,
+      "name": "AssignCAMACLAM",
+      "short_name": "ASSIG",
+      "description": "Assigns a graded LAM in the CAMAC identification table to a logical device number in the logical number table.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "155B",
+      "decimal": 109,
+      "name": "GraphicFunction",
+      "short_name": "GRAPH",
+      "description": "Executes various functions on a graphic peripheral, such as a NORDCOM terminal, a pen plotter, or a Textronix display.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "157B",
+      "decimal": 111,
+      "name": "SegmentToPageTable",
+      "short_name": "ENTSG",
+      "description": "Enters a routine as a direct task or as a device driver, and \"remembers\" which segments have been entered (up to 24 segments).",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "160B",
+      "decimal": 112,
+      "name": "FixContiguous",
+      "short_name": "FIXC",
+      "description": "Places a segment in physical memory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "161B",
+      "decimal": 113,
+      "name": "InString",
+      "short_name": "INSTR",
+      "description": "Reads a string of characters from a peripheral device, e.g. a terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "162B",
+      "decimal": 114,
+      "name": "OutString",
+      "short_name": "OUTST",
+      "description": "Writes a string of characters to a peripheral file, e.g., a terminal or a printer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "164B",
+      "decimal": 116,
+      "name": "SaveSegment",
+      "short_name": "WSEG",
+      "description": "Saves a segment in the ND-100.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "165B",
+      "decimal": 117,
+      "name": "GetInRegisters",
+      "short_name": "DIW",
+      "description": "Reads the device interface registers.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "167B",
+      "decimal": 119,
+      "name": "AttachSegment",
+      "short_name": "REENT",
+      "description": "Attaches a reentrant segment to your two current segments.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "170B",
+      "decimal": 120,
+      "name": "UserDef0",
+      "short_name": "US0",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "171B",
+      "decimal": 121,
+      "name": "UserDef1",
+      "short_name": "US1",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "172B",
+      "decimal": 122,
+      "name": "UserDef2",
+      "short_name": "US2",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "173B",
+      "decimal": 123,
+      "name": "UserDef3",
+      "short_name": "US3",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "174B",
+      "decimal": 124,
+      "name": "UserDef4",
+      "short_name": "US4",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "175B",
+      "decimal": 125,
+      "name": "UserDef5",
+      "short_name": "US5",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "176B",
+      "decimal": 126,
+      "name": "UserDef6",
+      "short_name": "US6",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "177B",
+      "decimal": 127,
+      "name": "UserDef7",
+      "short_name": "US7",
+      "description": "User-defined monitor call.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "200B",
+      "decimal": 128,
+      "name": "XMSGFunction",
+      "short_name": "XMSG",
+      "description": "Performs various data communication functions.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "201B",
+      "decimal": 129,
+      "name": "HDLCfunction",
+      "short_name": "MHDLC",
+      "description": "Performs various HDLC functions.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "206B",
+      "decimal": 134,
+      "name": "TerminationHandling",
+      "short_name": "EDTRM",
+      "description": "Switches termination handling on and off.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "207B",
+      "decimal": 135,
+      "name": "GetErrorInfo",
+      "short_name": "RERRP",
+      "description": "Gets information about the last real-time error.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "212B",
+      "decimal": 138,
+      "name": "ReentrantSegment",
+      "short_name": "SREEN",
+      "description": "Connects a reentrant segment to your two current segments.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "213B",
+      "decimal": 139,
+      "name": "GetDirUserIndexes",
+      "short_name": "MUIDI",
+      "description": "Gets a directory index and a user index.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "214B",
+      "decimal": 140,
+      "name": "GetUserName",
+      "short_name": "GUSNA",
+      "description": "Gets the name of a user.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "215B",
+      "decimal": 141,
+      "name": "GetObjectEntry",
+      "short_name": "DROBJ",
+      "description": "Gets information about a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "216B",
+      "decimal": 142,
+      "name": "SetObjectEntry",
+      "short_name": "DWOBJ",
+      "description": "Changes the description of a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "217B",
+      "decimal": 143,
+      "name": "GetAllFileIndexes",
+      "short_name": "GUIOI",
+      "description": "Gets the directory index, the user index, and the object index of a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "220B",
+      "decimal": 144,
+      "name": "DirectOpen",
+      "short_name": "DOPEN",
+      "description": "Opens a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "221B",
+      "decimal": 145,
+      "name": "CreateFile",
+      "short_name": "CRALF",
+      "description": "Creates a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "222B",
+      "decimal": 146,
+      "name": "GetAddressArea",
+      "short_name": "GBSIZ",
+      "description": "Gets the size of your address area.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "227B",
+      "decimal": 151,
+      "name": "SetEscLocalChars",
+      "short_name": "MSDAE",
+      "description": "You can terminate most programs with the ESCAPE key.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "230B",
+      "decimal": 152,
+      "name": "GetEscLocalChars",
+      "short_name": "MGDAE",
+      "description": "Gets ESCAPE and LOCAL characters.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "231B",
+      "decimal": 153,
+      "name": "ExpandFile",
+      "short_name": "EXPFI",
+      "description": "Expands the file size.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "232B",
+      "decimal": 154,
+      "name": "RenameFile",
+      "short_name": "MRNFI",
+      "description": "See also @RENAME-FILE.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "233B",
+      "decimal": 155,
+      "name": "SetTemporaryFile",
+      "short_name": "STEFI",
+      "description": "Defines a file to store information temporarily.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "234B",
+      "decimal": 156,
+      "name": "SetPeripheralName",
+      "short_name": "SPEFI",
+      "description": "Defines a peripheral file, e.g. a printer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "235B",
+      "decimal": 157,
+      "name": "ScratchOpen",
+      "short_name": "SCROP",
+      "description": "Opens a file as a scratch file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "236B",
+      "decimal": 158,
+      "name": "SetPermanentOpen",
+      "short_name": "SPERD",
+      "description": "Sets a file permanently open.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "237B",
+      "decimal": 159,
+      "name": "SetFileAccess",
+      "short_name": "SFACC",
+      "description": "Sets the access protection for a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "240B",
+      "decimal": 160,
+      "name": "AppendSpooling",
+      "short_name": "APSPE",
+      "description": "Prints a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "241B",
+      "decimal": 161,
+      "name": "NewUser",
+      "short_name": "SUSCN",
+      "description": "Switches the user name you are logged in under.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "242B",
+      "decimal": 162,
+      "name": "OldUser",
+      "short_name": "RUSCN",
+      "description": "Switches back to the user name you were logged in under before NewUser.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "243B",
+      "decimal": 163,
+      "name": "GetDirNameIndex",
+      "short_name": "FDINA",
+      "description": "Gets directory index and name index.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "244B",
+      "decimal": 164,
+      "name": "GetDirEntry",
+      "short_name": "GDIEN",
+      "description": "Gets information about a directory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "245B",
+      "decimal": 165,
+      "name": "GetNameEntry",
+      "short_name": "GNAEN",
+      "description": "Gets information about devices, e.g. disks and floppy disks.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "246B",
+      "decimal": 166,
+      "name": "ReserveDir",
+      "short_name": "REDIR",
+      "description": "Reserves a directory for special use.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "247B",
+      "decimal": 167,
+      "name": "ReleaseDir",
+      "short_name": "RLDIR",
+      "description": "Releases a directory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "250B",
+      "decimal": 168,
+      "name": "GetDefaultDir",
+      "short_name": "FDFDI",
+      "description": "Gets the user’s default directory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "251B",
+      "decimal": 169,
+      "name": "CopyPage",
+      "short_name": "COPAG",
+      "description": "Copies file pages between two opened files.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "252B",
+      "decimal": 170,
+      "name": "BackupClose",
+      "short_name": "BCLOS",
+      "description": "Closes a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "253B",
+      "decimal": 171,
+      "name": "NewFileVersion",
+      "short_name": "CRALN",
+      "description": "Creates new versions of a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "254B",
+      "decimal": 172,
+      "name": "GetErrorDevice",
+      "short_name": "GERDV",
+      "description": "Gets the logical device number of the error device.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "255B",
+      "decimal": 173,
+      "name": "PIOCFunction",
+      "short_name": "PIOCM",
+      "description": "PIOC is a programmable input and output processor primarily used in data communication to handle networks like X.25 and Ethernet.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "256B",
+      "decimal": 174,
+      "name": "FullFileName",
+      "short_name": "DEABF",
+      "description": "Returns a complete file name from an abbreviated one.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "257B",
+      "decimal": 175,
+      "name": "OpenFileInfo",
+      "short_name": "FOPEN",
+      "description": "Gets information about an open file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "262B",
+      "decimal": 178,
+      "name": "GetSystemInfo",
+      "short_name": "CPUST",
+      "description": "Gets various system information.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "263B",
+      "decimal": 179,
+      "name": "GetDeviceType",
+      "short_name": "GDEVT",
+      "description": "Gets the device type, e.g. terminal, floppy disk, mass-storage file, etc. The monitor call also provides information on how to handle the device.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "267B",
+      "decimal": 183,
+      "name": "TimeOut",
+      "short_name": "TMOUT",
+      "description": "Suspends the execution of your program for a given time.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "270B",
+      "decimal": 184,
+      "name": "ReadDiskPage",
+      "short_name": "RDPAG",
+      "description": "Reads one or more directory pages.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "271B",
+      "decimal": 185,
+      "name": "WriteDiskPage",
+      "short_name": "WDPAG",
+      "description": "Writes to one or more pages in a directory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "272B",
+      "decimal": 186,
+      "name": "DeletePage",
+      "short_name": "DELPG",
+      "description": "Deletes pages from a file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "273B",
+      "decimal": 187,
+      "name": "GetFileName",
+      "short_name": "MGFIL",
+      "description": "Gets the name of a file.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "274B",
+      "decimal": 188,
+      "name": "GetFileIndexes",
+      "short_name": "FOBJN",
+      "description": "Gets the directory index, the user index, and the object index of a file.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "275B",
+      "decimal": 189,
+      "name": "SetTerminalName",
+      "short_name": "STRFI",
+      "description": "Defines the file name to be used for terminals.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "276B",
+      "decimal": 190,
+      "name": "EnableLocal",
+      "short_name": "ELOFU",
+      "description": "You may log in on remote computers through the COSMOS data network.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "277B",
+      "decimal": 191,
+      "name": "DisableLocal",
+      "short_name": "DLOFU",
+      "description": "You may log in on remote computers through the COSMOS data network.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "300B",
+      "decimal": 192,
+      "name": "SetEscapeHandling",
+      "short_name": "EUSEL",
+      "description": "Enables user-defined escape handling.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "301B",
+      "decimal": 193,
+      "name": "StopEscapeHandling",
+      "short_name": "DUSEL",
+      "description": "Disables user-defined escape handling.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "302B",
+      "decimal": 194,
+      "name": "OnEscLocalFunction",
+      "short_name": "ELON",
+      "description": "Enables delayed escape and local functions for your terminal.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "303B",
+      "decimal": 195,
+      "name": "OffEscLocalFunction",
+      "short_name": "ELOFF",
+      "description": "Delays the escape and local functions for your terminal.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "306B",
+      "decimal": 198,
+      "name": "GetTerminalMode",
+      "short_name": "GTMOD",
+      "description": "Gets the terminal mode.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "307B",
+      "decimal": 199,
+      "name": "TerminalNoWait",
+      "short_name": "TNOWAI",
+      "description": "Switches No Wait on and off.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "310B",
+      "decimal": 200,
+      "name": "In8AndFlag",
+      "short_name": "TBIN8",
+      "description": "Reads 8 bytes from a device, e.g., a terminal.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "311B",
+      "decimal": 201,
+      "name": "WriteDirEntry",
+      "short_name": "WDIEN",
+      "description": "Changes the information about a directory.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "312B",
+      "decimal": 202,
+      "name": "CheckMonCall",
+      "short_name": "MOINF",
+      "description": "Some monitor calls are optional or only available in later versions of SINTRAN III.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "313B",
+      "decimal": 203,
+      "name": "InBufferState",
+      "short_name": "IBRISZ",
+      "description": "Gets information about an input buffer.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "314B",
+      "decimal": 204,
+      "name": "DefaultRemoteSystem",
+      "short_name": "SRUSI",
+      "description": "Sets default values for COSMOS remote file access.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "315B",
+      "decimal": 205,
+      "name": "LAMUFunction",
+      "short_name": "MLAMU",
+      "description": "Performs various functions on the LAMU system.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "316B",
+      "decimal": 206,
+      "name": "SetRemoteAccess",
+      "short_name": "SRLMO",
+      "description": "Switches remote file access on and off.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "317B",
+      "decimal": 207,
+      "name": "ExecuteCommand",
+      "short_name": "UECOM",
+      "description": "Executes a SINTRAN III command.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "322B",
+      "decimal": 210,
+      "name": "GetSegmentNo",
+      "short_name": "GSGNO",
+      "description": "Gets the number of a segment in the ND-100.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "323B",
+      "decimal": 211,
+      "name": "SegmentOverlay",
+      "short_name": "SPLRE",
+      "description": "Used to build multisegment programs in the ND-100.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "324B",
+      "decimal": 212,
+      "name": "OctobusFunction",
+      "short_name": "OCTIO",
+      "description": "Performs various functions on an old Octobus (earlier than version 3).",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "325B",
+      "decimal": 213,
+      "name": "BatchModeEcho",
+      "short_name": "MBECH",
+      "description": "Controls echo of input and output if the program is executed in a batch or mode job.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "326B",
+      "decimal": 214,
+      "name": "LogInStart",
+      "short_name": "MLOGI",
+      "description": "Logs in a user on a terminal and starts a subsystem.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "327B",
+      "decimal": 215,
+      "name": "FileSystemFunction",
+      "short_name": "FSMTY",
+      "description": "Multifunction monitor call to make sure that an uncontrolled system stop does not leave the file system inconsistent.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "330B",
+      "decimal": 216,
+      "name": "TerminalStatus",
+      "short_name": "TERST",
+      "description": "Gets information about a terminal.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "332B",
+      "decimal": 218,
+      "name": "TerminalLineInfo",
+      "short_name": "TREPP",
+      "description": "Gets information about a terminal line.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "333B",
+      "decimal": 219,
+      "name": "DMAFunction",
+      "short_name": "UDMA",
+      "description": "Various DMA functions for Direct Memory Access operations.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "334B",
+      "decimal": 220,
+      "name": "GetErrorMessage",
+      "short_name": "GETXM",
+      "description": "Gets a SINTRAN III error message text.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "335B",
+      "decimal": 221,
+      "name": "TransferData",
+      "short_name": "EXABS",
+      "description": "Transfers data between physical memory and a mass-storage device, e.g. a disk.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "336B",
+      "decimal": 222,
+      "name": "Terminal",
+      "short_name": "IOMTY",
+      "description": "This I/O multifunction monitor call is used to change the attributes of terminal and terminal access device (TAD) input/output.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "337B",
+      "decimal": 223,
+      "name": "ChangeSegment",
+      "short_name": "SPCHG",
+      "description": "Changes the segment and the page table your program uses.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "340B",
+      "decimal": 224,
+      "name": "ReadSystemRecord",
+      "short_name": "RSREC",
+      "description": "Used to read the system record into a buffer.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "341B",
+      "decimal": 225,
+      "name": "SegmentFunction",
+      "short_name": "SGMTY",
+      "description": "This is a multifunction monitor call used to change the active segments of a program, or the page index tables used by a program.",
+      "nd100": true,
+      "nd500": false
+    },
+    {
+      "octal": "400B",
+      "decimal": 256,
+      "name": "ErrorReturn",
+      "short_name": "MACROE",
+      "description": "Terminates the program and sets an error code.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "401B",
+      "decimal": 257,
+      "name": "DisAssemble",
+      "short_name": "DIASS",
+      "description": "Disassembles one machine instruction on the ND-500.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "402B",
+      "decimal": 258,
+      "name": "GetInputFlags",
+      "short_name": "RFLAG",
+      "description": "ND-100 and ND-500 programs may communicate through two 32-bit flag arrays.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "403B",
+      "decimal": 259,
+      "name": "SetOutputFlags",
+      "short_name": "WFLAG",
+      "description": "ND-100 and ND-500 programs may communicate through two 32-bit flag arrays.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "404B",
+      "decimal": 260,
+      "name": "FixIOArea",
+      "short_name": "IOFIX",
+      "description": "Fixes an address area in a domain in physical memory.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "405B",
+      "decimal": 261,
+      "name": "SwitchUserBreak",
+      "short_name": "USTRK",
+      "description": "Switches user-defined escape handling on and off.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "406B",
+      "decimal": 262,
+      "name": "AccessRTCommon",
+      "short_name": "RWRTC",
+      "description": "Reads from or writes to RT common from an ND-500 program.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "410B",
+      "decimal": 264,
+      "name": "FixInMemory",
+      "short_name": "FIXMEM",
+      "description": "Fixes a logical segment (either whole or in part) of a user's domain in physical memory.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "411B",
+      "decimal": 265,
+      "name": "MemoryUnfix",
+      "short_name": "UNFIXM",
+      "description": "Releases a fixed segment in your domain from physical memory.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "412B",
+      "decimal": 266,
+      "name": "FileAsSegment",
+      "short_name": "FSCNT",
+      "description": "Connects a file as a segment to your domain.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "413B",
+      "decimal": 267,
+      "name": "FileNotAsSegment",
+      "short_name": "FSCDNT",
+      "description": "Disconnects a file as a segment in your domain.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "414B",
+      "decimal": 268,
+      "name": "BCNAFCAMAC",
+      "short_name": "BCNAF",
+      "description": "Special CAMAC function on the ND-500.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "415B",
+      "decimal": 269,
+      "name": "BCNAF1CAMAC",
+      "short_name": "BCNAF1",
+      "description": "Special CAMAC monitor call for the ND-500.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "416B",
+      "decimal": 270,
+      "name": "SaveND500Segment",
+      "short_name": "WSEGN",
+      "description": "Writes all modified pages of a segment back to the disk.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "417B",
+      "decimal": 271,
+      "name": "MaxPagesInMemory",
+      "short_name": "MXPISG",
+      "description": "Sets the maximum number of pages a segment may have in physical memory at a time.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "420B",
+      "decimal": 272,
+      "name": "GetUserRegisters",
+      "short_name": "GRBLK",
+      "description": "SwitchUserBreak allows you to save the registers when you terminate an ND-500 program with the ESCAPE key.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "421B",
+      "decimal": 273,
+      "name": "GetActiveSegment",
+      "short_name": "GASGM",
+      "description": "Gets the name of the segments in your domain.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "422B",
+      "decimal": 274,
+      "name": "GetScratchSegment",
+      "short_name": "GSWSP",
+      "description": "Connects an empty data segment to the user's domain and reserves space for it on the swap file.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "423B",
+      "decimal": 275,
+      "name": "CopyCapability",
+      "short_name": "CAPCOP",
+      "description": "Copies a capability for a segment.",
+      "nd100": false,
+      "nd500": false
+    },
+    {
+      "octal": "424B",
+      "decimal": 276,
+      "name": "ClearCapability",
+      "short_name": "CAPCLE",
+      "description": "Clears a capability.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "425B",
+      "decimal": 277,
+      "name": "SetProcessName",
+      "short_name": "SPRNAM",
+      "description": "Defines a new name for your process.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "426B",
+      "decimal": 278,
+      "name": "GetProcessNo",
+      "short_name": "GPRNAM",
+      "description": "Gets the number of a process in the ND-500.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "427B",
+      "decimal": 279,
+      "name": "GetOwnProcessInfo",
+      "short_name": "GPRNME",
+      "description": "Gets the name and number of your own process in the ND-500.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "430B",
+      "decimal": 280,
+      "name": "TranslateAddress",
+      "short_name": "ADR100",
+      "description": "Translates an ND-500 logical address to an ND-100 physical address.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "431B",
+      "decimal": 281,
+      "name": "AwaitTransfer",
+      "short_name": "MWAITF",
+      "description": "Checks that a data transfer to or from a mass-storage file is completed.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "435B",
+      "decimal": 285,
+      "name": "ForceTrap",
+      "short_name": "PRT",
+      "description": "Forces a programmed trap to occur in another ND-500 process.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "436B",
+      "decimal": 286,
+      "name": "SetND500Param",
+      "short_name": "5PASET",
+      "description": "Sets information about an ND-500 program.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "437B",
+      "decimal": 287,
+      "name": "GetND500Param",
+      "short_name": "5PAGET",
+      "description": "Gets information about why the last ND-500 program terminated.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "440B",
+      "decimal": 288,
+      "name": "Attach500Segment",
+      "short_name": "AT5SGM",
+      "description": "Maps a logical ND-500 data segment onto shared ND-100/ND-500(0) physical memory (multiport memory).",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "500B",
+      "decimal": 320,
+      "name": "StartProcess",
+      "short_name": "STARTP",
+      "description": "Starts a process in the ND-500.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "501B",
+      "decimal": 321,
+      "name": "StopProcess",
+      "short_name": "STOPPR",
+      "description": "Sets the current process in a wait state.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "502B",
+      "decimal": 322,
+      "name": "SwitchProcess",
+      "short_name": "SWITCHP",
+      "description": "Sets the current process in a wait state.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "503B",
+      "decimal": 323,
+      "name": "InputString",
+      "short_name": "DVINST",
+      "description": "Reads a string from a device, e.g. a terminal or an opened file.",
+      "nd100": true,
+      "nd500": true
+    },
+    {
+      "octal": "504B",
+      "decimal": 324,
+      "name": "OutputString",
+      "short_name": "DVOUTS",
+      "description": "Writes a string to a device, e.g. a terminal or an opened file.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "505B",
+      "decimal": 325,
+      "name": "GetTrapReason",
+      "short_name": "GERRCOD",
+      "description": "Gets the error code from the swapper process.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "507B",
+      "decimal": 327,
+      "name": "SetProcessPriority",
+      "short_name": "SPRIO",
+      "description": "Sets the priority for a process in the ND-500.",
+      "nd100": false,
+      "nd500": true
+    },
+    {
+      "octal": "514B",
+      "decimal": 332,
+      "name": "ND500TimeOut",
+      "short_name": "5TMOUT",
+      "description": "Suspends the execution of an ND-500 program for a given time.",
+      "nd100": false,
+      "nd500": true
+    }
+  ]
+}

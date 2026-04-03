@@ -1,0 +1,16 @@
+instruction:
+  name: "FMU"
+  description: |
+    Multiply floating point accumulator.
+
+    The contents of the floating point accumulator (A and D registers) are multiplied by the contents of two sequential memory locations, pointed to by the effective address. 
+    The result is held in the accumulator.
+
+  opcode: "110000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "FMU <addressing_mode> <disp>"
+  category: "Standard Floating Instructions"
+  instruction_class: "memory_transfer"
+  privilege: "user"
+  flags_affected:
+    - Z  # Error

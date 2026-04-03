@@ -1,0 +1,34 @@
+register:
+  name: PANC
+  description: Panel Control register for controlling the front panel operation
+  size: 16
+  type: control
+  bits:
+    - name: START
+      position: 0
+      size: 1
+      description: Start bit - When set, allows the CPU to start execution
+    - name: STOP
+      position: 1
+      size: 1
+      description: Stop bit - When set, stops CPU execution
+    - name: DISPLAY
+      position: 2
+      size: 1
+      description: Display mode - Controls front panel display mode
+    - name: STEP
+      position: 3
+      size: 1
+      description: Single step mode - When set, CPU executes one instruction at a time
+    - name: MCRO_STEP
+      position: 4
+      size: 1
+      description: Micro step mode - When set, CPU executes one microinstruction at a time
+    - name: LIGHTS
+      position: 5
+      size: 1
+      description: Panel lights control - Enables/disables front panel indicator lights
+    - name: reserved
+      position: 6
+      size: 10
+      description: Reserved for future use 

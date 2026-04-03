@@ -1,0 +1,43 @@
+instruction:
+  name: "WAIT"
+  description: |
+    When interrupt system off: halts the program and enters the operator's communication. 
+    When interrupt system on: give up priority. If there are no interrupt requests on any level, the program on level zero is entered.
+    
+  opcode: "151000"  # Octal
+  mask: "1111_1111_0000_0000" # Matches the bit pattern shown in image
+  format: "WAIT <wait_number>"
+  category: "Interrupt Control Instructions"
+  instruction_class: 
+  privilege: "user"
+  
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode determines what type of operation occurs" 
+    - name: "wait_number"
+      bits: "7-0" 
+      type: "numeric" # 8 bit signed
+      description: "Wait number" # Not used for anything else than information for the source code ?
+      optional: true #todo: add optional to the schema and code generator
+
+  examples:
+    - code: "WAIT"
+      description: "Wait"
+    - code: "WAIT 1"
+      description: "Wait, but with a comment saying its WAIT #1" 
+
+  detailed_description: |
+    This operates as follows:
+
+    **If the interrupt system is OFF:**
+    The ND-110 stops with the program counter (P register) pointing to the instruction after the WAIT and the front panel RUN indicator is turned off. (To restart the system, type `!` on the console terminal.)
+
+    **If the interrupt system is ON:**
+    The ND-110 exits from the current program level (resetting the corresponding PID bit) and enters the program level with the highest priority, normally a program level lower than the one which executes the WAIT instruction. If there are no interrupt requests awaiting service, then program level 0 is entered.
+
+    **Note:**
+    A WAIT on program level 0 is ignored.
+
+    WAIT followed by a number less than 400₈ can be used to detect which location caused the program stop.

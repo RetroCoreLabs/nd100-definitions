@@ -1,0 +1,23 @@
+instruction:
+  name: "ELEAV"
+  description: |
+    Error leave stack.
+    
+    If an error occurs, leave the stack.
+    
+    This instruction saves the previous stack pointer in LINK and restores the B register to its previous value (PREVB) before leaving the stack. The stack is left by loading the P register (program counter) with the return address (LINK). The A register is loaded with an error code which is saved in the ERRCODE stack entry (pointed to by B = 173₈).
+    
+      (B = 200₈) ⟵ (B = 200₈) - 1
+      (P)       ⟵ (B = 200₈)   {LINK}
+      (B)       ⟵ (B = 177₈)   {PREVB}
+      (A)       ⟵ ERRCODE₈
+      (B = 173₈) ⟵ (A)         {ERRCODE}
+    
+    Format:
+      ELEAV
+  opcode: "0140137" # Octal
+  format: "ELEAV"
+  mask: "1111_1111_1111_1111"
+  category: "Stack Operations"
+  instruction_class:
+  privilege: "user" 

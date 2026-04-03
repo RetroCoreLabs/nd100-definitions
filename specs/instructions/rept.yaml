@@ -1,0 +1,9 @@
+instruction:
+  name: REPT
+  description: |
+    Enter reentrant segment in page tables. (See Appendix B for a software description.)
+  format: REPT
+  opcode: "140507"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

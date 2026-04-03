@@ -1,0 +1,15 @@
+instruction:
+  name: "SBYT"
+  description: |
+    Store byte from A register to memory
+    Addressing: EL = (T) + (X)/2
+    - If least significant bit of X = 1: Store right byte
+    - If least significant bit of X = 0: Store left byte
+
+    The contents of T point to the beginning of a character string and the contents of X to a byte within the string.
+  opcode: "142600"  # Octal
+  mask: "1111_1111_1111_1111"  # Standard mask format
+  format: "SBYT"
+  category: "Byte Instructions"
+  instruction_class: 
+  privilege: "user"

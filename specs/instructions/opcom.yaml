@@ -1,0 +1,17 @@
+instruction:
+  name: OPCOM
+  description: |
+    Operator Communication
+    
+    This instruction is PRIVILEGED and only available to:
+      - programs running in system mode (rings 2-3)
+      - programs running without memory protection
+    
+    This instruction allows the programmer to use a terminal in direct communication with the CPU board.
+    When the CPU is running, MOPC can be used to read input from the console.
+    This is the software equivalent to pressing the OPCOM button on the control panel of the ND-110.
+  format: OPCOM
+  opcode: "150400"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Interrupt Control Instructions"
+  privilege: "privileged" 

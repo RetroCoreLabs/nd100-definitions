@@ -1,0 +1,52 @@
+instruction:
+  name: IOX
+  description: |
+    Exchange information between I/O system and A register.
+    
+   
+  opcode: "0164000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "IOX <device_register_address>"
+  category: "Input and Output"
+  instruction_class:
+  privilege: "privileged"
+  operands:
+    - name: "opcode"
+      bits: "15-10"
+      type: "opcode"
+      description: "The opcode determines what type of operation occurs (fixed code 11101₂)"
+    - name: "device_register_address"
+      type: "displacement"
+      bits: "10-0"
+      description: |
+        11-bit field limiting the number of external devices that can be addressed by the CPU.
+        Bit 0 gives the direction of transfer:
+          - 0: input (from device to CPU)
+          - 1: output (from CPU to device)
+  detailed_description: |
+
+   This instruction is PRIVILEGED and only available to:
+      - programs running in system mode (rings 2-3)
+      - programs running without memory protection
+    
+    The instruction controls all transfers between the ND-110 and any external devices.
+    
+    IOX can be used to address a maximum of 2048 device registers for external devices connected to the ND-110 CPU. Data, control, and status between device and CPU can be exchanged.
+    
+    The transfer direction is determined by the least significant bit of the device register address:
+      - If 0: input (from device to CPU)
+      - If 1: output (from CPU to device)
+    
+    Register addresses can hold data, command, or status information for a device.
+    An external device may require more than one register address (e.g., a magnetic tape unit may need several). 
+    
+    These should be given successive device-register addresses (odd for input, even for output).
+    
+    Note: The number of external devices that can be controlled by the CPU depends on the configuration of the devices.        
+        
+  examples:
+    - code: "IOX 0306"
+      description: "Read status of console device into A register"
+    - code: "IOX 0305"
+      description: "Write character in A register to console device"
+

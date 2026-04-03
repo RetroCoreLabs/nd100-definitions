@@ -1,0 +1,14 @@
+instruction:
+  name: STDTX
+  description: |
+    Store double word
+    
+    (ea) ⟵ (A)
+    (ea) + 1 ⟵ (D)
+    
+    Store the double word held in the A and D registers in the memory locations given by the effective address and the effective address plus one.
+  format: STDTX <displacement>
+  opcode: "143306"  # Octal, Δ denotes 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Memory Transfer Instructions"
+  privilege: "privileged" 

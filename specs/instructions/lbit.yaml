@@ -1,0 +1,12 @@
+instruction:
+  name: LBIT
+  description: |
+    Load single bit accumulator (K) with logical memory bit.
+    
+    (X) points to the start of a bit array
+    (A) points to the bit within the array
+  format: LBIT
+  opcode: "140510"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

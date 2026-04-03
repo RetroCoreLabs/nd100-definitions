@@ -1,0 +1,42 @@
+instruction:
+  name: "IDENT"
+  format: " IDENT <level_code>"
+  opcode: "0143600"  # Octal format (
+  mask: "1111_1111_1100_0000" # top 16 bits are opcode
+  description: |
+    Transfer IDENT code of interrupting device with highest priority on the specified level to A register. 
+  category: "Interrupt Control Instructions"
+  privilege: "user"
+  flags_affected:
+  instruction_class:
+  operands:
+  - name: "opcode"
+    type: "opcode"
+    bits: "15-6"
+    description: "The opcode determines what type of operation occurs" 
+  - name: "level_code"
+    type: "enum"
+    bits: "5-0"
+    description: "The interrupt level code"
+    enum: # values are OCTAL
+        - name: "PL10"
+          value: "000004"
+          description: "Level 10"
+        - name: "PL11"
+          value: "000011"
+          description: "Level 11"
+        - name: "PL12"
+          value: "000022"
+          description: "Level 12"
+        - name: "PL13"
+          value: "000043"
+          description: "Level 13"       
+examples:
+    - code: "IDENT PL10"
+      description: "Transfer IDENT code of interrupting device with highest priority on level 10 to A register. Used in interrupt handler"
+    - code: "IDENT PL11"
+      description: "Transfer IDENT code of interrupting device with highest priority on level 11 to A register. Used in interrupt handler"
+    - code: "IDENT PL12"
+      description: "Transfer IDENT code of interrupting device with highest priority on level 12 to A register. Used in interrupt handler"
+    - code: "IDENT PL13"
+      description: "Transfer IDENT code of interrupting device with highest priority on level 13 to A register. Used in interrupt handler"

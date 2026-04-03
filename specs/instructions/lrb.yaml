@@ -1,0 +1,43 @@
+instruction:
+  name: "LRB"
+  description: |
+    Load register block
+
+    Load the contents of a memory block pointed to by the X register into the register block of the program level given in the instruction.
+
+    If the instruction specifies the current program level, the P register (program counter) is not loaded from memory and is unchanged.
+
+  detailed_description: |
+    The memory block pointed to by the X register is loaded into the register block for the specified program level. The mapping is as follows:
+
+        P (level N) ⟵ (ea)
+        X (level N) ⟵ (ea + 1)
+        T (level N) ⟵ (ea + 2)
+        A (level N) ⟵ (ea + 3)
+        D (level N) ⟵ (ea + 4)
+        L (level N) ⟵ (ea + 5)
+        STS (level N) ⟵ (ea + 6)
+        B (level N) ⟵ (ea + 7)
+
+    Where (ea) is the address in memory pointed to by the X register.
+
+    If the current program level is specified, the P register is not loaded and remains unchanged.
+
+
+  opcode: "152600"  # Octal
+  mask: "1111_1111_1100_0000"  # Matches bit pattern from image
+  format: "LRB <level>"
+  category: "Register Block Instructions"
+  instruction_class: "register_block"
+  privilege: "privileged"
+  examples:
+    - description: |
+        LRB 160₈ (152760₈)
+
+        Load the memory block pointed to by the X register into the register on program level 14.
+
+            P (level 14) ⟵ (ea)
+            X (level 14) ⟵ (ea + 1)
+            ↓             ↓
+            B (level 14) ⟵ (ea + 7)
+      code: "LRB 160"

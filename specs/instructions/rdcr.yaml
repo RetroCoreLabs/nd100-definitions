@@ -1,0 +1,19 @@
+instruction:
+  name: "RDCR"
+  description: |
+    Register decrement
+    
+    dr ⟵ dr - 1
+    
+    RDCR is a compound mnemonic for RADD CM1.
+  opcode: "146200"  # Octal
+  mask: "1111_1111_1111_1000"  # Top 13 bits are opcode
+  format: "RDCR <destination>"
+  category: "Register Operations"
+  instruction_class: "register_dst"
+  privilege: "user"
+  flags_affected: ["C", "O", "Q"]  # See RADD instruction
+  isalias: true
+  examples:
+    - description: "Decrement the contents of the B register by one. (146203₈)"
+      code: "RDCR DB" 

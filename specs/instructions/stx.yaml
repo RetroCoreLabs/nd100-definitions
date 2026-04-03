@@ -1,0 +1,13 @@
+instruction:
+  name: "STX"
+  description: |
+    Store X register to memory location 
+    (EA) ⟵ (X)
+
+    Store the contents of the X register in the memory location pointed to by the effective address.
+  opcode: "014000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "STX <addressing_mode> <displacement>"
+  category: "Memory Transfer - Store Instruction"
+  instruction_class: "memory_transfer"
+  privilege: "user" 

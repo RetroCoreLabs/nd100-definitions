@@ -1,0 +1,15 @@
+instruction:
+  name: SACB
+  description: |
+    Store the A register in the core map table bank (CMBNK).
+    
+    (ea) <--- (A)
+    
+    ea = (B) + Δ = CMBNK entry
+    
+    Δ: 3-bit displacement added to B included in the instruction opcode (bits 5-3)  
+  format: SACB <displacement>
+  opcode: "140703"  # Octal, Δ is a 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Control Instructions"
+  privilege: "privileged" 

@@ -1,0 +1,21 @@
+instruction:
+  name: "RMPY"
+  description: |
+    Multiply source with destination; result in double accumulator
+    AD ⟵ (sr) * (dr)
+
+  detailed_description: |
+    The sr and dr registers hold the two operands to be multiplied together. 
+    The result is a 32-bit signed integer held in the A and D register (the A register contains the 16 most significant bits).
+    
+  opcode: "141200"  # Octal
+  mask: "1111_1111_1100_0000"  # Matches bit pattern from image
+  format: "RMPY <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_src_dst"
+
+
+  flags_affected: ["C", "O", "Q"]
+  examples:
+    - description: "Multiply the contents of the A and X registers together, leaving the result in the A and D registers."
+      code: "RMPY SA DX"

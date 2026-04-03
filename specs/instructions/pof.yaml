@@ -1,0 +1,13 @@
+instruction:
+  name: POF
+  description: |
+    Memory management OFF
+    
+    Disable memory management system. The next instruction will be taken from a physical address given by the address following the POF instruction.
+    Note: The CPU will be in an unrestricted mode without any hardware protection features - all instructions are legal and all memory accessible.
+  opcode: "150404"  # Octal
+  mask: "1111_1111_1111_1111" # top 16 bits are opcode
+  format: "POF"    
+  category: "Interrupt Control Instructions"
+  instruction_class:
+  privilege: "privileged"

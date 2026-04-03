@@ -1,0 +1,13 @@
+instruction:
+  name: STATX
+  description: |
+    Store A register
+    
+    (ea) ⟵ (A)
+    
+    Store the contents of the A register in the memory location given by the effective address.
+  format: STATX <displacement>
+  opcode: "143304"  # Octal, Δ denotes 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Memory Transfer Instructions"
+  privilege: "privileged" 

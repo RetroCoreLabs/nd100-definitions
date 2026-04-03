@@ -1,0 +1,36 @@
+instruction:
+  name: "INSTRUCTION_NAME"          # e.g., "ADD", "SUB", "AND"  
+  description: "Detailed description of what the instruction does"
+  opcode: "0150000"                 # Octal opcode
+  mask: "1111_1000_0000_0000"       # top 5 bits are opcode  (may be omitted if instruction_class is defined, is it will be inherited from the instruction_class)
+  category: "Register Transfer"     # Category of the instruction (Free text)
+  privilege: "user"                 # user or privileged (The privileged instructions are used by the operating system and RT programs only.)    
+  instruction_class: "CLASS_NAME"   # Must be a valid class defined in the cpu.yaml file under "instruction_classes" Using this to determine the bit format, hence no "operands" are needed below.
+  
+  operands:
+    - name: "opcode"
+      type: "uint5"
+      description: "Opcode"      
+      bits: 15-11      
+    - name: "mode"
+      type: "addressing_mode"
+      description: "Memory addressing mode"      
+      bits: 10-8
+    - name: "disp"
+      type: "displacement"
+      description: "Memory address displacement"      
+      bits: 7-0
+
+  format: "INSTRUCTION_NAME operand1, operand2"  # Assembly format    
+
+  flags_affected:  # can be any bits from STS register defined in cpu.yaml
+    - "C"  # Carry flag
+    - "O"  # Overflow flag
+    - "Q"  # Sign flag
+    - "Z"  # Zero flag
+  
+  
+  
+  
+      
+  

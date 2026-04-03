@@ -1,0 +1,38 @@
+instruction:
+  name: SUBD
+  description: |
+    Subtract two decimal operands.
+    
+    (op1) ⟵ (op1) - (op2)
+    
+    Subtract the second operand from the first operand, leaving the result in the location of the first operand.
+    
+    If the first operand field is too short to contain all the significant digits of the result then decimal overflow occurs.
+    
+    If bit 13 of D2 in the first operand is set, the sign of the result will be 17₈ (BCD unsigned).
+    
+    Any empty operand, that is with a field length of zero, is treated as a positive zero.
+    
+    A zero difference can have either a negative or positive sign.
+    
+    **Instruction sequence:**
+    
+        SUBD
+        error handling instruction
+        next instruction after SUBD or after error handling routine
+    
+    **Example:**
+    
+        SUBD
+        JPL *30₈
+        ADD *15₈
+    
+    The SUBD instruction causes the program counter to skip the next instruction UNLESS an error has been generated, when the instruction immediately following the SUBD will handle the error in some way (in this example, a jump is executed on error to a subroutine at (P) + 15₈)).
+    
+    (* is the assembler mnemonic for the P register)
+  opcode: "0140121" # Octal
+  format: "SUBD"
+  mask: "1111_1111_1111_1111"
+  category: "Decimal Instructions"
+  instruction_class:
+  privilege: "user" 

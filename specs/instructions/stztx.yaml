@@ -1,0 +1,13 @@
+instruction:
+  name: STZTX
+  description: |
+    Store zero
+    
+    (ea) ⟵ 000000₈
+    
+    Store zero in the memory location given by the effective address.
+  format: STZTX <displacement>
+  opcode: "143305"  # Octal, Δ denotes 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Memory Transfer Instructions"
+  privilege: "privileged" 

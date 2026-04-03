@@ -1,0 +1,45 @@
+instruction:
+  name: "VERSN"
+  description: |
+    ** ND-110/ND-120 ONLY**
+    Read ND-110 CPU version and installation number.
+    
+    This instruction is used to read the version of ND-110 CPU installed. Three registers are loaded simultaneously with information in the following format:
+
+  detailed_description: |
+    A register
+
+        15                             3 0
+        ┌──────────────────────────────┬───┐
+        │      Print version           │ALD│
+        └──────────────────────────────┴───┘
+
+    T register
+
+        15                             0
+        ┌───────────────────────────────┐
+        │   Microprogram version        │
+        └───────────────────────────────┘
+
+    D register
+
+        15       7                   0
+        ┌────────┬───────────────────┐
+        │        │ Installation num. │
+        └────────┴───────────────────┘
+
+  
+    The installation number of the CPU is 16 bytes long.
+
+    The VERSN instruction can only load one byte of the installation number into the D register each time it is executed. The A register is used to address the sixteen bytes.
+
+    To read a byte of the installation number the A register must be loaded with an installation byte address before the VERSN instruction is executed. The address of the byte to be read is given by the value of bits 8-11 in the A register (equivalent to bytes 0-16).
+
+    To read the complete installation number both the A register bit field must be incremented and the VERSN instruction executed sixteen times.
+
+  opcode: "140133"  # Octal
+  format: "VERSN"
+  mask: "1111_1111_1111_1111" # 
+  category: "System/CPU Information"
+  instruction_class: 
+  privilege: "user" 

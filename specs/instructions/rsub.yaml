@@ -1,0 +1,28 @@
+instruction:
+  name: "RSUB"
+  description: |
+    Register subtract
+    
+    dr ⟵ dr - sr
+    
+    RSUB is a compound mnemonic for RADD AD1 CM1 (or RADD CM2 using the AD1 CM2 compound mnemonic).
+
+  detailed_description: |
+    The following sub-instruction is allowed:
+
+    - **CLD**
+
+    Note:
+    Sometimes the RADD form will be more readable.
+
+  opcode: "146600"  # Octal
+  mask: "1111_1111_1100_0000"  # Top 10 bits are opcode
+  format: "RSUB <sub-instruction> <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_arithmetic"
+  privilege: "user"
+  isalias: true
+  flags_affected: ["C", "O", "Q"]
+  examples:
+    - description: "Subtract the contents of the T register from the contents of the B register leaving the result in B."
+      code: "RSUB ST DB"

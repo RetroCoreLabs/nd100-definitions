@@ -1,0 +1,50 @@
+register:
+  name: PSR
+  description: |
+    Paging Status Register that contains information about the current state of memory paging. 
+    Also known as PGS (Paging Status) in ND100 - In RegisterFile(10,13) "AB,PGS;COPY OF PGS FROM LAST PF/PV"
+  size: 16
+  type: control
+  bits:
+    - name: VPN
+      position: 0
+      size: 6
+      description: Virtual Page Number - Contains the page number that caused the fault
+    - name: PT
+      position: 6
+      size: 4
+      description: |
+        Page Table number 
+        - MMS-1: 2 bits (bits 6-7) for 4 page tables
+        - MMS-2: 4 bits (bits 6-9) for 16 page tables
+    - name: RESERVED
+      position: 10
+      size: 4
+      description: Reserved - Not available
+    - name: PM
+      position: 14
+      size: 1
+      description: |
+        Permit violation.
+        - 1 = permit violation interrupt (read, write, fetch protect system)
+        - 0 = ring protection violation interrupt
+        Permit violation has priority if both conditions occur
+    - name: FF
+      position: 15
+      size: 1
+      description: |
+        Fetch Fault. Memory management interrupt occurred during an instruction fetch.
+        If bit 15 is a one, the page fault or protection violation occurred during the fetch of an instruction.
+        In this case, the P register has not been incremented and the instruction causing the violation
+        (and the restart point) is found from the P register on the program level which caused the interrupt.
+        
+        If bit 15 is zero, the page fault or protection violation occurred during the data cycles of an instruction.
+        In this case, the P register points to the instruction after the instruction causing the internal
+        hardware status interrupt. When the cause of the internal hardware status interrupt has been removed,
+        the restart point will be found by subtracting one from the P register.
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: memory_management
+  aliases: ["PGS"] 

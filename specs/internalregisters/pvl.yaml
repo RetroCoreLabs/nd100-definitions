@@ -1,0 +1,23 @@
+register:
+  name: PVL
+  description: Previous Level Code Register that stores the previous execution level during interrupts or exceptions
+  size: 16
+  type: control
+  bits:
+    - name: PREV_LEVEL
+      position: 0
+      size: 4
+      description: Previous Level - The execution level before the most recent level change
+    - name: REASON
+      position: 4
+      size: 4
+      description: Level Change Reason - Code indicating why the level changed (0=Interrupt, 1=Exception, 2=Trap, 3=Syscall)
+    - name: ENTRY_POINT
+      position: 8
+      size: 8
+      description: Entry Point - The specific entry point within the current level's handler
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: interrupt 

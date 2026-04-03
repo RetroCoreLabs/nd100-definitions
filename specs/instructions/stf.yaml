@@ -1,0 +1,16 @@
+instruction:
+  name: "STF"  
+  description: |
+    Store floating accumulator (TAD) to memory (ea)
+    Memory format:
+     (ea)     ⟵ (T)
+     (ea) + 1 ⟵ (A)
+     (ea) + 2 ⟵ (D)
+
+    Store the contents of the floating accumulator (T,A and D registers) into the memory location pointed to by the effective address.
+  opcode: "030000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "STF <addressing_mode> <disp>"  
+  category: "Standard Floating Instructions"
+  instruction_class: "memory_transfer" 
+  privilege: "user"

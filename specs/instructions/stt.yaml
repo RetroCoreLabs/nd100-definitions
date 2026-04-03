@@ -1,0 +1,13 @@
+instruction:
+  name: "STT"
+  description: |
+    Store T register to memory location
+    (EA) ⟵ (T)
+
+    Store the contents of the T register in the memory location pointed to by the effective address.
+  opcode: "010000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "STT <addressing_mode> <displacement>"
+  category: "Memory Transfer - Store Instruction"
+  instruction_class: "memory_transfer"
+  privilege: "user" 

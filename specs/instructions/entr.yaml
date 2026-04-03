@@ -1,0 +1,29 @@
+instruction:
+  name: "ENTR"
+  description: |
+    Enter stack.
+    
+    This instruction saves the current stack pointer (B), the return address (LINK), and previous stack pointer (PREVB). It transfers the top of stack address (SMAX) and establishes the new stack demand and pointer.
+    
+      (B = 177₈) ⟵ (B)                {save current pointer in PREVB}
+      (B = 175₈) ⟵ (B = 175₈)         {SMAX}
+      (B = 200₈) ⟵ (L) + 1            {save return address in LINK}
+      (B)        ⟵ (B = 176₈) + 200₈   {new pointer}
+      (B = 176₈) ⟵ stack demand + (B)
+    
+    Stack overflow causes an error return, that is the program continues at the address following the stack demand value. In all other cases, the program skips this address to find the return address from the stack.
+    
+    Format:
+      ENTR 
+      <stack demand-value in words>
+      <error return address>
+      <return address>
+      
+  opcode: "0140135" # Octal
+  format: "ENTR"
+  mask: "1111_1111_1111_1111"
+  category: "Stack Operations"
+  instruction_class:
+  privilege: "user"
+  flags_affected:
+    - PTM # "Page Table Flag - Status register bit 0 used for flag comparison" 

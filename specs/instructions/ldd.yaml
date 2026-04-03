@@ -1,0 +1,16 @@
+instruction:  
+  name: "LDD"
+  description: |
+    Load double word
+      A ⟵ (ea)
+      D ⟵ (ea) + 1
+
+    Load the contents of the memory location pointed to by the effective address into the A register 
+    Load the contents of the memory location pointed to by the effective address plus one into the D register.
+
+  opcode: "024000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "LDD <addressing_mode> <displacement>"
+  category: "Memory Transfer - Double word instructions"
+  instruction_class: "memory_transfer"
+  privilege: "user" 

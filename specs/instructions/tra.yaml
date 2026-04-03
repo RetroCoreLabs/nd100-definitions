@@ -1,0 +1,72 @@
+instruction:
+  name: TRA
+  description: |
+    Transfer to A register
+    The internal register given in the instruction is copied into the A register.  
+  opcode: "0150000"  # Octal  
+  format: "TRA <internal_register>"
+  category: "Register Transfer"
+  instruction_class: #"register_transfer" 
+  privilege: "privileged" # privileged instruction
+  mask: "1111_1111_1111_0000" # top 12 bits are opcode
+  bit_format: |
+        +----------------------------+---------+
+        | 15 -------------------- 4  | 3 --- 0 |
+        +----------------------------+---------+
+        | OpCode                     | Register|
+        +----------------------------+---------+
+  operands:
+    - name: "opcode"        
+      bits: "15-4"
+      type: "opcode"
+      description: "The opcode determines what type of operation occurs"
+    - name: "internal_register"
+      type: "enum"
+      bits: "3-0"
+      description: "The CPU internal register"               
+      enum: # values are OCTAL
+        - name: "PANS"
+          value: "0000"
+          description: "Panel status"
+        - name: "STS"
+          value: "0001"
+          description: "Status register"
+        - name: "OPR"
+          value: "0002"
+          description: "Operator's panel switch register"
+        - name: "PSR"
+          value: "0003"
+          description: "Paging status register"
+        - name: "PVL"
+          value: "0004"
+          description: "Previous level code register"
+        - name: "IIC" 
+          value: "0005"
+          description: "Internal interrupt code register" 
+        - name: "PID"
+          value: "0006"
+          description: "Priority interrupt detect register"
+        - name: "PIE"
+          value: "0007"
+          description: "Priority enable detect register"
+        - name: "CSR"
+          value: "0010"
+          description: "Cache status register"
+        - name: "ACTL"
+          value: "0011"
+          description: "Active level register"          
+        - name: "ALD"
+          value: "0012"
+          description: "Automatic load descriptor"
+        - name: "PES"
+          value: "0013"
+          description: "Parity error status register"
+        - name: "PGC"
+          value: "0014"
+          description: "Paging control register"
+        - name: "PEA"
+          value: "0015"
+          description: "Parity error address register"
+        - name: "CS"
+          value: "0017"
+          description: "Control store"

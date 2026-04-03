@@ -1,0 +1,15 @@
+instruction:
+  name: MOVB
+  description: |
+    Move byte.
+    
+    This instruction moves a block of bytes from the memory location addressed by the source operand to that of the memory location addressed by the destination operand.
+    
+    After execution, bit 15 of the D and T registers point to the end of the field that has been moved. The field length of the D register (source) equals zero and the T register (destination) field length is equal to the number of bytes moved.
+    
+  opcode: "0140131" # Octal
+  format: "MOVB"
+  mask: "1111_1111_1111_1111"
+  category: "Byte Instructions"
+  instruction_class:
+  privilege: "user"

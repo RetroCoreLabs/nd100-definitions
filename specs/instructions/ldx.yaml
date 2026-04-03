@@ -1,0 +1,14 @@
+instruction:
+  name: "LDX"
+  description: |
+    Load X register
+    
+    (X) ⟵ (ea)
+    
+    Load the contents of the memory location pointed to by the effective address into the X register.
+  opcode: "054000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "LDX <addressing_mode> <disp>"
+  category: "Memory Transfer - Load Instruction"
+  instruction_class: "memory_transfer"
+  privilege: "user" 

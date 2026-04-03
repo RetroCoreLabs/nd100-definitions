@@ -1,0 +1,25 @@
+instruction:
+  name: BSET
+  description: |
+    Set specified bit in equal to specified condition
+    
+  opcode: "174000"  # Octal
+  mask: "1111_1111_1000_0000" # top 9 bits are opcode
+  format: "BSET <condition> <bit_no> <destination>"    
+  category: "Bit instructions"  
+  instruction_class: "bit_instructions_with_condition"
+  privilege: "user"
+  examples:
+    - description: "Reset the static overflow flag"
+      code: "BSET ZRO SSO"
+
+# when destionation is STS (0) then bits for bit_no  are 
+
+# SSTG 000010  specifies floating rounding flag     B = TG
+# SSK 000020  specifies 1-bit accumulator (K)       B = K
+# SSZ 000030  specifies error flag (Z)              B = Z
+# SSQ 000040  specifies dynamic overflow flag (Q)   B = Q
+# SSO 000050  specifies static overflow flag (O)    B = O
+# SSC 000060  specifies page table flag             B = C
+# SSM 000070  specifies page table flag             B = M
+

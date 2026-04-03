@@ -1,0 +1,16 @@
+instruction:
+  name: GECO
+  description: |
+    GECO is a customer-specifed instruction which appears to be included as part of the standard instruction set from ND-100/CE and later. 
+    The name comes from the customer, GECO (Geophysical Company of Norway)
+
+    SINTRAN III version L, and probably version K and possibly earlier, tests for GECO as part of the startup.     
+
+    The instruction is found in the ND-110 microcode.
+    
+  opcode: "0142700" # Octal
+  format: "GECO"
+  mask: "1111_1111_1111_1111"
+  category: "Undocumented Instructions"
+  instruction_class:
+  privilege: "user" 

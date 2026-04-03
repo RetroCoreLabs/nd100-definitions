@@ -1,0 +1,15 @@
+register:
+  name: UCIL
+  description: Upper Cache Inhibit Limit register that defines the upper bound of memory range where caching is inhibited
+  size: 16
+  type: control
+  bits:
+    - name: LIMIT
+      position: 0
+      size: 16
+      description: The upper bound memory address where caching is inhibited
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: false
+  group: cache 

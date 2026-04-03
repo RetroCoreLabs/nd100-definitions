@@ -1,0 +1,15 @@
+instruction:
+  name: WGLOB
+  description: |
+    Initialize global pointers.
+    
+    (T) = bank number of segment table (STBNK)
+    (A) = start address within bank (STSRT)*
+    (D) = bank number of core map table (CMBNK)
+    
+    * must be divisible by 8
+  format: WGLOB
+  opcode: "140500"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

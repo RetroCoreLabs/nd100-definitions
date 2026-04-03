@@ -1,0 +1,34 @@
+function:
+  name: "do_not"
+  description: "Perform bitwise NOT on a 16-bit value, update flags Q, Z"
+  
+  parameters:
+    - name: "a"
+      type: "uint16"
+      description: "Operand"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "Q"
+    - "Z"
+  
+  body:
+    meta: |
+      # Perform bitwise NOT
+      result = ~a
+      
+      # Set sign flag if result is negative
+      if (result & 0x8000):
+        set_flag(Q, true)
+      else:
+        set_flag(Q, false)
+      
+      # Set zero flag if result is zero
+      if (result == 0):
+        set_flag(Z, true)
+      else:
+        set_flag(Z, false)
+      
+      # Return the result
+      return result 

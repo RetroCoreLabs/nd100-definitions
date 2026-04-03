@@ -1,0 +1,17 @@
+instruction:
+  name: BORC
+  description: |
+    Logical OR with bit complement
+
+    K ⟵ K | (B)0
+
+  opcode: "177400"  # Octal
+  mask: "1111_1111_1000_0000" # top 9 bits are opcode
+  format: "BORC"    
+  category: "Bit instructions_with_destination"
+  privilege: "user"
+  flags_affected:
+    - K  # 1-bit accumulator (K)
+  examples:
+    - description: "Complement bit 6 in the X register, then OR the bit with K, leaving the result in K"
+      code: "BORC 60 DX"

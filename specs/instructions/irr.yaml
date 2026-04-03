@@ -1,0 +1,56 @@
+instruction:
+  name: "IRR"
+  description: |
+    Inter Register Read
+    A: = specified register on specified level
+  opcode: "153600"  # Octal
+  mask: "1111_1111_1000_0000"  # Matches bit pattern 1 1 0 1 0 1 1 1 from image
+  format: "IRR <level> <register>"
+  category: "Inter-level Instructions"
+  instruction_class: 
+  privilege: "privileged"
+  
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-7"
+      description: "The opcode for inter-register read"
+    
+    - name: "level"
+      bits: "6-3"
+      type: "uint4"
+      description: "Privilege level to access (0-15)"
+    
+    - name: "register"
+      bits: "2-0"
+      type: "enum"
+      description: "Register to read from specified level"
+      enum:
+        - name: "STS" # OR blank or
+          value: "000000"
+          description: "Status register"
+        - name: "DD"
+          value: "000001"
+          description: "D register"
+        - name: "DP"
+          value: "000002"
+          description: "P register"
+        - name: "DB"
+          value: "000003"
+          description: "B register"
+        - name: "DL"
+          value: "000004"
+          description: "L register"
+        - name: "DA"
+          value: "000005"
+          description: "A register"
+        - name: "DT"
+          value: "000006"
+          description: "T register"
+        - name: "DX"
+          value: "000007"
+          description: "X register" 
+
+  examples:
+    - name: "IRR 160 DP"
+      description: "Copy the program counter on program level 14 into the A register of the current program level."

@@ -1,0 +1,25 @@
+function:
+  name: "MemoryWrite"
+  description: "Write a 16-bit value to memory at the specified address"
+  
+  parameters:
+    - name: "addr"
+      type: "uint16"
+      description: "Memory address to write to"
+    - name: "value"
+      type: "uint16"
+      description: "16-bit value to write"
+  
+  returns: "void"
+  
+  affects_flags:
+    - "C"
+    - "O"
+  
+  body:
+    meta: |
+      # Write low byte
+      MemoryWriteByte(addr, value & 0xFF)
+      
+      # Write high byte
+      MemoryWriteByte(addr + 1, (value >> 8) & 0xFF) 

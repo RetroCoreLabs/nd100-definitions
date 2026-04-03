@@ -1,0 +1,60 @@
+// EMIL code for MST instruction
+// Masked set - Set bits in internal register where A register has 1s
+
+// Field extract macros
+#define REG ((instruction >> 0) & 0x0F)
+
+// Trace helpers
+void trace_pre(int level, const char* reg, uint16_t value) {
+    printf("[%d] %s = 0x%04X\n", level, reg, value);
+}
+
+void trace_step(int level, const char* msg, uint16_t value) {
+    printf("[%d] %s = 0x%04X\n", level, msg, value);
+}
+
+void trace_post(int level) {
+    printf("[%d] Instruction complete\n", level);
+}
+
+// Function prototypes
+void CheckPriv();
+
+// Privilege check
+if (!CheckPriv()) {
+    return;
+}
+
+// Register access patterns
+uint16_t A = gReg[CurrLEVEL, A];
+
+// Trace pre-execution
+trace_pre(1, "A", A);
+
+// Main instruction logic
+switch (REG) {
+    case 0x01:  // Status register
+        uint16_t sts = gReg[CurrLEVEL, STS];
+        trace_pre(1, "STS", sts);
+        sts |= A;  // Set bits where A has 1s
+        gReg[CurrLEVEL, STS] = sts;
+        trace_step(1, "STS", sts);
+        break;
+
+    case 0x07:  // Priority interrupt enable
+        uint16_t pie = gReg[CurrLEVEL, PIE];
+        trace_pre(1, "PIE", pie);
+        pie |= A;  // Set bits where A has 1s
+        gReg[CurrLEVEL, PIE] = pie;
+        trace_step(1, "PIE", pie);
+        break;
+
+    // Add other internal register cases as needed
+
+    default:
+        // unknown register
+        break;
+}
+
+// Trace post-execution
+trace_post(1); 

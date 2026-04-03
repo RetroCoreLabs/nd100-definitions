@@ -1,0 +1,57 @@
+// EMIL code for TRA instruction
+// Transfer to A register - Copy internal register to A
+
+// Field extract macros
+#define REG ((instruction >> 0) & 0x0F)
+
+// Trace helpers
+void trace_pre(int level, const char* reg, uint16_t value) {
+    printf("[%d] %s = 0x%04X\n", level, reg, value);
+}
+
+void trace_step(int level, const char* msg, uint16_t value) {
+    printf("[%d] %s = 0x%04X\n", level, msg, value);
+}
+
+void trace_post(int level) {
+    printf("[%d] Instruction complete\n", level);
+}
+
+// Function prototypes
+void CheckPriv();
+
+// Privilege check
+if (!CheckPriv()) {
+    return;
+}
+
+// Register access patterns
+uint16_t A = gReg[CurrLEVEL, A];
+
+// Trace pre-execution
+trace_pre(1, "A", A);
+
+// Main instruction logic
+switch (REG) {
+    case 0x0C:  // Automatic load descriptor
+        A = gReg[CurrLEVEL, ALD];
+        trace_step(1, "A<=ALD", A);
+        break;
+
+    case 0x01:  // Status register
+        A = gReg[CurrLEVEL, STS];
+        trace_step(1, "A<=STS", A);
+        break;
+
+    // Add other internal register cases as needed
+
+    default:
+        // unknown register
+        break;
+}
+
+// Update A register
+gReg[CurrLEVEL, A] = A;
+
+// Trace post-execution
+trace_post(1); 

@@ -1,0 +1,22 @@
+instruction:
+  name: "SUB"
+  description: |
+    Subtract from A register
+    A ⟵ A - (EL)
+
+    Subtract the contents of the memory location pointed to by the effective address from the A register, leaving the result in A.
+
+  detailed_description: |
+    Flags affected:
+    - C=1: If a carry occurs from the signed bit positions of the adder.
+    - O=1, Q=1: If an overflow occurs, that is if the signs of the two operands are equal and the sign of the result is different.
+    - O=1, Q=0: If overflow does not exist, the dynamic overflow flag (O) is reset to 0 while the static overflow flag (Q) is left unchanged.
+
+
+  opcode: "064000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "SUB <addressing_mode> <displacement>"
+  category: "Arithmetic and Logical"
+  instruction_class: "memory_transfer"
+  privilege: "user" 
+  flags_affected: ["C", "Q"] 

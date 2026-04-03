@@ -1,0 +1,18 @@
+instruction:
+  name: TSETP
+  description: |
+    Test and set physical memory word.
+    
+  detailed_description: |
+    (T) points to the physical memory bank to be accessed
+    (X) points to the address within the bank
+    (A) is loaded with the word
+    
+    The contents of the location addressed by T and X are simultaneously loaded into the A register as the location is written to with all 1s. No other memory access is allowed during this operation.
+    The old content of the memory address is always read from the memory and never from cache. The all 1s' data word is never written to cache.
+    This instruction can be used for processor synchronization.
+  format: TSETP
+  opcode: "140516"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

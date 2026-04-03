@@ -1,0 +1,17 @@
+instruction:
+  name: BANC
+  description: |
+    logical AND with bit complement
+
+    K ⟵ K & (B)0
+
+    Perform a bitwise AND with the contents of the B register and the contents of the K register, leaving the result in K.
+
+  opcode: "177000"  # Octal
+  mask: "1111_1111_1000_0000" # top 9 bits are opcode
+  format: "BANC"    
+  category: "Bit instructions"
+  privilege: "user"
+  flags_affected:
+    - K  # 1-bit accumulator (K)
+    

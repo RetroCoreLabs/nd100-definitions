@@ -1,0 +1,62 @@
+register:
+  name: IIE
+  description: |
+    Internal Interrupt Enable register that controls which internal interrupts are enabled.
+    Internal hardware status interrupts are individually enabled by an 11 bit (10-0) register called IIE, Internal Interrupt Enable.
+    IIE is set by the "TRR IIE" instruction.
+  size: 16
+  type: control
+  bits:
+    - name: NA
+      position: 0
+      size: 1
+      description: Not Assigned - Reserved for future use
+    - name: MC
+      position: 1
+      size: 1
+      description: Monitor Call - Enables monitor call interrupts
+    - name: MPV
+      position: 2
+      size: 1
+      description: Memory Protection Violation - Enables memory protection violation interrupts
+    - name: PF
+      position: 3
+      size: 1
+      description: Page Fault - Enables page fault interrupts when page is not in memory
+    - name: II
+      position: 4
+      size: 1
+      description: Illegal Instruction - Enables interrupts for not implemented instructions
+    - name: Z
+      position: 5
+      size: 1
+      description: Error Indicator - Enables interrupts when Z indicator is set
+    - name: PI
+      position: 6
+      size: 1
+      description: Privileged Instruction - Enables privileged instruction interrupts
+    - name: IOX
+      position: 7
+      size: 1
+      description: IOX Error - Enables interrupts when there's no answer from external device
+    - name: PTY
+      position: 8
+      size: 1
+      description: Memory Parity Error - Enables memory parity error interrupts
+    - name: MOR
+      position: 9
+      size: 1
+      description: Memory Out of Range - Enables interrupts when addressing non-existent memory
+    - name: POW
+      position: 10
+      size: 1
+      description: Power Fail - Enables power failure detection interrupts
+    - name: reserved
+      position: 11
+      size: 5
+      description: Reserved for future use
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: false
+  group: interrupt 

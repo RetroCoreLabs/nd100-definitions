@@ -1,0 +1,23 @@
+instruction:
+  name: "EXIT"
+  description: |
+    Return from subroutine
+
+    This compound mnemonic represents the specific COPY instruction: 
+      COPY SL DP
+
+    It causes the return from a subroutine by copying the stored return address into the program counter (P register).
+
+  opcode: "0146142"  # Octal
+  mask: "1111_1111_1111_1111"  # Matches bit pattern from image
+  format: "EXIT" # COPY SL DP
+  category: "Register Operations"
+  instruction_class: 
+  flags_affected: ["C", "O", "Q"]
+  privilege: "user"
+  isalias: true
+  examples:
+    - description: "[ (L)=108, (P)=190 ] Leave subroutine at location 190 and return to loaction 108"
+      code: "EXIT"
+
+  

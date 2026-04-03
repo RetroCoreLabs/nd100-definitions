@@ -1,0 +1,100 @@
+name: "addressing_modes"
+description: "These three bits give the addressing mode for the instruction"
+bit_size: 3
+type: "addressing_mode"
+values:
+  - name: "prelative"
+    value: 0
+    mode: "P relative addressing"
+    bit_pattern: "000"
+    format: "<disp>"
+    example: "STA *2"
+    fields:
+      - X: 0
+      - I: 0
+      - B: 0
+    effective_address: "(P) + disp"
+
+  - name: "brelative"
+    value: 1
+    mode: "B-relative addressing"
+    bit_pattern: "001"
+    format: "<disp>, B"
+    example: "LDA -4,B"
+    fields:
+      - X: 0
+      - I: 0
+      - B: 1
+    effective_address: "(B) + disp"
+
+  - name: "indirect_prelative"
+    value: 2
+    mode: "P indirect addressing"
+    bit_pattern: "010"
+    format: "I <disp>"
+    example: "LDA I *22"
+    fields:
+      - X: 0
+      - I: 1
+      - B: 0
+    effective_address: "((P) + disp)"
+
+  - name: "indirect_brelative"
+    value: 3
+    mode: "B indirect addressing"
+    bit_pattern: "011"
+    format: "I <disp> ,B"
+    example: "JPL I 3,B"
+    fields:
+      - X: 0
+      - I: 1
+      - B: 1
+    effective_address: "((B) + disp)"
+
+  - name: "xrelative"
+    value: 4
+    mode: "X relative addressing"
+    bit_pattern: "100"
+    format: "<disp>,X"
+    example: "LDA 0,X"
+    fields:
+      - X: 1
+      - I: 0
+      - B: 0
+    effective_address: "(X) + disp"
+
+  - name: "brelative_indexed"
+    value: 5
+    mode: "B indexed addressing"
+    bit_pattern: "101"
+    format: "<disp>,B,X"
+    example: "LDA 17,B ,X"
+    fields:
+      - X: 1
+      - I: 0
+      - B: 1
+    effective_address: "(B) + disp + (X)"
+
+  - name: "indirect_prelative_indexed"
+    value: 6
+    mode: "P indirect indexed addressing"
+    bit_pattern: "110"
+    format: ",X I <disp>"
+    example: "LDA ,X I *4"
+    fields:
+      - X: 1
+      - I: 1
+      - B: 0
+    effective_address: "((P) + disp) + (X)"
+
+  - name: "indirect_brelative_indexed"
+    value: 7
+    mode: "B indirect indexed addressing"
+    bit_pattern: "111"
+    format: ",X I ,B <disp>"
+    example: "LDA ,X I ,B *4"
+    fields:
+      - X: 1
+      - I: 1
+      - B: 1
+    effective_address: "((B) + disp) + (X)" 

@@ -1,0 +1,34 @@
+instruction:
+  name: PACK
+  description: |
+    Convert to BCD.
+    
+    (op2) ⟵ (op1) in BCD format
+    
+    Convert the first operand from its ASCII format to BCD format, placing the result in the second operand location.
+    
+    **Conversion process:**
+    PACK carries out the following steps:
+    1. Checks the sign and digits of the operand (op1) are encoded as ASCII digits. (Reporting illegal codes as error code 2.)
+    2. Takes the 4 least significant bits of each ASCII digit as the equivalent BCD digit.
+    3. Converts the ASCII sign of the operand to BCD:
+
+           ASCII   BCD   Sign
+           53₈    14₈   +
+           55₈    15₈   -
+        Note: If bit 13 of the descriptor D2 is set, then the code 17₈ (BCD unsigned) is used.
+    4. Extends the second operand field (op2) with zeros if the result is too small to fill the field.
+       Reports overflow has occurred (error code 3) if the second operand field length is too short to contain the significant digits of the result (the remaining digits are ignored).
+    
+    **Error code:**
+    An error code is placed in bits 0 to 4 of the D register if an illegal code conversion is attempted or if overflow occurs. The first detected error will be reported.
+    
+        Error code: 2   illegal code†
+                    3   overflow
+        † bit 15 of both the A and D registers point to the byte containing the illegal code.
+  opcode: "0140124" # Octal
+  format: "PACK"
+  mask: "1111_1111_1111_1111"
+  category: "Decimal Instructions"
+  instruction_class:
+  privilege: "user" 

@@ -1,0 +1,15 @@
+instruction:
+  name: LACB
+  description: |
+    Load the A register from the core map-table bank (CMBNK).
+    
+    (A) <--- (ea)
+    
+    ea = (B) + Δ = CMBNK entry
+    
+    Δ: 3-bit displacement added to B included in the instruction opcode (bits 5-3)
+  format: LACB <displacement>
+  opcode: "140702"  # Octal, Δ is a 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Control Instructions"
+  privilege: "privileged" 

@@ -1,0 +1,29 @@
+instruction:
+  name: "COPY"
+  description: |
+    Copy source to destination
+
+    COPY is a compound mnemonic for RADD CLD.
+
+    Optional subinstructions:
+    The following sub-instructions are allowed:
+      CM1, CM2, ADC, AD1
+
+    Note:
+    Using ADC and AD1i in the same instruction generates a no-operation.
+
+
+  opcode: "0146100"  # Octal
+  mask: "1111_1111_0000_0000"  # Top 8 is the opcode.
+  format: "COPY [sub-instruction(s)] <source> <destination>"
+  category: "Register Operations"
+  instruction_class: "register_src_dst"
+  flags_affected: ["C", "O", "Q"]
+  privilege: "user"
+  isalias: true
+  examples:
+    - description: "Copy the contents of the A register to the D register."
+      code: "COPY SA DD"
+    - description: "2's complement the A register. (Equivalent to RADD CM1 ADC SA DA"
+      code: "COPY CM2 SA DA"
+

@@ -1,0 +1,13 @@
+instruction:
+  name: LBITP
+  description: |
+    Load single bit accumulator (K) with physical memory bit.
+    
+    (T) points to the bank number containing the bit array
+    (X) points to the start of a bit array
+    (A) points to the bit within the array
+  format: LBITP
+  opcode: "140511"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

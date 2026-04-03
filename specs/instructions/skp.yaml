@@ -1,0 +1,115 @@
+instruction:
+  name: SKP
+  description: |
+    The next instruction is skipped if a specified condition is true.
+
+  detailed_description: |
+    SKP can be qualified by eight different mnemonics which use the flags set by the following expression:
+
+        (dr) - (sr)
+
+    Four flags are affected by this calculation:
+
+        S  sign
+        Z  zero result (error)
+        C  carry
+        O  overflow
+
+    The condition codes are as follows:
+    
+      <ascii-table>
+        ┌───────┬─────────┬──────────────────────────────┬────────────────────────┐
+        │ bits  │ mnemonic│ description                  │ flag(s) condition      │
+        │10 9 8 │         │                              │ if true                │
+        ├───────┼─────────┼──────────────────────────────┼────────────────────────┤
+        │ 0 0 0 │ EQL     │ Equal                        │ Z = 1                  │
+        │ 0 0 1 │ GEQ     │ Greater or equal to †        │ S = 0                  │
+        │ 0 1 0 │ GRE     │ Greater or equal to * †      │ S + O = 0              │
+        │ 0 1 1 │ MGRE    │ Magnitude greater or equal * │ C = 1                  │
+        │ 1 0 0 │ UEQ     │ Unequal                      │ Z = 0                  │
+        │ 1 0 1 │ LSS     │ Less than †                  │ S = 1                  │
+        │ 1 1 0 │ LST     │ Less than * †                │ S + O = 1              │
+        │ 1 1 1 │ MLST    │ Magnitude less than *        │ C = 0                  │
+        └───────┴─────────┴──────────────────────────────┴────────────────────────┘
+      </ascii-table>
+
+    * Overflow is taken care of
+    † Contents of sr and dr are treated as signed numbers
+
+    Note:
+    By swapping the sr and dr fields, these relationships can be tested:
+      >  Greater than
+      <= Less than or equal
+
+  opcode: "140000"  # Octal
+  mask: "1111_1000_1100_0000" # top 5 + 7-6 (must be 00) bit are the opcode
+  format: "SKP <dr> <condition> <sr>" # SKP <dr> <condition> <sr>    
+  category: "Skip Instruction"
+  instruction_class:
+  privilege: "user"
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-11"
+      description: "The opcode determines what type of operation occurs"
+    - name: "condition"
+      type: "enum"
+      bits: "10-8"
+      description: "Condition to skip the next instruction"
+      enum: # values are OCTAL
+          - name: "EQL"
+            value: "0" # 000 in binary
+            description: "Equal"
+          - name: "GEQ"
+            value: "1" # 001 in binary
+            description: "Greater or equal to (signed)"
+          - name: "GRE"
+            value: "2" # 010 in binary
+            description: "Greater or equal to (overflow, signed)"
+          - name: "MGRE"
+            value: "3" # 011 in binary
+            description: "Magnitude greater or equal to (overflow, unsigned)"
+          - name: "UEQ"
+            value: "4" # 100 in binary
+            description: "Unequal"
+          - name: "LSS"
+            value: "5" # 101 in binary
+            description: "Less than (overflow, unsigned)"
+          - name: "LST"
+            value: "6" # 110 in binary
+            description: "Less than (overflow, signed)"
+          - name: "MLST"
+            value: "7" # 111 in binary
+            description: "Magnitude less than (overflow, unsigned)"
+    - name: "zeros"
+      type: "value"
+      value: "0" 
+      bits: "7-6"
+      description: "Must be 00"
+    - name: "sr"
+      type: "src_register" # Enum type defined in CPY.yaml
+      bits: "5-3"
+      description: "The source register to be compared with the destination register"
+    - name: "dr"
+      type: "dst_register" #  Enum type defined in CPY.yaml
+      bits: "2-0"
+      description: "The destination register to be compared with the source register"  
+  flags_affected:
+    - S  # Sign
+    - Z  # Zero result (error)
+    - C  # Carry
+    - O  # Overflow
+  
+  examples:
+    - description: "Skip next instruction if the D register contents equal that of the A register."
+      code: "SKP DD EQL SL"
+    - description: |
+        Skip the next instruction if the contents of the A register are less than the B register contents.
+        OR
+        Skip the next instruction if the contents of the B register are greater than the A register contents.
+      code: "SKP DB LSS SA"
+    - description: "Skip the next instruction if the contents of the L register do not equal zero."
+      code: "SKP DL UEQ"
+    - description: "Skip the next instruction if the D register is less than zero."
+      code: "SKP LSS SD"
+

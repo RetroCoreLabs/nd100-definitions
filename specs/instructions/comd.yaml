@@ -1,0 +1,40 @@
+instruction:
+  name: COMD
+  description: |
+    Compare two decimal operands.
+    
+    (A) ⟵ (op1) compared to (op2)
+    
+    (A) =  0   if (op1) = (op2)
+    (A) =  1   if (op1) > (op2)
+    (A) = -1   if (op1) < (op2)
+    
+    Compare the first operand with the second operand, leaving the result in the A register.
+    
+    If the two operands are unequal in field length, the shorter operand is extended with zeros to allow comparison. The operands are unaffected by the instruction.
+    
+    The positions of the decimal points are not taken into account when the two operands are compared, so the two operands should be normalized using the SHDE instruction first.
+    
+    Any empty operand, that is with a field length of zero, is treated as a positive zero. An unsigned number is treated as positive. Positive and negative zeros are equal.
+    
+    **Instruction sequence:**
+    
+        COMD
+        error handling instruction
+        next instruction after COMD or after error handling routine
+    
+    **Example:**
+    
+        COMD
+        JMP *30₈
+        AAA 20₈
+    
+    The COMD instruction causes the program counter to skip the next instruction UNLESS an error has been generated. In this case, the instruction immediately after COMD will handle the error in some way (in this example a jump is executed on error to ((P) + 30₈)).
+    
+    (* is the assembler mnemonic for the P register)
+  opcode: "0140122" # Octal
+  format: "COMD"
+  mask: "1111_1111_1111_1111"
+  category: "Decimal Instructions"
+  instruction_class:
+  privilege: "user" 

@@ -1,0 +1,13 @@
+instruction:
+  name: SBYTP
+  description: |
+    Store a byte in physical memory.
+    
+    (D) points to the bank number containing the byte array
+    (T) points to the start of a byte array
+    (X) points to the actual byte within the array
+  format: SBYTP
+  opcode: "140515"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

@@ -1,0 +1,16 @@
+instruction:
+  name: "FSB"
+  description: |
+    Subtract from floating point accumulator.
+    
+    The contents of two sequential memory locations, pointed to by the effective address, are subtracted from the contents of the floating point accumulator (A and D registers). 
+    The result is held in the accumulator.
+
+  opcode: "104000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "FSB <addressing_mode> <disp>"
+  category: "Standard Floating Instructions"
+  instruction_class: "memory_transfer"
+  privilege: "user"
+  flags_affected:
+    - Z  # Error

@@ -1,0 +1,55 @@
+instruction:
+  name: "EXR"
+  description: |
+    Execute instruction found in specified register
+
+    The contents of the sr register are executed as the next instruction.
+    If sr contains a memory reference instruction, the address is given as part of the instruction.    
+    
+    EXR <sr> cannot be used to fetch an <sr> register containing another EXR instruction. 
+    If you attempt this the error flag (Z) is set.
+
+  opcode: "0140600"  # Octal
+  mask: "1111_1111_1100_0000"  # Only 3 lower bits are flexible
+  format: "EXR <sr>"
+  category: "Execute"
+  instruction_class:
+  privilege: "user"
+  
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-3"
+      description: "The opcode for execute instruction"
+    
+    - name: "register"
+      bits: "2-0"
+      type: "enum"
+      description: "Register containing instruction to execute"
+      enum:
+        - name: "SD"
+          value: "000010"
+          description: "D register"
+        - name: "SB"
+          value: "000030"
+          description: "B register"
+        - name: "SL"
+          value: "000040"
+          description: "L register"
+        - name: "SA"
+          value: "000050"
+          description: "A register"
+        - name: "ST"
+          value: "000060"
+          description: "T register"
+        - name: "SX"
+          value: "000070"
+          description: "X register" 
+
+  examples:
+    - description: "[(A) = 014177, STX *177] Execute the instruction held in the A register. Store the K register contents in the memory location pointed to by the program counter plus 177."
+      code: "EXR SA"
+    - description: "[(B) = 134020, JPL 20] Execute the instruction held in the B register. The instruction is 4a jump to a subroutine at memory location ({P} + 20.). The return address (the address of the instruction after EXR) returned to once the subroutine has been completed is heid in the L register."
+      code: "EXR SB"
+
+

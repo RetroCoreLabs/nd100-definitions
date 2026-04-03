@@ -1,0 +1,43 @@
+register:
+  name: PANS
+  description: Panel Status register that indicates the current state of the operator panel
+  size: 16
+  type: control
+  bits:
+    - name: PANEL_ON
+      position: 0
+      size: 1
+      description: Panel On - Indicates whether the operator panel is powered on
+    - name: RUNNING
+      position: 1
+      size: 1
+      description: Running Status - Indicates whether the CPU is currently running
+    - name: STOPPED
+      position: 2
+      size: 1
+      description: Stopped Status - Indicates whether the CPU is currently stopped
+    - name: FAULT
+      position: 3
+      size: 1
+      description: Fault Status - Indicates whether a fault condition exists
+    - name: STEP_MODE
+      position: 4
+      size: 1
+      description: Step Mode - Indicates whether the CPU is in single step mode
+    - name: DISPLAY_MODE
+      position: 5
+      size: 2
+      description: Display Mode - Current display mode of the panel (00=normal, 01=register, 10=memory, 11=diagnostic)
+    - name: SWITCHES
+      position: 7
+      size: 1
+      description: Switch Status - Indicates whether panel switches have changed
+    - name: reserved
+      position: 8
+      size: 8
+      description: Reserved for future use
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: panel 

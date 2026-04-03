@@ -1,0 +1,9 @@
+instruction:
+  name: ENPT
+  description: |
+    Enter segment in page tables. 
+  format: ENPT
+  opcode: "140506"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

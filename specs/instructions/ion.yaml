@@ -1,0 +1,12 @@
+instruction:
+  name: ION
+  description: |
+    Interrupt System ON
+    
+    Enables the interrupt system. On ION the ND-i10 resumes operation in the program level with highest priority.
+  opcode: "150402"  # Octal
+  mask: "1111_1111_1111_1111" # top 16 bits are opcode
+  format: "ION"    
+  category: "Interrupt Control Instructions"
+  instruction_class:
+  privilege: "user"

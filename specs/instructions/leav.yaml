@@ -1,0 +1,19 @@
+instruction:
+  name: "LEAVE"
+  description: |
+    Leave stack.
+    
+    This instruction saves the previous stack pointer in LINK. 
+    The B register is restored to its previous value (PREVB) and the stack is left by loading the P register (program counter) with the return address (LINK).
+    
+      (P) ⟵ (B = 200₈)   {LINK}
+      (B) ⟵ (B = 177₈)   {PREVB}
+    
+    Format:
+      LEAVE
+  opcode: "0140136" # Octal
+  format: "LEAVE"
+  mask: "1111_1111_1111_1111"
+  category: "Stack Operations"
+  instruction_class:
+  privilege: "user"

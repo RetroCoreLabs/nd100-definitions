@@ -1,0 +1,14 @@
+instruction:
+  name: LDDTX
+  description: |
+    Load double word
+    
+    (A) ⟵ (ea)
+    (D) ⟵ (ea + 1)
+    
+    Load the contents of the physical memory location pointed to by the effective address into the A register and the contents of the effective address plus one into the D register.
+  format: LDDTX <displacement>
+  opcode: "143302"  # Octal, Δ denotes 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Memory Transfer Instructions"
+  privilege: "privileged" 

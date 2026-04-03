@@ -1,0 +1,72 @@
+instruction:
+  name: TRR
+  description: |
+    Transfer A to internal register
+    The internal register given in the instruction is loaded with the contents of the A register.
+    
+  opcode: "0150100"  # Octal
+  format: "TRR <internal_register>"
+  category: "Register Transfer"
+  instruction_class: #"register_transfer" 
+  privilege: "privileged"
+  mask: "1111_1111_1111_0000" # top 12 bits are opcode
+  bit_format: |
+        +----------------------------+---------+
+        | 15 -------------------- 4  | 3 --- 0 |
+        +----------------------------+---------+
+        | OpCode                     | Register|
+        +----------------------------+---------+
+  operands:
+    - name: "opcode"
+      type: "opcode"
+      bits: "15-4"
+      description: "The opcode determines what type of operation occurs"
+    - name: "internal_register"
+      type: "enum"
+      bits: "3-0"
+      description: "The CPU internal register"
+      enum: # values are OCTAL
+        - name: "PANC"
+          value: "0000"
+          description: "Panel control"
+        - name: "STS"
+          value: "0001"
+          description: "Status register"
+        - name: "LMP"
+          value: "0002"
+          description: "Panel data display buffer register"
+        - name: "PCR"
+          value: "0003"
+          description: "Paging control register"
+        - name: "IIE"
+          value: "0005"
+          description: "Internal interrupt enable register"
+        - name: "PID"
+          value: "0006"
+          description: "Priority interrupt detect register"
+        - name: "PIE"
+          value: "0007"
+          description: "Priority interrupt enable register"
+        - name: "CCL"
+          value: "0010"
+          description: "Cache clear register"
+        - name: "LCIL"  
+          value: "0011"
+          description: "Lower cache inhibit limit register"
+        - name: "UCIL"
+          value: "0012"
+          description: "Upper cache inhibit limit register"
+        - name: "CILP"
+          value: "0013"
+          description: "Cache inhibit page register"
+        - name: "ECCR"
+          value: "0015"
+          description: "Error correction control register"
+        - name: "CS"
+          value: "0017"
+          description: "Control Store"
+          
+          
+        
+
+

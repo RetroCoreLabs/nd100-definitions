@@ -1,0 +1,47 @@
+register:
+  name: PES
+  description: Parity Error Status Register that contains information about detected parity errors
+  size: 16
+  type: control
+  bits:
+    - name: MEM_PARITY
+      position: 0
+      size: 1
+      description: Memory Parity Error - Indicates a parity error in main memory
+    - name: CACHE_PARITY
+      position: 1
+      size: 1
+      description: Cache Parity Error - Indicates a parity error in cache memory
+    - name: REG_PARITY
+      position: 2
+      size: 1
+      description: Register Parity Error - Indicates a parity error in a CPU register
+    - name: IO_PARITY
+      position: 3
+      size: 1
+      description: I/O Parity Error - Indicates a parity error during I/O operation
+    - name: MULTI_PARITY
+      position: 4
+      size: 1
+      description: Multiple Parity Errors - Indicates multiple parity errors detected
+    - name: CORRECTED
+      position: 5
+      size: 1
+      description: Corrected Error - Indicates error was corrected by ECC
+    - name: UNCORRECTED
+      position: 6
+      size: 1
+      description: Uncorrected Error - Indicates error could not be corrected
+    - name: SYNDROME
+      position: 7
+      size: 8
+      description: Error Syndrome - The syndrome bits for ECC/parity checking
+    - name: ERROR_COUNT 
+      position: 15
+      size: 1
+      description: Error Count Overflow - Indicates error counter has overflowed
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: memory 

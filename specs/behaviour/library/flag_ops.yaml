@@ -1,0 +1,72 @@
+function:
+  name: "set_flag"
+  description: "Set a CPU flag to the specified value"
+  
+  parameters:
+    - name: "flag"
+      type: "string"
+      description: "Flag name (C, O, Q, Z, K, I, D, V)"
+    - name: "value"
+      type: "bool"
+      description: "Value to set the flag to"
+  
+  returns: "void"
+  
+  affects_flags: []
+  
+  body:
+    meta: |
+      # Set the specified flag
+      if (flag == "C"):
+        flags.C = value
+      elif (flag == "O"):
+        flags.O = value
+      elif (flag == "Q"):
+        flags.Q = value
+      elif (flag == "Z"):
+        flags.Z = value
+      elif (flag == "K"):
+        flags.K = value
+      elif (flag == "I"):
+        flags.I = value
+      elif (flag == "D"):
+        flags.D = value
+      elif (flag == "V"):
+        flags.V = value
+
+---
+
+function:
+  name: "get_flag"
+  description: "Get the value of a CPU flag"
+  
+  parameters:
+    - name: "flag"
+      type: "string"
+      description: "Flag name (C, O, Q, Z, K, I, D, V)"
+  
+  returns: "bool"
+  
+  affects_flags: []
+  
+  body:
+    meta: |
+      # Get the specified flag
+      if (flag == "C"):
+        return flags.C
+      elif (flag == "O"):
+        return flags.O
+      elif (flag == "Q"):
+        return flags.Q
+      elif (flag == "Z"):
+        return flags.Z
+      elif (flag == "K"):
+        return flags.K
+      elif (flag == "I"):
+        return flags.I
+      elif (flag == "D"):
+        return flags.D
+      elif (flag == "V"):
+        return flags.V
+      else:
+        return false 

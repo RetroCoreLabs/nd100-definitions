@@ -1,0 +1,28 @@
+function:
+  name: "MemoryRead"
+  description: "Read a 16-bit value from memory at the specified address"
+  
+  parameters:
+    - name: "addr"
+      type: "uint16"
+      description: "Memory address to read from"
+  
+  returns: "uint16"
+  
+  affects_flags:
+    - "C"
+    - "O"
+  
+  body:
+    meta: |
+      # Read low byte
+      low_byte = MemoryReadByte(addr)
+      
+      # Read high byte
+      high_byte = MemoryReadByte(addr + 1)
+      
+      # Combine bytes into 16-bit value
+      value = (high_byte << 8) | low_byte
+      
+      # Return the value
+      return value 

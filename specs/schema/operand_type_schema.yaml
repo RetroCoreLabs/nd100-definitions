@@ -1,0 +1,113 @@
+$schema: http://json-schema.org/draft-07/schema#
+
+type: object
+required:
+  - name
+  - description
+  - bit_size
+  - type
+properties:
+  name:
+    type: string
+    description: "Name of the operand type"
+  description:
+    type: string
+    description: "Description of the operand type"
+  bit_size:
+    type: integer
+    description: "Size of the operand in bits"
+  type:
+    type: string
+    enum: ["numeric", "enum", "addressing_mode"]
+    description: "Type of the operand"
+  signed:
+    type: boolean
+    description: "Whether the operand is signed (for numeric types)"
+  subfields:
+    type: array
+    description: "Detailed bit field structure for complex operand types like addressing_mode"
+    items:
+      type: object
+      required:
+        - name
+        - position
+        - bit_size
+        - description
+      properties:
+        name:
+          type: string
+          description: "Name of the subfield (e.g., X, I, B)"
+        position:
+          type: integer
+          description: "Bit position of this subfield in the operand"
+        bit_size:
+          type: integer
+          description: "Size of this subfield in bits"
+        description:
+          type: string
+          description: "Description of this subfield"
+        effect_when_set:
+          type: string
+          description: "Effect when this bit is set to 1"
+  composite_effects:
+    type: array
+    description: "Effects when multiple bits are set in specific combinations"
+    items:
+      type: object
+      required:
+        - condition
+        - format_addition
+        - position
+      properties:
+        condition:
+          type: string
+          description: "Condition when this effect applies (e.g., X=1, I=1)"
+        format_addition:
+          type: string
+          description: "Text to add to the assembly format (e.g., ,X, I)"
+        position:
+          type: string
+          enum: ["prefix", "suffix"]
+          description: "Where to add the format addition"
+  values:
+    type: array
+    description: "List of possible values (for enum and addressing_mode types)"
+    items:
+      type: object
+      required:
+        - name
+        - value
+        - description
+      properties:
+        name:
+          type: string
+          description: "Name of the value"
+        value:
+          type: integer
+          description: "Numeric value"
+        description:
+          type: string
+          description: "Description of the value"
+        mode:
+          type: string
+          description: "Addressing mode name (for addressing_mode type)"
+        bit_pattern:
+          type: string
+          pattern: "^[01]+$"
+          description: "Bit pattern for this value"
+        format:
+          type: string
+          description: "Format string for assembly syntax"
+        example:
+          type: string
+          description: "Example usage"
+        fields:
+          type: array
+          description: "Bit fields for this value"
+          items:
+            type: object
+            additionalProperties:
+              type: integer
+        effective_address:
+          type: string
+          description: "Formula for effective address calculation"

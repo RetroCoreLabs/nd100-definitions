@@ -1,0 +1,15 @@
+instruction:
+  name: BLDA
+  description: |
+    Load K
+
+    K ⟵ bit
+
+  opcode: "176600"  # Octal
+  mask: "1111_1111_1000_0000" # top 9 bits are opcode
+  format: "BLDA"    
+  category: "Bit instructions"
+  privilege: "user"
+  flags_affected:
+    - K  # 1-bit accumulator (K)
+    

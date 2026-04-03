@@ -1,0 +1,23 @@
+instruction:
+  name: LWCS
+  description: |
+    Writable Control Store Instruction
+    
+    This instruction is PRIVILEGED and only available to:
+      - programs running in system mode (rings 2-3)
+      - programs running without memory protection
+    
+    LWCS is a no-operation in the ND-110.
+    
+    The ND-110 is software compatible but not microcode compatible and writing to the writable control store has no meaning in the ND-110. 
+    A no-operation is executed so that programs written for the ND-100 and NORD-10 can continue.
+    
+        
+    Unused areas of the microprogram can be read or written to using the TRR CS or TRA CS instruction.
+    
+    Further information on the LWCS instruction for the ND-100 can be found in the ND-100 Reference Manual (ND-06.014).
+  format: LWCS
+  opcode: "143500"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "privileged"
+  privilege: "privileged" 

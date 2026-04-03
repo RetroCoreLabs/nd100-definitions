@@ -1,0 +1,23 @@
+instruction:
+  name: "AAA"
+  description: "Add argument to A"
+  opcode: "172400"  # Octal
+  mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
+  format: "AAA <number>"
+  category: "Argument Instruction"
+  privilege: "user"
+  operands:
+    - name: "opcode"        
+      type: "opcode"
+      bits: "15-8"
+      description: "The opcode determines what type of operation occurs"
+    - name: "number"
+      type: "numeric"
+      bits: "7-0"
+      description: "8-bit argument extended to 16 bits using sign extension"
+  flags_affected:
+    - C  # Carry
+    - O  # Overflow
+  examples:
+    - description: "Add 3 to the contents of the A register."
+      code: "AAA 3"

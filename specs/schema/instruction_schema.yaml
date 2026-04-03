@@ -1,0 +1,135 @@
+$schema: http://json-schema.org/draft-07/schema#
+
+type: object
+required:
+  - name
+  - description
+  - opcode
+  - format
+  - category
+  - privilege
+  - instruction_class
+  - flags_affected
+properties:
+  name:
+    type: string
+    pattern: "^[A-Z][A-Z0-9_]*$"
+    description: "Instruction name in uppercase (e.g., 'ADD', 'SUB', 'AND')"
+  description:
+    type: string
+    minLength: 1
+    description: "Basic description of what the instruction does"
+  detailed_description:
+    type: string
+    description: "Detailed description with technical information and usage notes"
+  opcode:
+    type: string
+    pattern: "^0[0-7]{6}$"
+    description: "Instruction opcode in octal format (6 digits)"
+  mask:
+    type: string
+    pattern: "^[01_]+$"
+    description: "Bit mask for opcode (may be omitted if instruction_class is defined)"
+  format:
+    type: string
+    minLength: 1
+    description: "Assembly format of the instruction"
+  category:
+    type: string
+    minLength: 1
+    description: "Category of the instruction"
+  instruction_class:
+    type: string
+    minLength: 1
+    description: "Instruction class (must be a valid class defined in cpu.yaml)"
+  privilege:
+    type: string
+    enum: [User, Privileged]
+    description: "Privilege level required to execute the instruction"
+  isalias:
+    type: boolean
+    description: "Whether this instruction is an alias for another instruction"
+  operands:
+    type: array
+    items:
+      type: object
+      required:
+        - name
+        - description
+        - bits
+      properties:
+        name:
+          type: string
+          pattern: "^[A-Za-z][A-Za-z0-9_]*$"
+          description: "Operand name (must start with a letter)"
+        type:
+          type: string
+          description: "Operand type (e.g., uint5, addressing_mode, displacement, enum)"
+        description:
+          type: string
+          minLength: 1
+          description: "Description of the operand"
+        bits:
+          type: string
+          pattern: "^[0-9]+-[0-9]+$"
+          description: "Bit range in format start-end (e.g., '15-0')"
+        enum:
+          type: array
+          items:
+            type: object
+            required:
+              - name
+              - value
+            properties:
+              name:
+                type: string
+                description: "Enum option name"
+              value:
+                type: string
+                description: "Enum option value"
+        value:
+          type: string
+          description: "Optional fixed value for the operand"
+  flags_affected:
+    type: array
+    items:
+      type: string
+      enum: [C, O, Q, Z]
+    description: "List of flags affected by this instruction"
+  flags:
+    type: object
+    properties:
+      C:
+        type: string
+        description: "Effect on Carry flag"
+      O:
+        type: string
+        description: "Effect on Overflow flag"
+      Q:
+        type: string
+        description: "Effect on Dynamic Overflow flag"
+      Z:
+        type: string
+        description: "Effect on Error flag"
+  pseudocode:
+    type: string
+    description: "Pseudocode showing the instruction's behavior"
+  examples:
+    type: array
+    items:
+      type: object
+      required:
+        - description
+        - code
+      properties:
+        description:
+          type: string
+          minLength: 1
+          description: "Description of what the example demonstrates"
+        code:
+          type: string
+          minLength: 1
+          description: "Example assembly code"
+  generated_bit_format:
+    type: string
+    description: "Auto-generated bit format visualization" 

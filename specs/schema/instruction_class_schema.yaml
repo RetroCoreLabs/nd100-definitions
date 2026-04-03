@@ -1,0 +1,41 @@
+$schema: http://json-schema.org/draft-07/schema#
+
+type: object
+required:
+  - name
+  - description
+  - opcode_mask
+  - opcode_position
+  - opcode_size
+properties:
+  name:
+    type: string
+    description: "Instruction class name"
+  description:
+    type: string
+    description: "Instruction class description"
+  generated_bit_format:
+    type: string
+    description: "Auto-generated bit format visualization based on operands"
+  opcode_mask:
+    type: string
+    pattern: "^0x[0-9A-Fa-f]+$"
+    description: "Opcode mask in hexadecimal format"
+  opcode_position:
+    type: integer
+    minimum: 0
+    description: "Opcode bit position in instruction"
+  opcode_size:
+    type: integer
+    minimum: 1
+    description: "Opcode size in bits"
+  addressing_modes:
+    type: array
+    description: "Supported addressing modes"
+    items:
+      type: string
+  instructions:
+    type: array
+    description: "Instructions in this class"
+    items:
+      type: string 

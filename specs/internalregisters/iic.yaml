@@ -1,0 +1,39 @@
+register:
+  name: IIC
+  description: |
+    Internal Interrupt Control Register that contains the code for the most recent internal interrupt.
+    This register will hold a code between 0 - 12 (octal), which will identify the internal source for the interrupt.
+    Priority encoded IID | IIE
+  size: 16
+  type: control
+  bits:
+    - name: INT_CODE
+      position: 0
+      size: 6
+      description: |
+        Interrupt Code - Specific internal interrupt code (0-63)
+        Commonly used codes (octal):
+        - 0: Not assigned
+        - 1: Monitor Call (MC)
+        - 2: Protect Violation (PV) - Page number is found in the Paging Status Register
+        - 3: Page fault (PF) - Page not in memory
+        - 4: Illegal instruction (II) - Not implemented instruction
+        - 5: Error indicator (Z) - The Z indicator is set
+        - 6: Privileged instruction (PI)
+        - 7: IOX error (IOX) - No answer from external device
+        - 10: Memory parity error (PTY)
+        - 11: Memory out of range (MOR) - Addressing non-existent memory
+        - 12: Power fail interrupt (POW)
+    - name: INT_LEVEL
+      position: 6
+      size: 4
+      description: Interrupt Level - The program level that was interrupted
+    - name: INT_TIME
+      position: 10
+      size: 6
+      description: Interrupt Time - Timestamp of when the interrupt occurred
+  program_level: false
+  read_only: true
+  write_only: false
+  hidden: false
+  group: interrupt 

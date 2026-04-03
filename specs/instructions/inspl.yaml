@@ -1,0 +1,9 @@
+instruction:
+  name: INSPL
+  description: |
+    Insert page in page list. (See Appendix B for a software description.)
+  format: INSPL
+  opcode: "140502"  # Octal
+  mask: "1111_1111_1111_1111"
+  category: "Control Instructions"
+  privilege: "privileged" 

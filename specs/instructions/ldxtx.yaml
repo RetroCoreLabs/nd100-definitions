@@ -1,0 +1,13 @@
+instruction:
+  name: LDXTX
+  description: |
+    Load X register
+    
+    (X) ⟵ (ea)
+    
+    Load the contents of the physical memory location pointed to by the effective address into the X register.
+  format: LDXTX <displacement>
+  opcode: "143301"  # Octal, Δ denotes 3-bit displacement in bits 5-3
+  mask: "1111_1111_1100_0111"
+  category: "Memory Transfer Instructions"
+  privilege: "privileged" 

@@ -1,0 +1,35 @@
+register:
+  name: PGC
+  description: Paging Control Register that controls memory paging operations
+  size: 16
+  type: control
+  bits:
+    - name: PAGE_EN
+      position: 0
+      size: 1
+      description: Paging Enable - When set, memory paging is enabled
+    - name: WP_EN
+      position: 1
+      size: 1
+      description: Write Protection Enable - When set, write protection is enforced
+    - name: ACCESS_EN
+      position: 2
+      size: 1
+      description: Access Control Enable - When set, access control is enforced
+    - name: INT_EN
+      position: 3
+      size: 1
+      description: Page Fault Interrupt Enable - When set, page faults generate interrupts
+    - name: TLB_FLUSH
+      position: 4
+      size: 1
+      description: TLB Flush - Writing 1 flushes the TLB (Translation Lookaside Buffer)
+    - name: PT_BASE
+      position: 5
+      size: 11
+      description: Page Table Base - High 11 bits of the page table base address
+  program_level: false
+  read_only: false
+  write_only: false
+  hidden: false
+  group: memory_management 

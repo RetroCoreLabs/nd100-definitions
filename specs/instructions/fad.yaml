@@ -1,0 +1,18 @@
+instruction:
+  name: "FAD"
+  description: |        
+    Add to floating point accumulator
+
+    (A) ⟵ (ea)     + (T)
+    (D) ⟵ (ea + 1) + (A)
+
+    The contents of two sequential memory locations, pointed to by the effective address, are added to the contents of the floating point accumulator (T and A registers). The result is held in the accumulator.
+    
+
+  opcode: "0100000"  # Octal
+  mask: "1111_1000_0000_0000" # top 5 bits are opcode
+  format: "FAD <addressing_mode> <disp>"
+  category: "Standard Floating Instructions"
+  instruction_class: "memory_transfer"
+  privilege: "user"
+  

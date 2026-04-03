@@ -1,0 +1,22 @@
+instruction:
+  name: "RCLR"
+  description: |
+    Register clear
+
+  detailed_description: |
+    RCLR is a compound mnemonic for "COPY 0" (or RADD CLD 0).
+    
+
+  opcode: "0146100"  # Octal
+  mask: "1111_1111_1111_1000" # Only the last 3 bits are used for this compound mnemonic (which is actually an RADD)
+  format: "RCLR <destination>"
+  category: "Register Operations"
+  instruction_class: "register_dst"
+  privilege: "user"
+  flags_affected: ["C", "O", "Q"]
+  isalias: true
+  examples:
+    - description: "Clear the contents of the A register."
+      code: "RCLR DA"
+
+
