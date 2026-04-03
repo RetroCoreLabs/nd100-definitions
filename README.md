@@ -32,11 +32,11 @@ All paths inside that file (and inside instruction files) are relative to `specs
 ### Adding the submodule
 
 ```sh
-git submodule add <url> path/to/nd100-definitions
+git submodule add https://github.com/HackerCorpLabs/nd100-definitions.git path/to/nd100-definitions
 git submodule update --init --recursive
 ```
 
-Replace `<url>` with the actual remote URL and `path/to/nd100-definitions` with wherever your tool expects the definitions (e.g. `vendor/nd100-definitions` or `data/nd100`).
+Replace `path/to/nd100-definitions` with wherever your tool expects the definitions (e.g. `vendor/nd100-definitions` or `data/nd100`).
 
 ### Checking out an existing repo that already has the submodule
 
