@@ -1,0 +1,25 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Python tooling (if validation scripts are added)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node tooling (if JS validators are added)
+node_modules/
