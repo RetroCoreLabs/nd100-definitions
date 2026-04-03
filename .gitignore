@@ -23,3 +23,21 @@ venv/
 
 # Node tooling (if JS validators are added)
 node_modules/
+
+# .NET / C# build artifacts
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+.vs/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.nupkg
+*.snupkg
+TestResults/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+project.lock.json
+artifacts/

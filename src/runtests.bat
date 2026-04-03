@@ -1,0 +1,1 @@
+dotnet test ND100.Definitions.sln -c Release  --logger "console;verbosity=detailed
