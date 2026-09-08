@@ -32,7 +32,7 @@ All paths inside that file (and inside instruction files) are relative to `specs
 ### Adding the submodule
 
 ```sh
-git submodule add https://github.com/HackerCorpLabs/nd100-definitions.git path/to/nd100-definitions
+git submodule add https://github.com/RetroCoreLabs/nd100-definitions.git path/to/nd100-definitions
 git submodule update --init --recursive
 ```
 
