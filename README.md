@@ -94,4 +94,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Changes here affect every
 
 ## License
 
-BSD 3-Clause — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
