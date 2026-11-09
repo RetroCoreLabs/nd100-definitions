@@ -145,6 +145,45 @@ namespace NDGen.Core.Models
     }
 
     /// <summary>
+    /// One place execution can continue after an instruction (YAML <c>exits</c> entry).
+    /// Exactly one of <see cref="Offset"/> and <see cref="Target"/> is set.
+    /// </summary>
+    public class InstructionExit
+    {
+        /// <summary>
+        /// Gets or sets the fixed exit, in words from the instruction's own address
+        /// (1 = the next word, 2 = skip one word). Null when <see cref="Target"/> is used.
+        /// </summary>
+        public int? Offset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kind of non-fixed exit: effective_address, displacement, result,
+        /// register, stack_link, stack_link_minus_1 or executed_instruction.
+        /// </summary>
+        public string? Target { get; set; }
+
+        /// <summary>
+        /// Gets or sets the register P is loaded from when <see cref="Target"/> is "register".
+        /// </summary>
+        public string? Register { get; set; }
+
+        /// <summary>
+        /// Gets or sets when this exit is used: always, ok, error, taken or not_taken.
+        /// </summary>
+        public string When { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets, in plain words, what makes this exit happen.
+        /// </summary>
+        public string? Condition { get; set; }
+
+        /// <summary>
+        /// Gets or sets extra facts about this exit.
+        /// </summary>
+        public string? Note { get; set; }
+    }
+
+    /// <summary>
     /// Represents a complete instruction definition with validation
     /// </summary>
     public class InstructionDefinition
@@ -244,6 +283,23 @@ namespace NDGen.Core.Models
         /// Gets or sets the examples showing how to use the instruction
         /// </summary>
         public List<Example> Examples { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of data words after the instruction word that the
+        /// instruction reads (for example the stack demand after ENTR). 0 when absent.
+        /// </summary>
+        public int InlineWords { get; set; }
+
+        /// <summary>
+        /// Gets or sets every place execution can continue after this instruction
+        /// (YAML field <c>exits</c>). Traps, page faults and interrupts are not listed.
+        /// </summary>
+        public List<InstructionExit> Exits { get; set; } = new List<InstructionExit>();
+
+        /// <summary>
+        /// Gets or sets where the exits were read from (nd100x file, line, function and commit).
+        /// </summary>
+        public string? ExitsSource { get; set; }
 
         /// <summary>
         /// Gets or sets the auto-generated bit format visualization

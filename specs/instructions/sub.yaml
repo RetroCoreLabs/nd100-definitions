@@ -19,4 +19,10 @@ instruction:
   category: "Arithmetic and Logical"
   instruction_class: "memory_transfer"
   privilege: "user" 
-  flags_affected: ["C", "Q"] 
+  flags_affected: ["C", "Q"]
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3116 opcode_sub_subtract_from_a_register - never writes P (nd100x commit 936bf30)"

@@ -13,3 +13,9 @@ instruction:
   category: "Byte Instructions"
   instruction_class: 
   privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3909 opcode_sbyt_store_byte_from_a_register - never writes P (nd100x commit 936bf30)"

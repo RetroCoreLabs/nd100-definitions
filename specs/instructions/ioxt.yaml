@@ -37,3 +37,9 @@ instruction:
       IOXT is used as a single mnemonic.
 
     Note: The number of external devices that can be controlled by the CPU depends on the configuration of the devices.
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4544 opcode_ioxt_exchange_with_io_system_t_addressed - never writes P (nd100x commit 936bf30)"

@@ -48,4 +48,13 @@ instruction:
   mask: "1111_1111_1111_1111"
   category: "Decimal Instructions"
   instruction_class:
-  privilege: "user" 
+  privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "error"
+      condition: "an operand descriptor is bad, or the operation fails (overflow, lost digits or illegal code)"
+    - offset: 2
+      when: "ok"
+  exits_source: "nd100x src/cpu/bcd.c:1032 opcode_shde_decimal_shift - every early return leaves P at the next word; skip (gPC++) at line 1057 (nd100x commit 936bf30)"

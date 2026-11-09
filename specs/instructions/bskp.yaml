@@ -14,3 +14,12 @@ instruction:
     - description: "Skip the next location if the cary flag is set"
       code: "BSKP ONE SSC"
 
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "the bit test is false"
+    - offset: 2
+      when: "taken"
+      condition: "the bit test is true (ZRO, ONE, BCM or BAC)"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1701 do_bops - cases 4-7, lines 1726, 1732, 1738, 1744 (nd100x commit 936bf30)"

@@ -37,4 +37,13 @@ instruction:
   mask: "1111_1111_1111_1111"
   category: "Decimal Instructions"
   instruction_class:
-  privilege: "user" 
+  privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "error"
+      condition: "an operand descriptor is bad (the compare itself has no error case)"
+    - offset: 2
+      when: "ok"
+  exits_source: "nd100x src/cpu/bcd.c:808 opcode_comd_compare_two_decimal_operands - every early return leaves P at the next word; skip (gPC++) at line 843 (nd100x commit 936bf30)"

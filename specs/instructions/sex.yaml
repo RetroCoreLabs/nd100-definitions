@@ -16,4 +16,9 @@ instruction:
   privilege: "privileged" 
   flags_affected:
     - SEXI
-  
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:5042 opcode_sex_set_extended_address_mode - never writes P (nd100x commit 936bf30)"

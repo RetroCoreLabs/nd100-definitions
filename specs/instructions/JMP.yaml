@@ -9,6 +9,10 @@ instruction:
   category: "Sequencing Instructions"
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
-  instruction_class: "memory_transfer"   
-  
-  
+  instruction_class: "memory_transfer"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - target: "effective_address"
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4022 opcode_jmp_jump_unconditional - line 4027 (nd100x commit 936bf30)"

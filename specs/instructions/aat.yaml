@@ -21,3 +21,9 @@ instruction:
   examples:
     - description: "Add 13 to the contents of the T register."
       code: "AAT 13"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2495 opcode_aat_add_argument_to_t - never writes P (nd100x commit 936bf30)"

@@ -41,3 +41,9 @@ instruction:
     A WAIT on program level 0 is ignored.
 
     WAIT followed by a number less than 400₈ can be used to detect which location caused the program stop.
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1411 do_wait - P is not changed; with interrupts off the CPU stops with P at the next word, otherwise the level is given up and resumes at the next word (nd100x commit 936bf30)"

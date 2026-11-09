@@ -52,4 +52,9 @@ instruction:
     - description: "[(B) = 134020, JPL 20] Execute the instruction held in the B register. The instruction is 4a jump to a subroutine at memory location ({P} + 20.). The return address (the address of the instruction after EXR) returned to once the subroutine has been completed is heid in the L register."
       code: "EXR SB"
 
-
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - target: "executed_instruction"
+      when: "always"
+      note: "P is not changed by EXR itself; the instruction taken from the register runs with P already at the next word, so its own exits apply counted from the EXR"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1378 do_exr - cpu_do_op(..., true) at line 1402 does not advance P (nd100x commit 936bf30)"

@@ -12,4 +12,14 @@ instruction:
   opcode: "140303"  # Octal
   mask: "1111_1111_1111_1111"
   category: "Control Instructions"
-  privilege: "privileged" 
+  privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "a page with WIP set was found and unlinked"
+    - offset: 2
+      when: "taken"
+      condition: "the end of the chain was reached (link word 0) without finding a WIP page"
+  exits_source: "nd100x src/cpu/cpu_instr.c:5574 opcode_chreent_pages - skip at line 5634 (nd100x commit 936bf30)"

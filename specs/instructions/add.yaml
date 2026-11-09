@@ -12,4 +12,10 @@ instruction:
   category: "Arithmetic and Logical"
   instruction_class: "memory_transfer"
   privilege: "user" 
-  flags_affected: ["C", "O", "Q"] 
+  flags_affected: ["C", "O", "Q"]
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3085 opcode_add_add_to_a_register - never writes P (nd100x commit 936bf30)"

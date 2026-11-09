@@ -11,4 +11,10 @@ instruction:
   opcode: "150405"  # Octal
   mask: "1111_1111_1111_1111"
   category: "Memory Management Instructions"
-  privilege: "privileged" 
+  privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:5014 opcode_piof_paging_and_interrupt_off - never writes P (nd100x commit 936bf30)"

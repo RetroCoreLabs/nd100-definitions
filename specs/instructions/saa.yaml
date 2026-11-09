@@ -21,3 +21,9 @@ instruction:
   examples:
     - description: "Set the A register to 10."
       code: "SAA 10"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2379 opcode_saa_set_argument_to_a - never writes P (nd100x commit 936bf30)"

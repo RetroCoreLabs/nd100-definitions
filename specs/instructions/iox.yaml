@@ -50,3 +50,8 @@ instruction:
     - code: "IOX 0305"
       description: "Write character in A register to console device"
 
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4642 opcode_iox_exchange_with_io_system - never writes P (nd100x commit 936bf30)"

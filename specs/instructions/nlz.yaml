@@ -48,5 +48,9 @@ instruction:
       description: "Convert the number in A to a floating number in TAD"
     - code: "NLZ +20"
       description: "Integer to floating conversation"
-      
 
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3508 opcode_nlz_normalize_floating_accumulator - never writes P (nd100x commit 936bf30)"

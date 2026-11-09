@@ -19,3 +19,9 @@ instruction:
   examples:
     - description: "Multiply the contents of the A and X registers together, leaving the result in the A and D registers."
       code: "RMPY SA DX"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:7227 rmpy - never writes P (nd100x commit 936bf30)"

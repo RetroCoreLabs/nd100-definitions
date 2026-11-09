@@ -26,3 +26,14 @@ instruction:
   examples:
     - description: "Exclusive OR the contents of the B and Y registers, leaving the result in B"
       code: "REXO ST DB"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "the destination register is not P"
+    - target: "result"
+      when: "taken"
+      condition: "the destination register field is P (2)"
+      note: "P is loaded with the result; reading P as a source gives the address of the next word"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1142 regop - register write in regop_logical()/regop_arith() (nd100x commit 936bf30)"

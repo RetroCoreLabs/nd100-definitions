@@ -54,3 +54,9 @@ instruction:
   examples:
     - name: "IRR 160 DP"
       description: "Copy the program counter on program level 14 into the A register of the current program level."
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4899 opcode_irr_inter_register_read - never writes P (nd100x commit 936bf30)"

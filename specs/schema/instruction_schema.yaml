@@ -10,6 +10,7 @@ required:
   - privilege
   - instruction_class
   - flags_affected
+  - exits
 properties:
   name:
     type: string
@@ -130,6 +131,64 @@ properties:
           type: string
           minLength: 1
           description: "Example assembly code"
+  inline_words:
+    type: integer
+    minimum: 0
+    description: >-
+      Number of data words that follow the instruction word in memory and are read by the
+      instruction (for example the stack demand after ENTR). They are not code. Omitted = 0.
+  exits:
+    type: array
+    minItems: 1
+    description: >-
+      Every place execution can continue after this instruction (traps, page faults and
+      interrupts are not listed). A plain instruction has one exit: offset 1, when always.
+    items:
+      type: object
+      required:
+        - when
+      oneOf:
+        - required: [offset]
+        - required: [target]
+      properties:
+        offset:
+          type: integer
+          description: >-
+            Fixed exit: words counted from the instruction's own address.
+            1 = the next word, 2 = skip one word.
+        target:
+          type: string
+          enum:
+            - effective_address        # JMP, JPL: the memory address the operand gives
+            - displacement             # conditional jumps: own address + sign-extended 8-bit displacement
+            - result                   # register ops and bit ops whose destination is P: P = the new value
+            - register                 # P is loaded from the register named in 'register'
+            - stack_link               # LEAVE: P = LINK, the stack word at (B) - 200 octal
+            - stack_link_minus_1       # ELEAV: P = LINK - 1
+            - executed_instruction     # EXR: the exits of the instruction taken from the register
+          description: "Exit whose address is not a fixed offset"
+        register:
+          type: string
+          description: "Register P is loaded from, when target is 'register'"
+        when:
+          type: string
+          enum:
+            - always                   # the only exit, or taken every time
+            - ok                       # normal return of an instruction that can fail
+            - error                    # error return of an instruction that can fail
+            - taken                    # the test/skip/jump condition is true
+            - not_taken                # the test/skip/jump condition is false
+          description: "When this exit is used; 'condition' says it in words"
+        condition:
+          type: string
+          description: "Plain words: what makes this exit happen"
+        note:
+          type: string
+          description: "Extra facts about this exit"
+  exits_source:
+    type: string
+    description: >-
+      Where the exits were read from: the nd100x source file, line and function, and the nd100x commit.
   generated_bit_format:
     type: string
     description: "Auto-generated bit format visualization" 

@@ -31,4 +31,14 @@ instruction:
     - description: |
         Use zero as the destination operand. Exchange the A and X register contents. A register contents are zero, X register contents are the previous contents of A.
       code: "SWAP CLD SA DX"
-  
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "neither register field is P"
+    - target: "result"
+      when: "taken"
+      condition: "the destination or the source register field is P (2); SWAP writes both"
+      note: "P is loaded with the result; reading P as a source gives the address of the next word"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1142 regop - SWAP writes both sr and dr in regop_logical() (nd100x commit 936bf30)"

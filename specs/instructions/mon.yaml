@@ -31,4 +31,11 @@ instruction:
     - code: "MON 1"
       description: "Read a character from specified device into the A register"
     - code: "MON 2"
-      description: "Output the character contained in the A register on the specified device" 
+      description: "Output the character contained in the A register on the specified device"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+      note: "the call raises a level 14 interrupt; P on the calling level already points at the next word. Whether the operating system changes the saved P before it returns cannot be seen from the CPU code."
+  exits_source: "nd100x src/cpu/cpu_instr.c:6940 opcode_mon_monitor_call - P is not written; cpu_interrupt(14, ...) at line 6959 (nd100x commit 936bf30)"

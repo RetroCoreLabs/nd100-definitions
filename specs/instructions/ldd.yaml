@@ -13,4 +13,10 @@ instruction:
   format: "LDD <addressing_mode> <displacement>"
   category: "Memory Transfer - Double word instructions"
   instruction_class: "memory_transfer"
-  privilege: "user" 
+  privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2589 opcode_ldd_load_double_word - never writes P (nd100x commit 936bf30)"

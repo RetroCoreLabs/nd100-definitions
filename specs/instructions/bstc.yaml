@@ -12,4 +12,13 @@ instruction:
   privilege: "user"
   flags_affected:
     - K  # 1-bit accumulator (K)
-    
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "the register field is not P"
+    - target: "result"
+      when: "taken"
+      condition: "the register field is P (2): a bit of P is changed and execution continues at the changed P"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1701 do_bops - cpu_setbit(dr, ...) writes the named register, which may be P (nd100x commit 936bf30)"

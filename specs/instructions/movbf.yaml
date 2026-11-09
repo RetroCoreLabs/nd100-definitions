@@ -12,3 +12,12 @@ instruction:
   category: "Byte Instructions"
   instruction_class:
   privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "error"
+      condition: "the destination overlaps the source so that a byte would be overwritten before it is read"
+    - offset: 2
+      when: "ok"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3754 opcode_movbf_move_bytes_forward - skip only when no overlap, line 3837 (nd100x commit 936bf30)"

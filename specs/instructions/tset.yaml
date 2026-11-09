@@ -13,4 +13,10 @@ instruction:
   opcode: "140123"  # Octal
   mask: "1111_1111_1111_1111"
   category: "Memory Examine and Test Instructions"
-  privilege: "privileged" 
+  privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1942 do_tset - never writes P (nd100x commit 936bf30)"

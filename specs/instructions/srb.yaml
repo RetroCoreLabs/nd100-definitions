@@ -41,3 +41,9 @@ instruction:
             ↓         ↓
             (ea + 7) ⟵ B (level 8)
       code: "SRB 100"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4946 opcode_srb_store_register_block - never writes P (nd100x commit 936bf30)"

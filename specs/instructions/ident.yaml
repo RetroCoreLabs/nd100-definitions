@@ -31,6 +31,11 @@ instruction:
         - name: "PL13"
           value: "000043"
           description: "Level 13"       
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4677 opcode_ident_identify_interrupting_device - never writes P (nd100x commit 936bf30)"
 examples:
     - code: "IDENT PL10"
       description: "Transfer IDENT code of interrupting device with highest priority on level 10 to A register. Used in interrupt handler"

@@ -21,4 +21,10 @@ instruction:
     - Z  # Error
     - C  # Carry
     - O  # Overflow
-    - Q  
+    - Q
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:7121 rdiv - never writes P (nd100x commit 936bf30)"

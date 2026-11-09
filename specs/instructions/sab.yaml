@@ -21,3 +21,9 @@ instruction:
   examples:
     - description: "The contents of the B register are set to 177752, bits 0-7 have been extended with ones as the argument is negative; bits 0-7 have the argument in its 2's complement form."
       code: "SAB -26"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2357 opcode_sab_set_argument_to_b - never writes P (nd100x commit 936bf30)"

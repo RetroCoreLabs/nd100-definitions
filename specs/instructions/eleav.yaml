@@ -20,4 +20,11 @@ instruction:
   mask: "1111_1111_1111_1111"
   category: "Stack Operations"
   instruction_class:
-  privilege: "user" 
+  privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - target: "stack_link_minus_1"
+      when: "always"
+      note: "LINK is decremented in the stack, then P is loaded from it: one word before the normal return, which is the error return word of ENTR/INIT"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4515 opcode_eleav_error_leave_stack - line 4522 (nd100x commit 936bf30)"

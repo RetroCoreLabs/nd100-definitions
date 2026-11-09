@@ -34,5 +34,13 @@ instruction:
   privilege: "user"
   flags_affected:
     - PTM # "Page Table Flag - Status register bit 0 used for flag comparison"
-  
 
+  # Where execution continues after this instruction (see schema field 'exits').
+  inline_words: 5
+  exits:
+    - offset: 6
+      when: "error"
+      condition: "stack overflow, or the flag word (bit 0) differs from STS bit 0 (PTM)"
+    - offset: 7
+      when: "ok"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4387 opcode_init_initialize_stack - inline words read at P+0..P+3, error gPC += 5 at lines 4398 and 4403, ok gPC += 6 at line 4412 (nd100x commit 936bf30)"

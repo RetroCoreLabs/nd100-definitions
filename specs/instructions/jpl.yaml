@@ -11,5 +11,11 @@ instruction:
   category: "Sequencing Instructions"
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
-  instruction_class: "memory_transfer"   
-  
+  instruction_class: "memory_transfer"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - target: "effective_address"
+      when: "always"
+      note: "L is set to the next word first, except in addressing mode 5 (,X ,B)"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4284 opcode_jpl_jump_if_last_result_positive - line 4312 (nd100x commit 936bf30)"

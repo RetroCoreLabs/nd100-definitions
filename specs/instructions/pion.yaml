@@ -10,4 +10,10 @@ instruction:
   opcode: "150412"  # Octal
   mask: "1111_1111_1111_1111"
   category: "Memory Management Instructions"
-  privilege: "user" 
+  privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:5123 opcode_pion_paging_and_interrupt_on - never writes P (nd100x commit 936bf30)"

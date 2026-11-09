@@ -13,4 +13,10 @@ instruction:
   category: "Byte Instructions"
   instruction_class: 
   privilege: "user"
-  
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 2
+      when: "always"
+      note: "nd100x has no error path for BFILL: it always takes the skip return. Whether the real CPU can take an error return here is not known from this code."
+  exits_source: "nd100x src/cpu/cpu_instr.c:3574 opcode_bfill_byte_fill - gPC++ at line 3595 with no earlier return (nd100x commit 936bf30)"

@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using NDGen.Core;
+using NDGen.Core.Models;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -42,6 +43,81 @@ public class DefinitionLoaderSmokeTests
             .Count(f =>
                 !f.EndsWith("_template.yaml", StringComparison.OrdinalIgnoreCase)
                 && !string.Equals(Path.GetFileName(f), "cpu.yaml", StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static IReadOnlyList<InstructionDefinition> LoadInstructions()
+    {
+        using var loggerFactory = LoggerFactory.Create(b => { });
+        var loader = new DefinitionLoader(loggerFactory.CreateLogger<DefinitionLoader>(),
+            new YamlLoader(loggerFactory.CreateLogger<YamlLoader>()));
+        loader.Initialize(FindCpuYamlPath());
+        return loader.GetInstructions().ToList();
+    }
+
+    private static InstructionDefinition Get(IReadOnlyList<InstructionDefinition> all, string name)
+    {
+        for (int i = 0; i < all.Count; i++)
+        {
+            if (all[i].Name == name)
+                return all[i];
+        }
+
+        throw new Xunit.Sdk.XunitException("instruction not loaded: " + name);
+    }
+
+    /// <summary>
+    /// Every instruction must say where execution continues afterwards (field "exits"),
+    /// and every exit must be well formed (see specs/schema/instruction_schema.yaml).
+    /// </summary>
+    [Fact]
+    public void Every_instruction_has_valid_exits()
+    {
+        var all = LoadInstructions();
+        string[] whens = { "always", "ok", "error", "taken", "not_taken" };
+        string[] targets = { "effective_address", "displacement", "result", "register",
+            "stack_link", "stack_link_minus_1", "executed_instruction" };
+
+        for (int i = 0; i < all.Count; i++)
+        {
+            var ins = all[i];
+            Assert.True(ins.Exits.Count > 0, ins.Name + ": no exits");
+            Assert.False(string.IsNullOrWhiteSpace(ins.ExitsSource), ins.Name + ": no exits_source");
+            Assert.True(ins.InlineWords >= 0, ins.Name + ": inline_words < 0");
+            for (int e = 0; e < ins.Exits.Count; e++)
+            {
+                var x = ins.Exits[e];
+                Assert.True(x.Offset.HasValue != (x.Target != null), ins.Name + ": exit needs exactly one of offset/target");
+                Assert.True(Array.IndexOf(whens, x.When) >= 0, ins.Name + ": bad when '" + x.When + "'");
+                if (x.Target != null)
+                    Assert.True(Array.IndexOf(targets, x.Target) >= 0, ins.Name + ": bad target '" + x.Target + "'");
+                if (x.Offset.HasValue)
+                    Assert.True(x.Offset.Value > ins.InlineWords, ins.Name + ": exit lands inside the inline words");
+            }
+        }
+    }
+
+    /// <summary>
+    /// The skip returns read from nd100x (bcd.c / cpu_instr.c): error return and normal return.
+    /// </summary>
+    [Theory]
+    [InlineData("ADDD", 0, 1, 2)]
+    [InlineData("SUBD", 0, 1, 2)]
+    [InlineData("COMD", 0, 1, 2)]
+    [InlineData("SHDE", 0, 1, 2)]
+    [InlineData("PACK", 0, 1, 2)]
+    [InlineData("UPACK", 0, 1, 2)]
+    [InlineData("MOVBF", 0, 1, 2)]
+    [InlineData("ENTR", 1, 2, 3)]
+    [InlineData("INIT", 5, 6, 7)]
+    public void Error_and_ok_exits(string name, int inlineWords, int errorOffset, int okOffset)
+    {
+        var ins = Get(LoadInstructions(), name);
+        Assert.Equal(inlineWords, ins.InlineWords);
+        Assert.Equal(2, ins.Exits.Count);
+        Assert.Equal("error", ins.Exits[0].When);
+        Assert.Equal(errorOffset, ins.Exits[0].Offset);
+        Assert.Equal("ok", ins.Exits[1].When);
+        Assert.Equal(okOffset, ins.Exits[1].Offset);
     }
 
     [Fact]

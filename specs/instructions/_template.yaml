@@ -28,7 +28,21 @@ instruction:
     - "O"  # Overflow flag
     - "Q"  # Sign flag
     - "Z"  # Zero flag
-  
+
+  # Where execution continues afterwards. Required for every instruction.
+  # offset = words from the instruction's own address (1 = next word, 2 = skip one word).
+  # For a non-fixed exit use target: (effective_address, displacement, result, register,
+  # stack_link, stack_link_minus_1, executed_instruction) instead of offset.
+  # when: always | ok | error | taken | not_taken. See specs/schema/instruction_schema.yaml.
+  inline_words: 0                   # data words after the instruction word (e.g. 1 for ENTR); omit when 0
+  exits:
+    - offset: 1
+      when: "error"
+      condition: "plain words: what makes the error return happen"
+    - offset: 2
+      when: "ok"
+  exits_source: "nd100x src/cpu/<file>:<line> <function> - what the code does (nd100x commit <hash>)"
+
   
   
   

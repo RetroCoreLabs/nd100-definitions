@@ -39,5 +39,9 @@ instruction:
       description: "Convert the number in TAD to a fixed point number in A"
     - code: "DNZ -20"
       description: "Floating to integer conversation. Opcode 152360"
-        
 
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3538 opcode_dnz_denormalize_to_fixed_point - never writes P (nd100x commit 936bf30)"

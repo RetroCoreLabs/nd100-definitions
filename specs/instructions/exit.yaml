@@ -20,4 +20,10 @@ instruction:
     - description: "[ (L)=108, (P)=190 ] Leave subroutine at location 190 and return to loaction 108"
       code: "EXIT"
 
-  
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - target: "register"
+      register: "L"
+      when: "always"
+      note: "COPY SL DP: P is loaded from L"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1142 regop - COPY with source L and destination P (nd100x commit 936bf30)"

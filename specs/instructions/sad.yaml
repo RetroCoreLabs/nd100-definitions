@@ -13,3 +13,9 @@ instruction:
   privilege: "user"
   flags_affected:
     - M # Multi-shift flag
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3971 opcode_shift_group - never writes P (nd100x commit 936bf30)"

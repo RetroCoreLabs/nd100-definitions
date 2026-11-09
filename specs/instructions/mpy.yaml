@@ -17,4 +17,10 @@ instruction:
   category: "Arithmetic and Logical"
   instruction_class: "memory_transfer"
   privilege: "user" 
-  flags_affected: ["O", "Q"]  
+  flags_affected: ["O", "Q"]
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:7279 mpy - never writes P (nd100x commit 936bf30)"

@@ -21,3 +21,9 @@ instruction:
   examples:
     - description: "Set the X register to -5."
       code: "SAX -5"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2423 opcode_sax_set_argument_to_x - never writes P (nd100x commit 936bf30)"

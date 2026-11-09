@@ -21,3 +21,9 @@ instruction:
   examples:
     - description: "Add 3 to the contents of the A register."
       code: "AAA 3"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2470 opcode_aaa_add_argument_to_a - never writes P (nd100x commit 936bf30)"

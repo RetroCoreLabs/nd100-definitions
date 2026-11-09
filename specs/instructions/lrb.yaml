@@ -41,3 +41,9 @@ instruction:
             ↓             ↓
             B (level 14) ⟵ (ea + 7)
       code: "LRB 160"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1594 do_lrb - P is not loaded when the current level is named (line 1608) (nd100x commit 936bf30)"

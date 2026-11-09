@@ -113,3 +113,12 @@ instruction:
     - description: "Skip the next instruction if the D register is less than zero."
       code: "SKP LSS SD"
 
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "the condition is false"
+    - offset: 2
+      when: "taken"
+      condition: "the condition on (dr) - (sr) is true, see is_skip()"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4348 opcode_skp_skip_next_if_condition - line 4352 (nd100x commit 936bf30)"

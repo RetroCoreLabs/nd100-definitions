@@ -18,3 +18,13 @@ instruction:
   category: "Input and Output"
   instruction_class:
   privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "no skip reported"
+    - offset: 2
+      when: "taken"
+      condition: "a device claims the NORD-1 device number and reports skip (SKA)"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4570 opcode_iot_nord_1_legacy_do_not_use - line 4610 (nd100x commit 936bf30)"

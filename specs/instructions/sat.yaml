@@ -21,3 +21,9 @@ instruction:
   examples:
     - description: "Set the T register to 20₈."
       code: "SAT 20₈"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:2401 opcode_sat_set_argument_to_t - never writes P (nd100x commit 936bf30)"

@@ -17,3 +17,10 @@ instruction:
   category: "Stack Operations"
   instruction_class:
   privilege: "user"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - target: "stack_link"
+      when: "always"
+      note: "P is loaded from LINK, the stack word at (B) - 200 octal"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4484 opcode_leave_leave_stack - line 4487 (nd100x commit 936bf30)"

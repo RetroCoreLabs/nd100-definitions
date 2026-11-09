@@ -10,4 +10,10 @@ instruction:
   opcode: "140511"  # Octal
   mask: "1111_1111_1111_1111"
   category: "Control Instructions"
-  privilege: "privileged" 
+  privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:6211 opcode_lbitp_load_bit_accumulator_from_physical_memory - never writes P (nd100x commit 936bf30)"

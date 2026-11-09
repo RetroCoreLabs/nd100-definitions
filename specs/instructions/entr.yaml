@@ -26,4 +26,14 @@ instruction:
   instruction_class:
   privilege: "user"
   flags_affected:
-    - PTM # "Page Table Flag - Status register bit 0 used for flag comparison" 
+    - PTM # "Page Table Flag - Status register bit 0 used for flag comparison"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  inline_words: 1
+  exits:
+    - offset: 2
+      when: "error"
+      condition: "stack overflow"
+    - offset: 3
+      when: "ok"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4443 opcode_entr_enter_stack - stack demand read at P+0, error gPC += 1 at line 4451, ok gPC += 2 at line 4461 (nd100x commit 936bf30)"

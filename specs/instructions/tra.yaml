@@ -70,3 +70,9 @@ instruction:
         - name: "CS"
           value: "0017"
           description: "Control store"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:1272 do_tra - never writes P (nd100x commit 936bf30)"

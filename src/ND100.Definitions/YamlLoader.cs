@@ -215,7 +215,11 @@ namespace NDGen.Core
                                     InstructionClass = instruction.InstructionClass,
                                     Privilege = instruction.Privilege,
                                     Operands = newOperands,
-                                    FlagsAffected = instruction.FlagsAffected
+                                    FlagsAffected = instruction.FlagsAffected,
+                                    // Keep where execution continues afterwards (exits).
+                                    InlineWords = instruction.InlineWords,
+                                    Exits = instruction.Exits,
+                                    ExitsSource = instruction.ExitsSource
                                 };
                                 
                                 instruction = updatedInstruction;
@@ -398,7 +402,11 @@ namespace NDGen.Core
                             Flags = instruction.Flags,
                             Pseudocode = instruction.Pseudocode,
                             Examples = instruction.Examples,                            
-                            GeneratedBitFormat = instruction.GeneratedBitFormat
+                            GeneratedBitFormat = instruction.GeneratedBitFormat,
+                            // Keep where execution continues afterwards (exits).
+                            InlineWords = instruction.InlineWords,
+                            Exits = instruction.Exits,
+                            ExitsSource = instruction.ExitsSource
                         };
                         
                         // Replace the instruction in the list

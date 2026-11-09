@@ -13,6 +13,15 @@ instruction:
   category: "Sequencing Instructions"
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
-  instruction_class: "jump_on_condition"   
-  
-  
+  instruction_class: "jump_on_condition"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "not_taken"
+      condition: "not A != 0"
+    - target: "displacement"
+      when: "taken"
+      condition: "A != 0"
+      note: "the instruction's own address plus the sign-extended 8-bit displacement"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4147 opcode_jaf_jump_if_a_not_zero - jump done in cjp() at line 225 (nd100x commit 936bf30)"

@@ -6,4 +6,10 @@ instruction:
   opcode: "140504"  # Octal
   mask: "1111_1111_1111_1111"
   category: "Control Instructions"
-  privilege: "privileged" 
+  privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:5896 opcode_cnrek_clear_non_reentrant_pages_sintran_k - never writes P (nd100x commit 936bf30)"

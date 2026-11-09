@@ -10,4 +10,10 @@ instruction:
   opcode: "143305"  # Octal, Δ denotes 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"
   category: "Memory Transfer Instructions"
-  privilege: "privileged" 
+  privilege: "privileged"
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:3019 opcode_stztx_store_zero_t_x_relative - never writes P (nd100x commit 936bf30)"

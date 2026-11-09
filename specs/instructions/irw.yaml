@@ -55,4 +55,9 @@ instruction:
   examples:
     - name: "IRW 100 DB"
       description: "Copy the A register on the current program level into the B register on program level 8"
-      
+
+  # Where execution continues after this instruction (see schema field 'exits').
+  exits:
+    - offset: 1
+      when: "always"
+  exits_source: "nd100x src/cpu/cpu_instr.c:4845 opcode_irw_inter_register_write - never writes P of the current level; IRW to P on the current level does nothing (line 4860) (nd100x commit 936bf30)"
