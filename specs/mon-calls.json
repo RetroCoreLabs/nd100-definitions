@@ -16,7 +16,12 @@
       "short_name": "INBT",
       "description": "Reads one byte from a character device, e.g. a terminal or an opened file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 1 (markdown line 13791)"
     },
     {
       "octal": "2B",
@@ -25,7 +30,12 @@
       "short_name": "OUTBT",
       "description": "Writes one byte to a character device, e.g. a terminal or an opened file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 2 (markdown line 883)"
     },
     {
       "octal": "3B",
@@ -52,7 +62,12 @@
       "short_name": "RDISK",
       "description": "Reads randomly from the scratch file.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 5 (markdown line 17566)"
     },
     {
       "octal": "6B",
@@ -61,7 +76,12 @@
       "short_name": "WDISK",
       "description": "Writes randomly to the scratch file.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 6 (markdown line 24976)"
     },
     {
       "octal": "7B",
@@ -70,7 +90,12 @@
       "short_name": "RPAGE",
       "description": "Reads randomly from a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 7 (markdown line 17135)"
     },
     {
       "octal": "10B",
@@ -79,7 +104,12 @@
       "short_name": "WPAGE",
       "description": "Writes randomly to a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 10 (markdown line 24667)"
     },
     {
       "octal": "11B",
@@ -106,7 +136,12 @@
       "short_name": "CIBUF",
       "description": "Clears a device input buffer.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 13 (markdown line 4530)"
     },
     {
       "octal": "14B",
@@ -115,7 +150,12 @@
       "short_name": "COBUF",
       "description": "Clears a device output buffer.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 14 (markdown line 4624)"
     },
     {
       "octal": "16B",
@@ -124,7 +164,12 @@
       "short_name": "MGTTY",
       "description": "Gets the terminal type.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 16 (markdown line 12431)"
     },
     {
       "octal": "17B",
@@ -133,7 +178,12 @@
       "short_name": "MSTTY",
       "description": "Sets the type of a terminal.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 17 (markdown line 20876)"
     },
     {
       "octal": "21B",
@@ -142,7 +192,12 @@
       "short_name": "M8INB",
       "description": "See also In8Bytes, InByte, InString, In4x2Bytes, and Out8Bytes.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 21 (markdown line 14123)"
     },
     {
       "octal": "22B",
@@ -151,7 +206,12 @@
       "short_name": "M8OUT",
       "description": "Writes up to 8 characters to a device, e.g. a terminal or an internal device.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 22 (markdown line 16827)"
     },
     {
       "octal": "23B",
@@ -160,7 +220,12 @@
       "short_name": "B8INB",
       "description": "Reads 8 bytes from a device.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 23 (markdown line 13488)"
     },
     {
       "octal": "24B",
@@ -169,7 +234,12 @@
       "short_name": "B8OUT",
       "description": "Writes 8 bytes to a character device, e.g. a terminal.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 24 (markdown line 16179)"
     },
     {
       "octal": "26B",
@@ -268,7 +338,12 @@
       "short_name": "SPCLO",
       "description": "Appends an opened file to a spooling queue.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 40 (markdown line 4827)"
     },
     {
       "octal": "41B",
@@ -277,7 +352,12 @@
       "short_name": "ROBJE",
       "description": "Gets information about an opened file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 41 (markdown line 17475)"
     },
     {
       "octal": "43B",
@@ -286,7 +366,12 @@
       "short_name": "CLOSE",
       "description": "Closes one or more files.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 43 (markdown line 4715)"
     },
     {
       "octal": "44B",
@@ -295,7 +380,12 @@
       "short_name": "RUSER",
       "description": "Gets information about a user.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 44 (markdown line 12687)"
     },
     {
       "octal": "50B",
@@ -304,7 +394,12 @@
       "short_name": "OPEN",
       "description": "Opens a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 50 (markdown line 15946)"
     },
     {
       "octal": "52B",
@@ -322,7 +417,12 @@
       "short_name": "RSEGM",
       "description": "Gets information about a segment in the ND-100.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 53 (markdown line 11764)"
     },
     {
       "octal": "54B",
@@ -331,7 +431,12 @@
       "short_name": "MDLFI",
       "description": "Deletes a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 54 (markdown line 5706)"
     },
     {
       "octal": "55B",
@@ -340,7 +445,12 @@
       "short_name": "RSQPE",
       "description": "Gets the next spooling queue entry, that is, the next file to be printed.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 55 (markdown line 11961)"
     },
     {
       "octal": "56B",
@@ -376,7 +486,12 @@
       "short_name": "FIXC5",
       "description": "Fixes or unfixes ND-100 segments to be used by the ND-500 Monitor.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 61 (markdown line 14837)"
     },
     {
       "octal": "62B",
@@ -385,7 +500,12 @@
       "short_name": "RMAX",
       "description": "Gets the number of bytes in a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 62 (markdown line 9317)"
     },
     {
       "octal": "63B",
@@ -394,7 +514,12 @@
       "short_name": "B41NW",
       "description": "Reads 8 bytes from a word-oriented or character-oriented device, e.g. internal devices.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 63 (markdown line 13264)"
     },
     {
       "octal": "64B",
@@ -421,7 +546,12 @@
       "short_name": "ISIZE",
       "description": "Gets the current number of bytes in the input buffer.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 66 (markdown line 13590)"
     },
     {
       "octal": "67B",
@@ -430,7 +560,12 @@
       "short_name": "OSIZE",
       "description": "Gets the number of free bytes in the output buffer (number of bytes which can be written before the program must wait).",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 67 (markdown line 16275)"
     },
     {
       "octal": "70B",
@@ -466,7 +601,12 @@
       "short_name": "SMAX",
       "description": "Sets the value of the maximum byte pointer in an opened file (i.e. the number of bytes minus 1).",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 73 (markdown line 19632)"
     },
     {
       "octal": "74B",
@@ -475,7 +615,12 @@
       "short_name": "SETBT",
       "description": "Sets the next byte to be read or written in an opened mass-storage file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 74 (markdown line 20601)"
     },
     {
       "octal": "75B",
@@ -484,7 +629,12 @@
       "short_name": "REABT",
       "description": "Gets the number of the next byte to access in a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 75 (markdown line 237)"
     },
     {
       "octal": "76B",
@@ -493,7 +643,12 @@
       "short_name": "SETBS",
       "description": "Sets the block size of an opened file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 76 (markdown line 18900)"
     },
     {
       "octal": "77B",
@@ -502,7 +657,12 @@
       "short_name": "SETBL",
       "description": "Sets the next block to be read or written in an opened file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 77 (markdown line 20501)"
     },
     {
       "octal": "100B",
@@ -1060,7 +1220,12 @@
       "short_name": "MHDLC",
       "description": "Performs various HDLC functions.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 201 (markdown line 13158)"
     },
     {
       "octal": "206B",
@@ -1105,7 +1270,12 @@
       "short_name": "GUSNA",
       "description": "Gets the name of a user.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 214 (markdown line 12796)"
     },
     {
       "octal": "215B",
@@ -1114,7 +1284,12 @@
       "short_name": "DROBJ",
       "description": "Gets information about a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 215 (markdown line 11091)"
     },
     {
       "octal": "216B",
@@ -1123,7 +1298,12 @@
       "short_name": "DWOBJ",
       "description": "Changes the description of a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 216 (markdown line 19835)"
     },
     {
       "octal": "217B",
@@ -1132,7 +1312,12 @@
       "short_name": "GUIOI",
       "description": "Gets the directory index, the user index, and the object index of a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 217 (markdown line 9133)"
     },
     {
       "octal": "220B",
@@ -1141,7 +1326,12 @@
       "short_name": "DOPEN",
       "description": "Opens a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 220 (markdown line 6391)"
     },
     {
       "octal": "221B",
@@ -1150,7 +1340,12 @@
       "short_name": "CRALF",
       "description": "Creates a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 221 (markdown line 5154)"
     },
     {
       "octal": "222B",
@@ -1186,7 +1381,12 @@
       "short_name": "EXPFI",
       "description": "Expands the file size.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 231 (markdown line 7888)"
     },
     {
       "octal": "232B",
@@ -1204,7 +1404,12 @@
       "short_name": "STEFI",
       "description": "Defines a file to store information temporarily.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 233 (markdown line 20696)"
     },
     {
       "octal": "234B",
@@ -1213,7 +1418,12 @@
       "short_name": "SPEFI",
       "description": "Defines a peripheral file, e.g. a printer.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 234 (markdown line 20021)"
     },
     {
       "octal": "235B",
@@ -1222,7 +1432,12 @@
       "short_name": "SCROP",
       "description": "Opens a file as a scratch file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 235 (markdown line 18500)"
     },
     {
       "octal": "236B",
@@ -1231,7 +1446,12 @@
       "short_name": "SPERD",
       "description": "Sets a file permanently open.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 236 (markdown line 20116)"
     },
     {
       "octal": "237B",
@@ -1240,7 +1460,12 @@
       "short_name": "SFACC",
       "description": "Sets the access protection for a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 237 (markdown line 19532)"
     },
     {
       "octal": "240B",
@@ -1249,7 +1474,12 @@
       "short_name": "APSPE",
       "description": "Prints a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 240 (markdown line 3067)"
     },
     {
       "octal": "241B",
@@ -1258,7 +1488,12 @@
       "short_name": "SUSCN",
       "description": "Switches the user name you are logged in under.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 241 (markdown line 15286)"
     },
     {
       "octal": "242B",
@@ -1267,7 +1502,12 @@
       "short_name": "RUSCN",
       "description": "Switches back to the user name you were logged in under before NewUser.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 242 (markdown line 15746)"
     },
     {
       "octal": "243B",
@@ -1276,7 +1516,12 @@
       "short_name": "FDINA",
       "description": "Gets directory index and name index.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 243 (markdown line 9874)"
     },
     {
       "octal": "244B",
@@ -1285,7 +1530,12 @@
       "short_name": "GDIEN",
       "description": "Gets information about a directory.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 244 (markdown line 9768)"
     },
     {
       "octal": "245B",
@@ -1294,7 +1544,12 @@
       "short_name": "GNAEN",
       "description": "Gets information about devices, e.g. disks and floppy disks.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 245 (markdown line 10900)"
     },
     {
       "octal": "246B",
@@ -1303,7 +1558,12 @@
       "short_name": "REDIR",
       "description": "Reserves a directory for special use.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 246 (markdown line 18128)"
     },
     {
       "octal": "247B",
@@ -1312,7 +1572,12 @@
       "short_name": "RLDIR",
       "description": "Releases a directory.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 247 (markdown line 17788)"
     },
     {
       "octal": "250B",
@@ -1321,7 +1586,12 @@
       "short_name": "FDFDI",
       "description": "Gets the user’s default directory.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 250 (markdown line 9515)"
     },
     {
       "octal": "251B",
@@ -1330,7 +1600,13 @@
       "short_name": "COPAG",
       "description": "Copies file pages between two opened files.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "destination file error, error number in A" },
+        { "offset": 2, "when": "source file error (end of file when finished), error number in A" },
+        { "offset": 3, "when": "normal return; a missing page is reported in A,D (double skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 251 (markdown line 5038)"
     },
     {
       "octal": "252B",
@@ -1339,7 +1615,12 @@
       "short_name": "BCLOS",
       "description": "Closes a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 252 (markdown line 3603)"
     },
     {
       "octal": "253B",
@@ -1348,7 +1629,12 @@
       "short_name": "CRALN",
       "description": "Creates new versions of a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 253 (markdown line 15169)"
     },
     {
       "octal": "254B",
@@ -1375,7 +1661,12 @@
       "short_name": "DEABF",
       "description": "Returns a complete file name from an abbreviated one.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 256 (markdown line 8879)"
     },
     {
       "octal": "257B",
@@ -1384,7 +1675,12 @@
       "short_name": "FOPEN",
       "description": "Gets information about an open file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 257 (markdown line 16066)"
     },
     {
       "octal": "262B",
@@ -1393,7 +1689,12 @@
       "short_name": "CPUST",
       "description": "Gets various system information.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 262 (markdown line 12158)"
     },
     {
       "octal": "263B",
@@ -1402,7 +1703,12 @@
       "short_name": "GDEVT",
       "description": "Gets the device type, e.g. terminal, floppy disk, mass-storage file, etc. The monitor call also provides information on how to handle the device.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 263 (markdown line 9646)"
     },
     {
       "octal": "267B",
@@ -1420,7 +1726,12 @@
       "short_name": "RDPAG",
       "description": "Reads one or more directory pages.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 270 (markdown line 17249)"
     },
     {
       "octal": "271B",
@@ -1429,7 +1740,12 @@
       "short_name": "WDPAG",
       "description": "Writes to one or more pages in a directory.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 271 (markdown line 24881)"
     },
     {
       "octal": "272B",
@@ -1438,7 +1754,12 @@
       "short_name": "DELPG",
       "description": "Deletes pages from a file.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 272 (markdown line 5811)"
     },
     {
       "octal": "273B",
@@ -1447,7 +1768,12 @@
       "short_name": "MGFIL",
       "description": "Gets the name of a file.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 273 (markdown line 10568)"
     },
     {
       "octal": "274B",
@@ -1456,7 +1782,12 @@
       "short_name": "FOBJN",
       "description": "Gets the directory index, the user index, and the object index of a file.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 274 (markdown line 10451)"
     },
     {
       "octal": "275B",
@@ -1474,7 +1805,12 @@
       "short_name": "ELOFU",
       "description": "You may log in on remote computers through the COSMOS data network.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 276 (markdown line 7003)"
     },
     {
       "octal": "277B",
@@ -1483,7 +1819,12 @@
       "short_name": "DLOFU",
       "description": "You may log in on remote computers through the COSMOS data network.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 277 (markdown line 6528)"
     },
     {
       "octal": "300B",
@@ -1492,7 +1833,12 @@
       "short_name": "EUSEL",
       "description": "Enables user-defined escape handling.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 300 (markdown line 19346)"
     },
     {
       "octal": "301B",
@@ -1501,7 +1847,12 @@
       "short_name": "DUSEL",
       "description": "Disables user-defined escape handling.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 301 (markdown line 21452)"
     },
     {
       "octal": "302B",
@@ -1510,7 +1861,12 @@
       "short_name": "ELON",
       "description": "Enables delayed escape and local functions for your terminal.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 302 (markdown line 15812)"
     },
     {
       "octal": "303B",
@@ -1519,7 +1875,12 @@
       "short_name": "ELOFF",
       "description": "Delays the escape and local functions for your terminal.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 303 (markdown line 15675)"
     },
     {
       "octal": "306B",
@@ -1528,7 +1889,12 @@
       "short_name": "GTMOD",
       "description": "Gets the terminal mode.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 306 (markdown line 12336)"
     },
     {
       "octal": "307B",
@@ -1546,7 +1912,12 @@
       "short_name": "TBIN8",
       "description": "Reads 8 bytes from a device, e.g., a terminal.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 310 (markdown line 13376)"
     },
     {
       "octal": "311B",
@@ -1555,7 +1926,12 @@
       "short_name": "WDIEN",
       "description": "Changes the information about a directory.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 311 (markdown line 24771)"
     },
     {
       "octal": "312B",
@@ -1573,7 +1949,12 @@
       "short_name": "IBRISZ",
       "description": "Gets information about an input buffer.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 313 (markdown line 13688)"
     },
     {
       "octal": "314B",
@@ -1582,7 +1963,12 @@
       "short_name": "SRUSI",
       "description": "Sets default values for COSMOS remote file access.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 314 (markdown line 5526)"
     },
     {
       "octal": "315B",
@@ -1591,7 +1977,12 @@
       "short_name": "MLAMU",
       "description": "Performs various functions on the LAMU system.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 315 (markdown line 14377)"
     },
     {
       "octal": "316B",
@@ -1654,7 +2045,12 @@
       "short_name": "MLOGI",
       "description": "Logs in a user on a terminal and starts a subsystem.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 326 (markdown line 14642)"
     },
     {
       "octal": "327B",
@@ -1663,7 +2059,12 @@
       "short_name": "FSMTY",
       "description": "Multifunction monitor call to make sure that an uncontrolled system stop does not leave the file system inconsistent.",
       "nd100": true,
-      "nd500": true
+      "nd500": true,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 327 (markdown line 8167)"
     },
     {
       "octal": "330B",
@@ -1735,7 +2136,12 @@
       "short_name": "RSREC",
       "description": "Used to read the system record into a buffer.",
       "nd100": false,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 340 (markdown line 17635)"
     },
     {
       "octal": "341B",
@@ -1744,7 +2150,12 @@
       "short_name": "SGMTY",
       "description": "This is a multifunction monitor call used to change the active segments of a program, or the page index tables used by a program.",
       "nd100": true,
-      "nd500": false
+      "nd500": false,
+      "exits": [
+        { "offset": 1, "when": "error return, standard error code in A" },
+        { "offset": 2, "when": "normal return (skip return)" }
+      ],
+      "exits_source": "ND-860228-2-EN SINTRAN III Monitor Calls, MAC example of MON 341 (markdown line 18597)"
     },
     {
       "octal": "400B",
