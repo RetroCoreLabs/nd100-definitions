@@ -17,29 +17,31 @@ values:
     worked_examples:
       - title: "Read a constant kept next to the code"
         story: >-
-          A program keeps the constant 100 (octal 144) in a word three places after the
+          A program keeps the constant 100 decimal (144 octal) in a word three places after the
           instruction that reads it. P holds the address of the instruction itself, so
           "*3" means "three words further on".
         code: |
-          001000  LDA *3      % A := the word at 001000+3
+          % left: address, then contents or instruction; all numbers octal
+          001000  LDA *3      % A := the word at 001000 octal + 3
           001001  ...
           001002  ...
-          001003  000144      % the constant 100
+          001003  000144      % the constant 100 decimal (144 octal)
         registers: {P: "001000"}
         memory: {"001003": "000144"}
         effective_address_value: "001003"
-        result: "A = 000144 (100 decimal)"
+        result: "A = 000144 octal (100 decimal)"
       - title: "Read a constant kept just before the code"
         story: >-
-          The constant 100 (octal 144) sits two words BEFORE the instruction that reads it, for example in a small data block ahead of a routine. A negative displacement reaches back from P.
+          The constant 100 decimal (144 octal) sits two words BEFORE the instruction that reads it, for example in a small data block ahead of a routine. A negative displacement reaches back from P.
         code: |
-          000776  000144      % the constant 100
+          % left: address, then contents or instruction; all numbers octal
+          000776  000144      % the constant 100 decimal (144 octal)
           000777  ...
-          001000  LDA *-2     % A := the word at 001000-2
+          001000  LDA *-2     % A := the word at 001000 octal - 2
         registers: {P: "001000"}
         memory: {"000776": "000144"}
         effective_address_value: "000776"
-        result: "A = 000144 (100 decimal)"
+        result: "A = 000144 octal (100 decimal)"
 
   - name: "brelative"
     value: 1
@@ -56,22 +58,22 @@ values:
       - title: "Read a local variable of a subroutine"
         story: >-
           B points at the data area of the running subroutine. Its variable COUNT sits in
-          the third word of that area, at offset 2, wherever in memory the area happens to be.
+          the third word of that area, two words above B, wherever in memory the area happens to be.
         code: |
-          LDA 2,B             % A := COUNT, the word at B+2
+          LDA 2,B             % A := COUNT, the word at B + 2 (displacements are octal)
         registers: {B: "020000"}
         memory: {"020002": "000012"}
         effective_address_value: "020002"
-        result: "A = 000012 (COUNT is 10 decimal)"
+        result: "A = 000012 octal (COUNT is 10 decimal)"
       - title: "Read a variable below the B pointer"
         story: >-
-          SINTRAN and the ND compilers often point B into the middle of a data area, so the words below B are reached with negative displacements. Here the variable sits 4 words below B.
+          SINTRAN and the ND compilers often point B into the middle of a data area, so the words below B are reached with negative displacements. Here the variable sits four words below B.
         code: |
-          LDA -4,B            % A := the word at B-4
+          LDA -4,B            % A := the word at B - 4 (displacements are octal)
         registers: {B: "020200"}
         memory: {"020174": "000025"}
         effective_address_value: "020174"
-        result: "A = 000025 (21 decimal)"
+        result: "A = 000025 octal (21 decimal)"
 
   - name: "indirect_prelative"
     value: 2
@@ -87,28 +89,30 @@ values:
     worked_examples:
       - title: "Reach a buffer that is too far away"
         story: >-
-          The displacement only reaches 128 words back or 127 forward. The buffer is at
-          040000, far from the code, so its address is kept in a word next to the code and
+          The displacement only reaches 128 decimal words back or 127 decimal forward
+          (-200 to +177 octal). The buffer is at address 040000 octal, far from the code, so its address is kept in a word next to the code and
           the instruction goes through that word.
         code: |
+          % left: address, then contents or instruction; all numbers octal
           001000  LDA I *3    % A := the word whose address is stored at 001003
           001003  040000      % pointer: address of BUFFER
-          040000  000101      % BUFFER, first word: the letter 'A'
+          040000  000101      % BUFFER, first word: the letter 'A' (101 octal = 65 decimal, ASCII)
         registers: {P: "001000"}
         memory: {"001003": "040000", "040000": "000101"}
         effective_address_value: "040000"
-        result: "A = 000101 (the letter 'A')"
+        result: "A = 000101 octal (65 decimal, the ASCII letter 'A')"
       - title: "Follow a pointer stored before the code"
         story: >-
           The address of the buffer is kept three words before the instruction; the instruction reads that word and uses it as the address.
         code: |
+          % left: address, then contents or instruction; all numbers octal
           000775  040000      % pointer: address of BUFFER
           001000  LDA I *-3   % A := the word whose address is stored at 000775
-          040000  000102      % BUFFER, first word: the letter 'B'
+          040000  000102      % BUFFER, first word: the letter 'B' (102 octal = 66 decimal, ASCII)
         registers: {P: "001000"}
         memory: {"000775": "040000", "040000": "000102"}
         effective_address_value: "040000"
-        result: "A = 000102 (the letter 'B')"
+        result: "A = 000102 octal (66 decimal, the ASCII letter 'B')"
 
   - name: "indirect_brelative"
     value: 3
@@ -125,23 +129,23 @@ values:
       - title: "Use a parameter passed by address"
         story: >-
           The caller passed the ADDRESS of its variable, not the value. The subroutine finds
-          that address in its own data area at offset 3 and reads the caller's variable
+          that address in its own data area, three words above B, and reads the caller's variable
           through it.
         code: |
-          LDA I 3 ,B          % A := the word whose address is stored at B+3
+          LDA I 3 ,B          % A := the word whose address is stored at B + 3 (octal)
         registers: {B: "020000"}
         memory: {"020003": "041000", "041000": "000007"}
         effective_address_value: "041000"
-        result: "A = 000007 (the caller's variable)"
+        result: "A = 000007 octal (7 decimal, the caller's variable)"
       - title: "Follow a pointer stored below B"
         story: >-
-          The subroutine keeps the address of a caller's variable 2 words below B and reads the variable through it.
+          The subroutine keeps the address of a caller's variable two words below B and reads the variable through it.
         code: |
-          LDA I -2 ,B         % A := the word whose address is stored at B-2
+          LDA I -2 ,B         % A := the word whose address is stored at B - 2 (octal)
         registers: {B: "020200"}
         memory: {"020176": "041000", "041000": "000007"}
         effective_address_value: "041000"
-        result: "A = 000007 (the caller's variable)"
+        result: "A = 000007 octal (7 decimal, the caller's variable)"
 
   - name: "xrelative"
     value: 4
@@ -158,23 +162,23 @@ values:
       - title: "Read one field of a record"
         story: >-
           X holds the address of a record of several words. The field wanted is the third
-          word of the record, offset 2. Step X to the next record and the same instruction
+          word of the record, two words after the address in X. Step X to the next record and the same instruction
           reads the same field there.
         code: |
-          LDA 2,X             % A := word 2 of the record X points at
+          LDA 2,X             % A := the word at X + 2 (octal), the record's third word
         registers: {X: "042000"}
         memory: {"042002": "000500"}
         effective_address_value: "042002"
-        result: "A = 000500 (the field's value)"
+        result: "A = 000500 octal (320 decimal, the field's value)"
       - title: "Read the word just before a record"
         story: >-
-          X points at the first data word of a record whose length is kept in the word in front of it. A displacement of -1 reads that length.
+          X points at the first data word of a record whose length is kept in the word in front of it. A displacement of minus one reads that length.
         code: |
-          LDA -1,X            % A := the word at X-1, the record length
+          LDA -1,X            % A := the word at X - 1, the record length
         registers: {X: "042000"}
         memory: {"041777": "000010"}
         effective_address_value: "041777"
-        result: "A = 000010 (the record is 8 words long)"
+        result: "A = 000010 octal (the record is 8 decimal words long)"
 
   - name: "brelative_indexed"
     value: 5
@@ -190,25 +194,25 @@ values:
     worked_examples:
       - title: "Index a table inside the local data area"
         story: >-
-          A subroutine keeps a small table at offset 10 (octal) of its data area. X holds the
-          element number, here 3, so the instruction reads element 3 of the table.
+          A subroutine keeps a small table starting 10 octal (8 decimal) words above B. X holds the
+          element number, here 3 (the same in octal and decimal), so the instruction reads element 3 of the table.
         code: |
-          SAX 3               % X := 3, the element number
-          LDA 10,B,X          % A := TABLE(3), the word at B+10+X
+          SAX 3               % X := 3, the element number (octal)
+          LDA 10,B,X          % A := TABLE(3), the word at B + 10 octal + X
         registers: {B: "020000", X: "000003"}
         memory: {"020013": "000033"}
         effective_address_value: "020013"
-        result: "A = 000033 (element 3)"
+        result: "A = 000033 octal (27 decimal, element 3)"
       - title: "Index a table that lies below B"
         story: >-
-          The table starts 10 (octal) words below B. X holds the element number, here 3.
+          The table starts 10 octal (8 decimal) words below B. X holds the element number, here 3.
         code: |
-          SAX 3               % X := 3, the element number
-          LDA -10,B,X         % A := TABLE(3), the word at B-10+X
+          SAX 3               % X := 3, the element number (octal)
+          LDA -10,B,X         % A := TABLE(3), the word at B - 10 octal + X
         registers: {B: "020200", X: "000003"}
         memory: {"020173": "000044"}
         effective_address_value: "020173"
-        result: "A = 000044 (element 3)"
+        result: "A = 000044 octal (36 decimal, element 3)"
 
   - name: "indirect_prelative_indexed"
     value: 6
@@ -224,26 +228,28 @@ values:
     worked_examples:
       - title: "Index a table that is far away"
         story: >-
-          The table is at 043000, out of reach of the displacement. Its start address is kept
+          The table is at address 043000 octal, out of reach of the displacement. Its start address is kept
           next to the code; the instruction reads that address and then adds the element
           number in X, here 5.
         code: |
+          % left: address, then contents or instruction; all numbers octal
           001000  LDA ,X I *3 % A := the word at (address stored at 001003) + X
           001003  043000      % pointer: start of TABLE
         registers: {P: "001000", X: "000005"}
         memory: {"001003": "043000", "043005": "001750"}
         effective_address_value: "043005"
-        result: "A = 001750 (element 5, 1000 decimal)"
+        result: "A = 001750 octal (1000 decimal, element 5)"
       - title: "Index a far table through a pointer before the code"
         story: >-
           The start address of the table is kept two words before the instruction; X, here 5, is added to it.
         code: |
+          % left: address, then contents or instruction; all numbers octal
           000776  043000      % pointer: start of TABLE
           001000  LDA ,X I *-2 % A := the word at (address stored at 000776) + X
         registers: {P: "001000", X: "000005"}
         memory: {"000776": "043000", "043005": "001750"}
         effective_address_value: "043005"
-        result: "A = 001750 (element 5, 1000 decimal)"
+        result: "A = 001750 octal (1000 decimal, element 5)"
 
   - name: "indirect_brelative_indexed"
     value: 7
@@ -260,19 +266,19 @@ values:
       - title: "Index an array the caller passed by address"
         story: >-
           The caller passed the start address of its array. The subroutine finds it in its data
-          area at offset 3, and X holds the element number, here 4.
+          area three words above B, and X holds the element number, here 4.
         code: |
-          LDA ,X I ,B 3       % A := the word at (address stored at B+3) + X
+          LDA ,X I ,B 3       % A := the word at (address stored at B + 3 octal) + X
         registers: {B: "020000", X: "000004"}
         memory: {"020003": "044000", "044004": "000077"}
         effective_address_value: "044004"
-        result: "A = 000077 (element 4 of the caller's array)"
+        result: "A = 000077 octal (63 decimal, element 4 of the caller's array)"
       - title: "Index a passed array through a pointer below B"
         story: >-
-          The start address of the caller's array is kept 3 words below B; X, here 4, is the element number.
+          The start address of the caller's array is kept three words below B; X, here 4, is the element number.
         code: |
-          LDA ,X I ,B -3      % A := the word at (address stored at B-3) + X
+          LDA ,X I ,B -3      % A := the word at (address stored at B - 3 octal) + X
         registers: {B: "020200", X: "000004"}
         memory: {"020175": "044000", "044004": "000077"}
         effective_address_value: "044004"
-        result: "A = 000077 (element 4 of the caller's array)"
+        result: "A = 000077 octal (63 decimal, element 4 of the caller's array)"
