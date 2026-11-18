@@ -13,7 +13,7 @@ instruction:
   format: "PON"    
   category: "Memory Management Instructions"
   instruction_class:
-  privilege: "user"
+  privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').
   exits:

@@ -2,10 +2,15 @@ instruction:
   name: REMPL
   description: |
     Remove page from page list.
+
+    A SINTRAN III instruction of the ND-110 microprogram. It takes the core map table entry addressed by X out of the page list it is on: the entries before and after it are linked to each other, and words 0 and 1 of the removed entry are cleared. INSPL does the opposite.
+
+    Source: the ND-110 Instruction Set manual, ND-06.029.1, page 142, and its PLANC listing in Appendix B (page 169). The OCR of that listing is damaged in places, so only the shape of the operation is given here.
+
   format: REMPL
   opcode: "140503"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "Control Instructions"
+  category: "SINTRAN III Control Instructions"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

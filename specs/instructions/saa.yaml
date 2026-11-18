@@ -4,7 +4,7 @@ instruction:
   opcode: "170400"  # Octal
   mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
   format: "SAA <number>"
-  category: "Argument Instruction"
+  category: "Argument Instructions"
   privilege: "user"
   operands:
     - name: "opcode"        

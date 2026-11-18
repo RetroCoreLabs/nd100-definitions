@@ -18,7 +18,7 @@ instruction:
   opcode: "0140137" # Octal
   format: "ELEAV"
   mask: "1111_1111_1111_1111"
-  category: "Stack Operations"
+  category: "Stack Instructions"
   instruction_class:
   privilege: "user"
 

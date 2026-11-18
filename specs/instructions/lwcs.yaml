@@ -19,7 +19,7 @@ instruction:
   format: LWCS
   opcode: "143500"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "privileged"
+  category: "Writable Control Store Instruction"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

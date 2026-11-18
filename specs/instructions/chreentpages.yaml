@@ -11,7 +11,7 @@ instruction:
   format: CHREENTPAGES
   opcode: "140303"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "Control Instructions"
+  category: "SINTRAN III Control Instructions"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

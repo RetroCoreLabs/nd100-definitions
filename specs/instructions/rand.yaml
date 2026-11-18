@@ -22,7 +22,7 @@ instruction:
   opcode: "144400"  # Octal
   mask: "1111_1111_1100_0000"  # Matches bit pattern from image
   format: "RAND [sub-instruction(s)] <source> <destination>"
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class: "register_logical"
   privilege: "user"
 

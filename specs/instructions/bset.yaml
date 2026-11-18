@@ -6,7 +6,7 @@ instruction:
   opcode: "174000"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
   format: "BSET <condition> <bit_no> <destination>"    
-  category: "Bit instructions"  
+  category: "Bit Instructions"
   instruction_class: "bit_instructions_with_condition"
   privilege: "user"
   examples:

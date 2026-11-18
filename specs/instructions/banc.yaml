@@ -1,16 +1,18 @@
 instruction:
   name: BANC
   description: |
-    logical AND with bit complement
+    Logical AND complement
 
-    K ⟵ K & (B)0
+    K ⟵ (NOT bit) AND K
 
-    Perform a bitwise AND with the contents of the B register and the contents of the K register, leaving the result in K.
+    K becomes the AND of K and the complement of bit <bn> of register <dr>.
+
+    Source: ND-06.014 (ND-100 Reference Manual) section 3.2.2.6.3, One Bit Accumulator Instructions. K is the one-bit accumulator in the status register STS; <bn> is the bit number and <dr> the register.
 
   opcode: "177000"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
-  format: "BANC"    
-  category: "Bit instructions"
+  format: "BANC <bn> <dr>"
+  category: "Bit Instructions"
   privilege: "user"
   flags_affected:
     - K  # 1-bit accumulator (K)

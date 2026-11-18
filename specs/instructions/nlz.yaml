@@ -27,7 +27,7 @@ instruction:
   opcode: "0151400"  # Octal
   mask: "1111_1111_0000_0000"  # Standard mask format
   format: "NLZ <scaling_factor>"
-  category: "Floating Conversion (Standard Format)"
+  category: "Floating Point Conversion Instructions"
   instruction_class: 
   privilege: "user"
   

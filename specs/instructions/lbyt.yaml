@@ -14,7 +14,7 @@ instruction:
   opcode: "142200"  # Octal
   mask: "1111_1111_1111_1111"  # Standard mask format
   format: "LBYT"
-  category: "Byte Instructions"
+  category: "Single Byte Instructions"
   instruction_class: 
   privilege: "user"
 

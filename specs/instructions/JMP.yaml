@@ -6,7 +6,7 @@ instruction:
     Jump - Unconditional jump to specified address
     The next instruction is taken from the effective address of the JMP instruction(the effective address is ioaded into the program counter).  
     
-  category: "Sequencing Instructions"
+  category: "Jump Instructions"
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
   instruction_class: "memory_transfer"

@@ -10,7 +10,7 @@ instruction:
   opcode: "0140131" # Octal
   format: "MOVB"
   mask: "1111_1111_1111_1111"
-  category: "Byte Instructions"
+  category: "Byte Block Instructions"
   instruction_class:
   privilege: "user"
 

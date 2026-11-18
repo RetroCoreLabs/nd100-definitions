@@ -40,7 +40,7 @@ instruction:
   opcode: "140133"  # Octal
   format: "VERSN"
   mask: "1111_1111_1111_1111" # 
-  category: "System/CPU Information"
+  category: "Version Instruction"
   instruction_class: 
   privilege: "user"
 

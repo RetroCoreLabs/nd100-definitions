@@ -9,7 +9,7 @@ instruction:
   opcode: "146200"  # Octal
   mask: "1111_1111_1111_1000"  # Top 13 bits are opcode
   format: "RDCR <destination>"
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class: "register_dst"
   privilege: "user"
   flags_affected: ["C", "O", "Q"]  # See RADD instruction

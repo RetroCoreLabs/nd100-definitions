@@ -6,7 +6,7 @@ instruction:
   opcode: "150415"  # Octal
   mask: "1111_1111_1111_1111" # top 16 bits are opcode
   format:  "IOXT"
-  category: "Input and Output"
+  category: "Input/Output Instructions"
   instruction_class:
   privilege: "privileged"
   detailed_description: |  

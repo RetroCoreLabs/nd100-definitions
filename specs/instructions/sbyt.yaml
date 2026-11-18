@@ -10,7 +10,7 @@ instruction:
   opcode: "142600"  # Octal
   mask: "1111_1111_1111_1111"  # Standard mask format
   format: "SBYT"
-  category: "Byte Instructions"
+  category: "Single Byte Instructions"
   instruction_class: 
   privilege: "user"
 

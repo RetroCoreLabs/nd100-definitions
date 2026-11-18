@@ -10,7 +10,7 @@ instruction:
   format: PIOF
   opcode: "150405"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "Memory Management Instructions"
+  category: "Interrupt Control Instructions"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

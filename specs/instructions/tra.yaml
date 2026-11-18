@@ -5,7 +5,7 @@ instruction:
     The internal register given in the instruction is copied into the A register.  
   opcode: "0150000"  # Octal  
   format: "TRA <internal_register>"
-  category: "Register Transfer"
+  category: "Register Transfer Instructions"
   instruction_class: #"register_transfer" 
   privilege: "privileged" # privileged instruction
   mask: "1111_1111_1111_0000" # top 12 bits are opcode

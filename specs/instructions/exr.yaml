@@ -12,7 +12,7 @@ instruction:
   opcode: "0140600"  # Octal
   mask: "1111_1111_1100_0000"  # Only 3 lower bits are flexible
   format: "EXR <sr>"
-  category: "Execute"
+  category: "Register Instructions"
   instruction_class:
   privilege: "user"
   

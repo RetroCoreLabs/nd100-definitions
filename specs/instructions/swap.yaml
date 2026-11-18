@@ -21,7 +21,7 @@ instruction:
   opcode: "144000"  # Octal
   mask: "1111_1111_1100_0000"  # Top 10 bits are opcode
   format: "SWAP <sub-instruction(s)> <source> <destination>"
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class: "register_logical"
   privilege: "user"
   flags_affected: ["C", "O", "Q"]

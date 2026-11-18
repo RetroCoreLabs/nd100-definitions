@@ -9,8 +9,8 @@ instruction:
   format: PION
   opcode: "150412"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "Memory Management Instructions"
-  privilege: "user"
+  category: "Interrupt Control Instructions"
+  privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').
   exits:

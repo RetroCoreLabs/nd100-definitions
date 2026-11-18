@@ -9,7 +9,7 @@ instruction:
   format: "WAIT <wait_number>"
   category: "Interrupt Control Instructions"
   instruction_class: 
-  privilege: "user"
+  privilege: "privileged"
   
   operands:
     - name: "opcode"

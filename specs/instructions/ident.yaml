@@ -6,7 +6,7 @@ instruction:
   description: |
     Transfer IDENT code of interrupting device with highest priority on the specified level to A register. 
   category: "Interrupt Control Instructions"
-  privilege: "user"
+  privilege: "privileged"
   flags_affected:
   instruction_class:
   operands:

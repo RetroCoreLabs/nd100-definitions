@@ -2,10 +2,15 @@ instruction:
   name: CLPT
   description: |
     Clear segment from the page tables.
+
+    A SINTRAN III instruction of the ND-110 microprogram. It walks the chain of core map table entries that starts at the entry in X, clearing the page table entry of each page of the segment, and follows the link in word 0 of each entry until X is 0. If an interrupt becomes pending during the walk, P is set back by one and the instruction stops, so it runs again from where it stopped once the interrupt is served.
+
+    Source: the ND-110 Instruction Set manual, ND-06.029.1, page 139, and its PLANC listing in Appendix B (page 168). The OCR of that listing is damaged in places, so only the shape of the loop is given here.
+
   format: CLPT
   opcode: "140505"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "Control Instructions"
+  category: "SINTRAN III Control Instructions"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

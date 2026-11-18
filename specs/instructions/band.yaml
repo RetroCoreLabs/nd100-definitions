@@ -1,14 +1,18 @@
 instruction:
   name: BAND
   description: |
-    Logical AND to K
+    Logical AND
 
-    K ⟵ K & (B)
+    K ⟵ bit AND K
+
+    K becomes the AND of K and bit <bn> of register <dr>.
+
+    Source: ND-06.014 (ND-100 Reference Manual) section 3.2.2.6.3, One Bit Accumulator Instructions. K is the one-bit accumulator in the status register STS; <bn> is the bit number and <dr> the register.
 
   opcode: "177200"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
-  format: "BAND"    
-  category: "Bit instructions"
+  format: "BAND <bn> <dr>"
+  category: "Bit Instructions"
   privilege: "user"
   flags_affected:
     - K  # 1-bit accumulator (K)

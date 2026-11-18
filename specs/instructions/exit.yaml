@@ -11,7 +11,7 @@ instruction:
   opcode: "0146142"  # Octal
   mask: "1111_1111_1111_1111"  # Matches bit pattern from image
   format: "EXIT" # COPY SL DP
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class: 
   flags_affected: ["C", "O", "Q"]
   privilege: "user"

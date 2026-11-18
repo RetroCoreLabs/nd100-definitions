@@ -1,14 +1,18 @@
 instruction:
   name: BSTC
   description: |
-    Store complement and set K to 1
+    Store complement and set
 
-    (B) ⟵ K (complemented); K ⟵ 1
+    bit ⟵ NOT K, K ⟵ 1
+
+    Bit <bn> of register <dr> gets the complement of K, then K is set to 1.
+
+    Source: ND-06.014 (ND-100 Reference Manual) section 3.2.2.6.3, One Bit Accumulator Instructions. K is the one-bit accumulator in the status register STS; <bn> is the bit number and <dr> the register.
 
   opcode: "176000"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
-  format: "BSTC"    
-  category: "Bit instructions"
+  format: "BSTC <bn> <dr>"
+  category: "Bit Instructions"
   privilege: "user"
   flags_affected:
     - K  # 1-bit accumulator (K)

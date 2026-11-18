@@ -11,7 +11,7 @@ instruction:
   opcode: "153000"  # Octal
   mask: "1111_1111_0000_0000" # Matches the bit pattern shown in image
   format: "MON <monitor_call_number>"
-  category: "Monitor Calls"
+  category: "Monitor Instruction"
   instruction_class: 
   privilege: "user"
   

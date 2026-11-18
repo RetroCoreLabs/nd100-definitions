@@ -10,7 +10,7 @@ instruction:
   opcode: "143200" # Octal
   format: "MIX3"
   mask: "1111_1111_1111_1111"
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class:
   privilege: "user"
 

@@ -18,7 +18,7 @@ instruction:
   opcode: "146600"  # Octal
   mask: "1111_1111_1100_0000"  # Top 10 bits are opcode
   format: "RSUB <sub-instruction> <source> <destination>"
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class: "register_arithmetic"
   privilege: "user"
   isalias: true

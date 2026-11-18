@@ -9,7 +9,7 @@ instruction:
   format: LDXTX <displacement>
   opcode: "143301"  # Octal, Δ denotes 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"
-  category: "Memory Transfer Instructions"
+  category: "SINTRAN III Memory Transfer Instructions"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

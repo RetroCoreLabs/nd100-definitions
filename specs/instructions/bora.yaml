@@ -1,14 +1,18 @@
 instruction:
   name: BORA
   description: |
-    Logical OR to K
+    Logical OR
 
-    K ⟵ K | (B)
+    K ⟵ bit OR K
+
+    K becomes the OR of K and bit <bn> of register <dr>.
+
+    Source: ND-06.014 (ND-100 Reference Manual) section 3.2.2.6.3, One Bit Accumulator Instructions. K is the one-bit accumulator in the status register STS; <bn> is the bit number and <dr> the register.
 
   opcode: "177600"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
-  format: "BORA"    
-  category: "Bit instructions"
+  format: "BORA <bn> <dr>"
+  category: "Bit Instructions"
   privilege: "user"
   flags_affected:
     - K  # 1-bit accumulator (K)

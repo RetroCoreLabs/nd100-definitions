@@ -49,7 +49,7 @@ instruction:
   opcode: "0143100" # Octal, ΔΔ specifies the transfer type
   format: "MOVEW"
   mask: "1111_1111_1111_1000" # 
-  category: "Word Block Instructions"
+  category: "Word Block Instruction"
   instruction_class:
   privilege: "user"
 

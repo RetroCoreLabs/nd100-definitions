@@ -1,11 +1,16 @@
 instruction:
   name: CNREK
   description: |
-    Clear non reentrant pages (SINTRAN K only).    
+    Clear non-reentrant pages (SINTRAN K only).
+
+    A SINTRAN III instruction of the ND-110 microprogram, used by SINTRAN K only. For every bit that is set in a bitmap of words addressed by T and X, it clears the matching page table entry. CLNREENT is the same operation for other SINTRAN versions.
+
+    Source: the ND-110 Instruction Set manual, ND-06.029.1, page 139, and its PLANC listing in Appendix B (page 168). The OCR of that listing is damaged in places, so only the shape of the loop is given here.
+
   format: CNREK
   opcode: "140504"  # Octal
   mask: "1111_1111_1111_1111"
-  category: "Control Instructions"
+  category: "SINTRAN III Control Instructions"
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

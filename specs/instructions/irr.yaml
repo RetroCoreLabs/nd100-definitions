@@ -6,7 +6,7 @@ instruction:
   opcode: "153600"  # Octal
   mask: "1111_1111_1000_0000"  # Matches bit pattern 1 1 0 1 0 1 1 1 from image
   format: "IRR <level> <register>"
-  category: "Inter-level Instructions"
+  category: "Inter-level Register Instructions"
   instruction_class: 
   privilege: "privileged"
   

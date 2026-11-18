@@ -14,7 +14,7 @@ instruction:
     If condition false, continue program execution at (P) + 1.     
 
     'displacement' = The eight displacement (disp) bits give a signed range of -128 to 127 locations to be jumped if the condition is true.
-  category: "Sequencing Instructions"
+  category: "Jump Instructions"
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
   instruction_class: "jump_on_condition"

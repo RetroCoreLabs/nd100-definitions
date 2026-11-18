@@ -14,7 +14,7 @@ instruction:
   opcode: "141600"  # Octal
   mask: "1111_1111_1100_0000"  # Matches bit pattern from image
   format: "RDIV <source> <destination>"
-  category: "Register Operations"
+  category: "Register Instructions"
   instruction_class: "register_src_dst"
   privilege: "user"
   flags_affected:

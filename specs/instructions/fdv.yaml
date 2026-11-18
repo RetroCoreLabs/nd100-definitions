@@ -12,7 +12,7 @@ instruction:
   opcode: "114000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "FDV <addressing_mode> <disp>"
-  category: "Standard Floating Instructions"
+  category: "Memory Transfer: Arithmetic and Logical"
   instruction_class: "memory_transfer"
   privilege: "user"
   flags_affected:
