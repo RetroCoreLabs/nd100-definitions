@@ -36,9 +36,9 @@ instruction:
       type: "numeric"
       bits: "7-0"
       description: "8-bit argument extended to 16 bits using sign extension"
-  flags_affected:
-    - C  # Carry
-    - O  # Overflow
+  # no flags: the ND-110 manual names none for the set-argument instructions, and nd100x
+  # (src/cpu/cpu_instr.c, cpu_setreg) only loads the register
+  flags_affected: []
   examples:
     - description: "Set the T register to 20₈."
       code: "SAT 20₈"

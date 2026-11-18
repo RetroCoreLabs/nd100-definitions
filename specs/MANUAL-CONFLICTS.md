@@ -10,20 +10,22 @@ the printed page or a real machine.
 
 | File | What the file says | What the manuals say |
 |---|---|---|
-| leav.yaml | `privilege: user` | the ND-110 index marks LEAVE privileged (line 1576); its own section and the ND-100 manual do not |
-| movew.yaml | `privilege: user`; its table marks code 06 privileged | ND-110 lines 3846-3851 mark codes 02, 05, 07 and 10 privileged, not 06 |
-| saa.yaml, sab.yaml | `flags_affected` C (and O for SAB) | ND-110 lines 3509-3566 give flags only for the add-argument example (AAA) |
+| leav.yaml | `privilege: user` (kept, decided 2026-11-18) | the ND-110 index marks LEAVE privileged (line 1576); its own section, the ND-100 manual and its partner ENTR do not |
+| movew.yaml | its tables mark 02, 05, 06, 07, 10 privileged | ND-110 lines 3846-3851 leave 06 unmarked; nd100x (do_movew) checks privilege for 06 too. Not tested on a machine |
 | cnrek.yaml | "CLNREENT is the same operation for other SINTRAN versions" | ND-110 line 5772 says only "(SINTRAN K only)" |
 | geco.yaml | the whole instruction | GECO is in neither manual; it has no `detailed_description` |
 
 Fixed: jpl.yaml called JPL "Jump if Plus"; both manuals call it "Jump to subroutine (jump
 link)" with no condition (ND-110 line 3218, ND-100 line 8329).
 
+Fixed: saa, sab, sat and sax listed carry and overflow as changed. The manual names no flags
+for them, and nd100x only loads the register (checked 2026-11-18); now `flags_affected: []`.
+
 ## The two manuals disagree
 
 | Instruction | ND-110 (ND-06.029.1) | ND-100 (ND-06.014.2A) | Text written |
 |---|---|---|---|
-| ELEAV | A is loaded with an error code (lines 4428, 4433) | A is stored into ERRCODE (lines 6854, 6930) | ND-100 |
+| ELEAV | A is loaded with an error code (lines 4428, 4433) | A is stored into ERRCODE (lines 6854, 6930) | ND-100; nd100x does the same |
 | COMD | an error return, skipped unless error (lines 4153-4163) | always skips (line 6752) | both |
 | ENTR, LEAVE, ELEAV | the stack instructions survive page faults (line 4410) | a page fault can destroy B; do not use them where faults happen (line 6843) | both, each labelled |
 | IRW | does nothing when the current level's A register is named (line ~4660) | ... when the current level's P register is named (line 5891) | both |

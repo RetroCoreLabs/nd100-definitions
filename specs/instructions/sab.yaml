@@ -28,9 +28,9 @@ instruction:
       type: "numeric"
       bits: "7-0"
       description: "8-bit argument extended to 16 bits using sign extension"
-  flags_affected:
-    - C  # Carry
-    - O  # Overflow
+  # no flags: the ND-110 manual names none for the set-argument instructions, and nd100x
+  # (src/cpu/cpu_instr.c, cpu_setreg) only loads the register
+  flags_affected: []
   examples:
     - description: "The contents of the B register are set to 177752, bits 0-7 have been extended with ones as the argument is negative; bits 0-7 have the argument in its 2's complement form."
       code: "SAB -26"

@@ -65,6 +65,10 @@ instruction:
         APT = alternative page table
         *   = privileged
 
+    The manual's table does not mark 06 (physical memory to PT) as privileged, although every
+    other code that touches physical memory is. The nd100x emulator (do_movew) checks privilege
+    for 06 as well; this has not been tested on a real machine.
+
     Registers that control the move:
 
         A and D   source address
