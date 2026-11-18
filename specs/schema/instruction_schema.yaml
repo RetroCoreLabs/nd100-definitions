@@ -23,6 +23,22 @@ properties:
   detailed_description:
     type: string
     description: "Detailed description with technical information and usage notes"
+  extended_description:
+    type: string
+    description: "More text after the detailed description"
+  before_use:
+    type: string
+    description: "What must be set up before the instruction is used"
+  manual_refs:
+    type: array
+    description: "Where the manuals describe the instruction. Manual ids are listed in cpu.yaml metadata.manuals; page is the printed page number"
+    items:
+      type: object
+      required: [manual]
+      properties:
+        manual: {type: string}
+        page: {type: integer}
+        section: {type: string}
   opcode:
     type: string
     pattern: "^0[0-7]{6}$"
@@ -38,14 +54,14 @@ properties:
   category:
     type: string
     minLength: 1
-    description: "Category of the instruction"
+    description: "Category of the instruction: a name defined in specs/categories.yaml (the loader rejects any other)"
   instruction_class:
     type: string
     minLength: 1
     description: "Instruction class (must be a valid class defined in cpu.yaml)"
   privilege:
     type: string
-    enum: [User, Privileged]
+    enum: [user, privileged]   # what each means: cpu.yaml metadata.privilege_levels
     description: "Privilege level required to execute the instruction"
   isalias:
     type: boolean

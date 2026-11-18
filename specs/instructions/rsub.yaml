@@ -19,6 +19,9 @@ instruction:
   mask: "1111_1111_1100_0000"  # Top 10 bits are opcode
   format: "RSUB <sub-instruction> <source> <destination>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 57
   instruction_class: "register_arithmetic"
   privilege: "user"
   isalias: true

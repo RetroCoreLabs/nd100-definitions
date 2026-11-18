@@ -39,6 +39,46 @@ namespace NDGen.Core.Models
 
         [YamlMember(Alias = "operand_types")]
         public List<OperandType> OperandTypes { get; set; } = new();
+
+        /// <summary>The manuals the definitions cite, by id (cpu.yaml <c>manuals</c>).</summary>
+        [YamlMember(Alias = "manuals")]
+        public List<ManualInfo> Manuals { get; set; } = new();
+
+        /// <summary>What each privilege value means (cpu.yaml <c>privilege_levels</c>).</summary>
+        [YamlMember(Alias = "privilege_levels")]
+        public List<PrivilegeLevelInfo> PrivilegeLevels { get; set; } = new();
+    }
+
+    /// <summary>One manual the definitions cite: its ND id and its title.</summary>
+    public class ManualInfo
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+    }
+
+    /// <summary>One privilege value (user, privileged) and what it means.</summary>
+    public class PrivilegeLevelInfo
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// One instruction category from specs/categories.yaml: the name the instruction files use in
+    /// <c>category</c>, where the grouping comes from, and its text (Markdown; empty when the
+    /// manuals give the group none). The list is in the order of the manuals.
+    /// </summary>
+    public class CategoryDefinition
+    {
+        public string Name { get; set; } = string.Empty;
+        public List<ManualRef> Sources { get; set; } = new();
+        public string? Description { get; set; }
+    }
+
+    /// <summary>The root of specs/categories.yaml.</summary>
+    public class CategoryFile
+    {
+        public List<CategoryDefinition> Categories { get; set; } = new();
     }
 
     public class Register

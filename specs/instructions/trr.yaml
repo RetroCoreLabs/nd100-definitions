@@ -7,6 +7,9 @@ instruction:
   opcode: "0150100"  # Octal
   format: "TRR <internal_register>"
   category: "Register Transfer Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 119
   instruction_class: #"register_transfer" 
   privilege: "privileged"
   mask: "1111_1111_1111_0000" # top 12 bits are opcode

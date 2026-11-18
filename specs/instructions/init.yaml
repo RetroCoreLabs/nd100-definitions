@@ -30,6 +30,9 @@ instruction:
   format: "INIT"
   mask: "1111_1111_1111_1111" 
   category: "Stack Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 110
   instruction_class:
   privilege: "user"
   flags_affected:

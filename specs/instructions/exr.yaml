@@ -13,6 +13,9 @@ instruction:
   mask: "1111_1111_1100_0000"  # Only 3 lower bits are flexible
   format: "EXR <sr>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 45
   instruction_class:
   privilege: "user"
   

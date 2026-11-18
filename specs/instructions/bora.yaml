@@ -13,6 +13,9 @@ instruction:
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
   format: "BORA <bn> <dr>"
   category: "Bit Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 87
   privilege: "user"
   flags_affected:
     - K  # 1-bit accumulator (K)

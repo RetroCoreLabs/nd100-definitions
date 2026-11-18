@@ -14,6 +14,9 @@ instruction:
   opcode: "150400"  # Octal
   mask: "1111_1111_1111_1111"
   category: "OPCOM Mode Instruction"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 132
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

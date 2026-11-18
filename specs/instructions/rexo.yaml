@@ -21,6 +21,9 @@ instruction:
   mask: "1111_1111_1100_0000"  # Matches bit pattern from image
   format: "REXO [flags] <source> <destination>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 53
   instruction_class: "register_logical"
   privilege: "user"
   examples:

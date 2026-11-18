@@ -127,6 +127,25 @@ namespace NDGen.Core.Models
     }
 
     /// <summary>
+    /// A place in a manual (YAML <c>manual_refs</c> entry of an instruction, <c>sources</c> entry
+    /// of a category). Page is the page number printed in the manual.
+    /// </summary>
+    public class ManualRef
+    {
+        /// <summary>The manual id, for example ND-06.029.1 (see cpu.yaml <c>metadata.manuals</c>).</summary>
+        public string Manual { get; set; } = string.Empty;
+
+        /// <summary>The printed page number, when one page is meant.</summary>
+        public int? Page { get; set; }
+
+        /// <summary>A page range such as "137-146", for a group of entries.</summary>
+        public string? Pages { get; set; }
+
+        /// <summary>A section number and title, such as "3.2.1.2 Store Instructions".</summary>
+        public string? Section { get; set; }
+    }
+
+    /// <summary>
     /// Represents an example of instruction usage
     /// </summary>
     public class Example
@@ -213,6 +232,22 @@ namespace NDGen.Core.Models
         /// Gets or sets the detailed description with technical information and usage notes
         /// </summary>
         public string? DetailedDescription { get; init; }
+
+        /// <summary>
+        /// Gets or sets more text after the detailed description (YAML <c>extended_description</c>).
+        /// </summary>
+        public string? ExtendedDescription { get; init; }
+
+        /// <summary>
+        /// Gets or sets what must be set up before the instruction is used (YAML <c>before_use</c>).
+        /// </summary>
+        public string? BeforeUse { get; init; }
+
+        /// <summary>
+        /// Gets or sets where the manuals describe the instruction (YAML <c>manual_refs</c>).
+        /// The manual ids are listed in cpu.yaml <c>metadata.manuals</c>.
+        /// </summary>
+        public List<ManualRef> ManualRefs { get; init; } = new List<ManualRef>();
 
         /// <summary>
         /// Gets or sets the instruction opcode in octal format

@@ -7,6 +7,9 @@ instruction:
   mask: "1111_1111_1111_1111" # top 16 bits are opcode
   format:  "IOXT"
   category: "Input/Output Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 123
   instruction_class:
   privilege: "privileged"
   detailed_description: |  

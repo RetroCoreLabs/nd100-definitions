@@ -12,6 +12,9 @@ instruction:
   opcode: "140700"  # Octal, Δ is a 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"
   category: "SINTRAN III Control Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 140
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

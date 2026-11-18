@@ -5,6 +5,9 @@ instruction:
   mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
   format: "AAA <number>"
   category: "Argument Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 85
   privilege: "user"
   operands:
     - name: "opcode"        

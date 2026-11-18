@@ -8,13 +8,16 @@ instruction:
     
   detailed_description: |
     X = X + 1
-    Condtion: Jump if (X) < 0 (jump if X is negative)
+    Condition: Jump if (X) < 0 (jump if X is negative)
 
     If condition true, jump to the address of the program counter plus the value of displacement.
     If condition false, continue program execution at (P) + 1.     
 
     'displacement' = The eight displacement (disp) bits give a signed range of -128 to 127 locations to be jumped if the condition is true.
   category: "Jump Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 80
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
   instruction_class: "jump_on_condition"

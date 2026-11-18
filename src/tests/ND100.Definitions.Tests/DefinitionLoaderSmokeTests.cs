@@ -150,7 +150,7 @@ public class DefinitionLoaderSmokeTests
         _out.WriteLine($"Operand types (metadata):    {meta.OperandTypes.Count}");
         _out.WriteLine($"Instruction classes (meta):  {meta.InstructionClasses.Count}");
         _out.WriteLine($"Tokens (metadata):           {meta.Tokens.Count}");
-        _out.WriteLine($"Category docs loaded (.md):  {loader.CategoryDocs.Count}");
+        _out.WriteLine($"Category texts loaded:  {loader.CategoryDocs.Count}");
         _out.WriteLine($"Instruction dir (relative):  {instructionsRel}");
         _out.WriteLine($"Instruction .yaml on disk:   {yamlFilesOnDisk}  (excl. _template.yaml, cpu.yaml)");
         _out.WriteLine($"Instructions loaded:         {instructions.Count}");

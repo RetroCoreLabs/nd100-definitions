@@ -45,6 +45,9 @@ instruction:
   mask: "1111_1000_1100_0000" # top 5 + 7-6 (must be 00) bit are the opcode
   format: "SKP <dr> <condition> <sr>" # SKP <dr> <condition> <sr>    
   category: "Skip Instruction"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 82
   instruction_class:
   privilege: "user"
   operands:

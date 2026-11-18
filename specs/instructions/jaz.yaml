@@ -4,7 +4,7 @@ instruction:
   opcode: "0131000"  # Octal format 
   mask: "1111_1111_0000_0000"  # 8 bits displacement,
   description: |
-    Condtion: Jump if (A) == 0 (jump if A is zero)
+    Condition: Jump if (A) == 0 (jump if A is zero)
   
   detailed_description: |
     If condition true, jump to the address of the program counter plus the value of displacement.
@@ -12,6 +12,9 @@ instruction:
 
     'displacement' = The eight displacement (disp) bits give a signed range of -128 to 127 locations to be jumped if the condition is true.
   category: "Jump Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 79
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
   instruction_class: "jump_on_condition"

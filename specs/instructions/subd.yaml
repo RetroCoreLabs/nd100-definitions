@@ -34,6 +34,9 @@ instruction:
   format: "SUBD"
   mask: "1111_1111_1111_1111"
   category: "Decimal Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 105
   instruction_class:
   privilege: "user"
 

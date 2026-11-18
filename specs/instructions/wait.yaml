@@ -8,6 +8,9 @@ instruction:
   mask: "1111_1111_0000_0000" # Matches the bit pattern shown in image
   format: "WAIT <wait_number>"
   category: "Interrupt Control Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 127
   instruction_class: 
   privilege: "privileged"
   

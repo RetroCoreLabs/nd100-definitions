@@ -7,6 +7,9 @@ instruction:
     The next instruction is taken from the effective address of the JMP instruction(the effective address is ioaded into the program counter).  
     
   category: "Jump Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 78
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
   instruction_class: "memory_transfer"

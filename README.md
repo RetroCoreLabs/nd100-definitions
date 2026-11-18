@@ -12,7 +12,7 @@ This repository is the single source of truth for ND-100 instruction encoding, o
 specs/                        ← everything lives here; use this as the root
   cpu.yaml                    ← entry point: references all sub-trees below
   instructions/               ← one YAML file per mnemonic (e.g. add.yaml)
-  category/                   ← Markdown descriptions of instruction groups
+  categories.yaml             ← the instruction groups: names, manual sources, text
   internalregisters/          ← CPU internal register definitions
   operand_types/              ← addressing-mode and operand-type definitions
   behaviour/                  ← behavioural pseudocode (EMIL) and libraries

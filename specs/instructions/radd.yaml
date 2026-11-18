@@ -56,6 +56,9 @@ instruction:
   mask: "1111_1100_0000_0000" # top 5 bits are the opcode
   format: "RADD [sub-instruction(s)] <source> <destination>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 47
   instruction_class: "register_arithmetic"
   privilege: "user"
   flags_affected: ["C", "O", "Q"]

@@ -50,6 +50,9 @@ instruction:
   format: "MOVEW"
   mask: "1111_1111_1111_1000" # 
   category: "Word Block Instruction"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 95
   instruction_class:
   privilege: "user"
 

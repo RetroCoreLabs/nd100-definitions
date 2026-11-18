@@ -6,6 +6,9 @@ instruction:
   description: |
     Transfer IDENT code of interrupting device with highest priority on the specified level to A register. 
   category: "Interrupt Control Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 125
   privilege: "privileged"
   flags_affected:
   instruction_class:

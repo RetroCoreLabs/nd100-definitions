@@ -1,0 +1,600 @@
+# The instruction categories: one entry per value of 'category' in instructions/*.yaml.
+# Every tool that groups instructions (the Ghidra plugin's PDF manual, the documentation site,
+# the Markdown generator) reads its names, order, sources and text from here.
+#
+# name:        exactly the 'category' value the instruction files use
+# sources:     where the grouping comes from - a manual (see 'manuals' in cpu.yaml) and the
+#              section or pages of that manual
+# description: Markdown. Left out when the manuals give the group no text of its own.
+# Order: the order of the groups in ND-06.029.1 (ND-110 Instruction Set).
+categories:
+  - name: "Register Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "43-58"
+    description: |
+      These instructions specify operations between source (sr) and destination (dr) registers.
+  - name: "Memory Transfer: Load"
+    sources:
+      - manual: "ND-06.014.2A"
+        section: "3.2.1.3 Load Instructions"
+      - manual: "ND-06.029.1"
+        pages: "60-61"
+  - name: "Memory Transfer: Store"
+    sources:
+      - manual: "ND-06.014.2A"
+        section: "3.2.1.2 Store Instructions"
+      - manual: "ND-06.029.1"
+        pages: "62-64"
+  - name: "Memory Transfer: Arithmetic and Logical"
+    sources:
+      - manual: "ND-06.014.2A"
+        section: "3.2.1.4 Arithmetical and Logical Instructions"
+      - manual: "ND-06.029.1"
+        pages: "65-69"
+  - name: "Floating Point Conversion Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "71"
+  - name: "Shift Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "75"
+  - name: "Jump Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "78-80"
+    description: |
+      FOR ALL JUMP ON CONDITION TRUE INSTRUCTIONS:
+
+      <displacement> range: -128 to +127 locations
+
+      General description:
+        (P) <- (EA)
+
+      If condition true, jump to the address of the program counter plus the value of disp.
+      If condition false, continue program execution at (P) + 1.
+  - name: "Monitor Instruction"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "81"
+  - name: "Skip Instruction"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "82"
+  - name: "Argument Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "85"
+    description: |
+      These instructions operate on registers.
+
+      The <number> is sign extended.
+
+      8-bit argument numbers are extended to 16-bits using Sign extension.
+
+        The 8-bit argument becomes the least significant byte
+        The higher byte is extended with ones or zeros.
+
+      Positive arguments have the higher byte extended with zeros
+      Negative numbers are extended with ones with the argument in 2's complement form.
+  - name: "Bit Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "87"
+    description: |
+      These instructions manipulate single bits within the working and STS registers.
+
+      Instruction structure:
+
+          15         7 6     3   0
+          ┌──────────┬───────┬───┐
+          │ bit op   │  bn   │dr │
+          └──────────┴───────┴───┘
+
+      Bit operation:
+        Bits 11-15 are always set to one for a bit operation.
+        Bits 7-10 determine the type of operation as follows:
+
+          ┌──────────┬────────────┬───────────────────────────────┬─────────────┐
+          │type bits │ mnemonic   │ description                   │ code        │
+          │10 9 8 7  │            │                               │             │
+          ├──────────┼────────────┼───────────────────────────────┼─────────────┤
+          │ 0 0 0 0  │ BSET ZRO   │ bit ⟵ 0                      │ 174000₈     │
+          │ 0 0 0 1  │ BSET ONE   │ bit ⟵ 1                      │ 174200₈     │
+          │ 0 0 1 0  │ BSET BCM   │ bit ⟵ bit                    │ 174400₈     │
+          │ 0 0 1 1  │ BSET BAC   │ bit ⟵ K                      │ 174600₈     │
+          │ 0 1 0 0  │ BSKP ZRO   │ skip if bit = 0               │ 175000₈     │
+          │ 0 1 0 1  │ BSKP ONE   │ skip if bit = 1               │ 175200₈     │
+          │ 0 1 1 0  │ BSKP BCM   │ skip if bit = bit             │ 175400₈     │
+          │ 0 1 1 1  │ BSKP BAC   │ skip if bit = K               │ 175600₈     │
+          │ 1 0 0 0  │ BSTC       │ bit ⟵ K, K ⟵ 1              │ 176000₈     │
+          │ 1 0 0 1  │ BSTA       │ bit ⟵ K, K ⟵ 0              │ 176200₈     │
+          │ 1 0 1 0  │ BLDC       │ K ⟵ bit                      │ 176400₈     │
+          │ 1 0 1 1  │ BLDA       │ K ⟵ bit                      │ 176600₈     │
+          │ 1 1 0 0  │ BANC       │ K ⟵ (bit AND K)              │ 177000₈     │
+          │ 1 1 0 1  │ BAND       │ K ⟵ (bit AND K)              │ 177200₈     │
+          │ 1 1 1 0  │ BORC       │ K ⟵ (bit OR K)               │ 177400₈     │
+          │ 1 1 1 1  │ BORA       │ K ⟵ (bit OR K)               │ 177600₈     │
+          └──────────┴────────────┴───────────────────────────────┴─────────────┘
+
+      **Sub-instructions:**
+      Only the BSET and BSKP instructions have the following qualifying sub-instructions:
+          ZRO
+          ONE
+          BCM
+          BAC
+
+      **bn (bits 3-6):**
+        The address of the bit to be manipulated is given by these four bits.
+        Remember that each bit is given its OCTAL address.
+
+      **dr (bits 0-2):**
+        The following registers allow bit operations and are specified as follows:
+
+          ┌──────────┬──────────┬────────┐
+          │ register │ mnemonic │ code   │
+          ├──────────┼──────────┼────────┤
+          │ STS      │ †        │ 0₈     │
+          │ D        │ DD       │ 1₈     │
+          │ P        │ DP       │ 2₈     │
+          │ B        │ DB       │ 3₈     │
+          │ L        │ DL       │ 4₈     │
+          │ A        │ DA       │ 5₈     │
+          │ T        │ DT       │ 6₈     │
+          │ X        │ DX       │ 7₈     │
+          └──────────┴──────────┴────────┘
+
+      † For STS no mnemonic is required as it is implied by the following table of compound mnemonics:
+
+      **STS register:**
+      There are only eight bits which can be operated on in the STS register. They have special mnemonics and unique octal code values which combine the bn and dr fields.
+
+          ┌────────────────┬──────────┬─────────────────────────────┬─────────────┐
+          │ compound       │ STS bit  │ description                 │ octal code  │
+          │ mnemonic       │          │                             │             │
+          ├────────────────┼──────────┼─────────────────────────────┼─────────────┤
+          │ SSPTM          │ 0        │ page table flag             │ 00₈         │
+          │ SSTG           │ 1        │ floating point rounding flag│ 10₈         │
+          │ SSK            │ 2        │ 1 bit accumulator (K)       │ 20₈         │
+          │ SSZ            │ 3        │ error flag (Z)              │ 30₈         │
+          │ SSQ            │ 4        │ dynamic overflow flag (Q)   │ 40₈         │
+          │ SSO            │ 5        │ static overflow flag (O)    │ 50₈         │
+          │ SSC            │ 6        │ carry flag (C)              │ 60₈         │
+          │ SSM            │ 7        │ multi-shift link flag (M)   │ 70₈         │
+          └────────────────┴──────────┴─────────────────────────────┴─────────────┘
+  - name: "Single Byte Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "91"
+    description: |
+      These instructions address single bytes within the memory map.
+
+      A special addressing mode is used for these instructions, utilizing the T and X registers.
+      The contents of T point to the beginning of a character string, and the contents of X point to a specific byte within that string.
+  - name: "Byte Block Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "93"
+    description: |
+      These instructions use byte operands, which occupy fields within memory. Byte operands are specified by two 16-bit words, known as descriptors, giving the start address and the field length.
+
+
+
+
+         as
+      sr dr  15                                                        0
+      A  X   ┌──────────────────────────────────────────────────────────┐
+             │                      word address                        │  D1
+             └──────────────────────────────────────────────────────────┘
+
+         15 14 13 12 11                                              0
+      D  T  ┌──┬──┬─┬─┬───────────────────────────────────────────────┐
+            │lr│pt│0│X│                field length                   │  D2
+            └──┴──┴─┴─┴───────────────────────────────────────────────┘
+
+      Note:
+        bit 13 should always be zero
+        bit 12 can be any value
+
+
+      **Descriptor D1:**
+      - The first word gives the start address of the operand.
+
+      **Descriptor D2:**
+      - The second word contains:
+        - **lr** (bit 15): Determines whether the operand starts in the left or right byte of the memory location addressed by D1.
+          - `lr = 0`: left byte start
+          - `lr = 1`: right byte start
+        - **pt** (bit 14): Page table mode.
+          - `pt = 0`: normal
+          - `pt = 1`: alternative
+        - **Bit 13:** Should always be zero.
+        - **Bit 12:** Can be any value.
+        - **Field length (bits 11-0):** Number of operand bytes (maximum 4095 bytes).
+
+      **Register usage:**
+      - The A and D registers hold the source operand descriptor (D1 and D2).
+      - The X and T registers hold the destination operand descriptor.
+
+      **Summary Table:**
+
+      | Descriptor | Bits         | Purpose                                 |
+      |------------|--------------|-----------------------------------------|
+      | D1         | 15-0         | Start address of operand                |
+      | D2         | 15           | lr: left/right byte start               |
+      |            | 14           | pt: page table mode                     |
+      |            | 13           | Must always be zero                     |
+      |            | 12           | Can be any value                        |
+      |            | 11-0         | Field length (number of operand bytes)  |
+
+      > **Note:**
+      > - Bit 13 of D2 should always be zero.
+      > - Bit 12 of D2 can be any value.
+  - name: "Word Block Instruction"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "95"
+  - name: "Version Instruction"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "97"
+  - name: "Decimal Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "101-106"
+    description: |
+      These instructions use decimal operands residing in main memory only.
+
+
+      **Instruction structure:**
+
+          D1 (word address)
+          ┌───────────────────────────────┐
+          │15           ...            0  │
+          │ word address                  │
+          └───────────────────────────────┘
+
+          D2 (operand features)
+          ┌────┬────┬───────┬───────┬──────────────┬──────────────┐
+          │15  │14  │13-11  │10     │  9  -    5   │  4  -    0   │
+          ├────┼────┼───────┼───────┼──────────────┼──────────────┤
+          │lr  │ •  │ASCII  │r      │decimal point | field length │
+          └────┴────┴───────┴───────┴──────────────┴──────────────┘
+
+      **Descriptors (D1 and D2):**
+      - Two 16-bit words (D1 and D2) specify the operands used in decimal instructions.
+      - D1: The first descriptor gives the word address of the decimal operand in memory.
+      - D2: Describes the following operand features:
+        - **lr (bit 15):**
+          - lr = 0: The operand starts in the left byte of a memory word (least significant 8 bits).
+          - lr = 1: The operand starts in the right byte of a memory word (most significant 8 bits).
+        - **ASCII (bits 11-13):**
+          - These three bits give the sign representation used for ASCII format:
+
+              ┌─────┬───────────────────────┐
+              │bits │ sign representation   │
+              ├─────┼───────────────────────┤
+              │000  │ embedded trailing     │
+              │001  │ separate trailing     │
+              │010  │ embedded leading      │
+              │011  │ separate leading      │
+              │100  │ unsigned              │
+              └─────┴───────────────────────┘
+
+          - Bit 13 also represents an unsigned number in BCD representation.
+        - **r (bit 10):**
+          - Rounding bit. If rounding is selected, one is added to the shifted operand when the least significant digit is lost during shift and the last digit shifted out of the field is 25.
+          - r = 1: rounding on
+          - r = 0: rounding off
+        - **decimal point (bits 5-9):**
+          - These bits give the position of the decimal point (0 to 31, positive or negative). Zero is the decimal place to the right of the least significant digit. The number must be less than the operand field length.
+        - **field length (bits 0-4):**
+          - These bits give the operand field length in nibbles (4-bit values) or bytes (8-bit values). BCD numbers are represented by 4 bits (1 nibble), so the field length will be in nibbles; an ASCII coded digit is represented by a byte and the field length will be in bytes.
+          - Operands start at any byte address in memory.
+          - The maximum field length is 32 nibbles/bytes.
+
+      **Decimal operands:**
+      - Decimal operands occupy a maximum of eight 16-bit memory locations. Each operand consists of BCD coded numbers.
+      - Decimal operands must be right adjusted so that the least significant digit and sign are in the last byte of the operand field.
+      - Before any instruction is executed, the operands are read into the register file. The result of the instruction is written into memory.
+      - All decimal instructions use two operands. The descriptors of each operand are held in separate registers:
+        - First operand descriptor: A and D registers
+        - Second operand descriptor: X and T registers
+
+      **Decimal overflow:**
+      - Decimal overflow is caused by:
+        - EITHER a carry from the most significant digit position in the result
+        - OR an oversized result, where the second operand was larger than the first, causing the significant digits of the result to be lost.
+        - Note: The field size alone does not indicate possible overflow.
+      - Most decimal instructions are followed by an instruction or jump to a routine which takes care of overflow errors, known as an **error return**. A decimal instruction executed without error generation skips the error return and program execution continues at the second instruction after it.
+
+
+      ### BCD- Binary Coded Decimal
+
+      Decimal digits are represented in binary-coded decimal (BCD), sometimes known as packed decimal.
+
+      Four bits are used to represent a decimal digit:
+
+          Table 3. BCD notation
+
+          ┌───────────────────────┬───────────────────────┐
+          │ binary notation       │ decimal equivalent    │
+          │ msb         lsb       │                       │
+          ├───────────────────────┼───────────────────────┤
+          │ 0  0  0  0            │ 1                     │
+          │ 0  0  0  1            │ 2                     │
+          │ 0  0  1  0            │ 3                     │
+          │ 0  0  1  1            │ 4                     │
+          │ 0  1  0  0            │ 5                     │
+          │ 0  1  0  1            │ 6                     │
+          │ 0  1  1  0            │ 7                     │
+          │ 0  1  1  1            │ 8                     │
+          │ 1  0  0  0            │ 9                     │
+          │ 1  0  0  1            │ 10                    │
+          │ 1  0  1  0            │ +                     │
+          │ 1  0  1  1            │ -                     │
+          │ 1  1  0  0            │ + †                   │
+          │ 1  1  0  1            │ - †                   │
+          │ 1  1  1  0            │ +                     │
+          │ 1  1  1  1            │ (+)                   │
+          └───────────────────────┴───────────────────────┘
+
+      (+) represents unsigned, it is treated as a plus.
+
+      † The ND-110 instruction set uses only the codes 1100 for plus and 1101 for minus.
+
+      The maximum length of an operand is 31 decimal digits plus a sign nibble (4 bits), this occupies eight consecutive memory locations (eight 16-bit words).
+
+      ### ASCII coded decimal
+
+      ASCII-coded decimal notation uses eight bits to represent a decimal digit.
+
+      The format of an ASCII code decimal is:
+
+          ┌───────┬───────┐
+          │ zone  │ digit │
+          └───────┴───────┘
+
+      *Figure 5. ASCII byte structure*
+
+      **Table 4. ASCII notation**
+
+          ┌───────────────────────────────┬───────────────────────┐
+          │ ASCII Code                    │ Decimal Equivalent    │
+          │ msb                lsb       │                       │
+          ├───────────────────────────────┼───────────────────────┤
+          │ 0 0 1 1 0 0 0 0              │ 0                     │
+          │ 0 0 1 1 0 0 0 1              │ 1                     │
+          │ 0 0 1 1 0 0 1 0              │ 2                     │
+          │ 0 0 1 1 0 0 1 1              │ 3                     │
+          │ 0 0 1 1 0 1 0 0              │ 4                     │
+          │ 0 0 1 1 0 1 0 1              │ 5                     │
+          │ 0 0 1 1 0 1 1 0              │ 6                     │
+          │ 0 0 1 1 0 1 1 1              │ 7                     │
+          │ 0 0 1 1 1 0 0 0              │ 8                     │
+          │ 0 0 1 1 1 0 0 1              │ 9                     │
+          └───────────────────────────────┴───────────────────────┘
+
+      Bit 7 (msb) is the parity bit and is always zero in ASCII code.
+
+      **Sign representation:**
+
+      The ASCII notation for sign is as follows:
+
+          +   00101011   53₈
+          -   00101101   55₈
+
+      There are four ways of representing the sign in a decimal operand:
+
+      - **separate trailing**: The byte following the last significant digit contains the sign.
+      - **separate leading**: The byte preceding the ASCII digit code contains the sign.
+      - **embedded trailing**: The byte representing the least significant decimal digit also contains the sign.
+      - **embedded leading**: The byte representing the most significant digit also contains the sign.
+      - **embedded sign coding**: The embedded codes are represented by ASCII notation as follows:
+
+      *Table 5. ASCII embedded notation*
+
+          ASCII value
+
+          ┌───────────────┬──────────────────┬───────────────────┐
+          │ decimal       │ Positive sign    │ negative sign     │
+          │ operand       │ octal |  binary  |  octal |  binary  │
+          ├───────────────┼───────┼──────────┼────────┼──────────┤
+          │ 0             │ 173   │ 01111011 │  175   │ 01111001 │
+          │ 1             │ 101   │ 01000001 │  112   │ 01001010 │
+          │ 2             │ 102   │ 01000010 │  113   │ 01001011 │
+          │ 3             │ 103   │ 01000011 │  114   │ 01001100 │
+          │ 4             │ 104   │ 01000100 │  115   │ 01001101 │
+          │ 5             │ 105   │ 01000101 │  116   │ 01001110 │
+          │ 6             │ 106   │ 01000110 │  117   │ 01001111 │
+          │ 7             │ 107   │ 01000111 │  120   │ 01010000 │
+          │ 8             │ 110   │ 01001000 │  121   │ 01010001 │
+          │ 9             │ 111   │ 01001001 │  122   │ 01010010 │
+          └───────────────┴───────┴──────────┴────────┴──────────┘
+  - name: "Stack Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "109-111"
+    description: |
+      These instructions handle stack operations improving the execution time of high-level language-based programs.
+
+      The **B** register will always point to a "stack-frame" containing:
+
+      | Stack frame content mnemonic | Pointed to by B= (octal) | Description                            |
+      |-----------------------------|---------------------------|----------------------------------------|
+      | LINK                        | -200₈                    | next instruction address †             |
+      | PREVB                       | -177₈                    | previous stack frame address           |
+      | STP                         | -176₈                    | next stack frame address               |
+      | SMAX                        | -175₈                    | top of stack address                   |
+      | —                           | -174₈                    | reserved for system use                |
+      | ERRCODE                     | -173₈                    | (A) after an ELEAV instruction         |
+
+      † In the case of a `LEAVE` instruction.
+
+      The stack-handling instructions are page-fault tolerant in the ND-110.
+  - name: "Memory Examine and Test Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "112"
+  - name: "Inter-level Register Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "114"
+  - name: "Register Block Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "116"
+  - name: "Register Transfer Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "118-119"
+  - name: "Input/Output Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "121-123"
+  - name: "Interrupt Control Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "125-127"
+    description: |
+      ### INTERRUPT CONTROL INSTRUCTIONS
+
+      These instructions are **PRIVILEGED** and only available to:
+
+      - Programs running in system mode (rings 2-3)
+      - Programs running without memory protection
+
+      These instructions control the CPU interrupt system.
+
+
+      ---
+
+      ## General Description
+
+      The ND-110 has a priority interrupt system with 16 program levels.
+
+      Each program level has its own set of working registers (A, B, D, L, P, STS, T, X).
+
+      The program levels have increasing priority, that is, program level 15 has the highest priority and program level 0 the lowest.
+
+      The 16 levels are subdivided as follows:
+
+      | level | used for                           | controlled by        |
+      |-------|------------------------------------|----------------------|
+      | 15    | very fast user interrupts          | program/ext. device  |
+      | 14    | internal hardware status interrupts| program/ext. device  |
+      | 13-10 | vectored interrupts*               | program/ext. device  |
+      | 9-0   | system and user programs           | program              |
+
+      *2048 possible sources
+
+      ---
+
+      ### Program level selection and control
+
+      Program level selection and control is via two 16-bit registers:
+
+      - **PID**: Priority Interrupt Detect
+      - **PIE**: Priority Interrupt Enable
+
+      PID is affected by program and external interrupts; PIE is controlled by program only. They can only be changed or monitored by the privileged instructions: `TRA`, `TRR`, `MST`, and `MCL` (see pages 118-120).
+
+      **Note:**
+      When the power is turned on, the power-up sequence resets PIE and PID so that program level 0 is selected.
+
+      ---
+
+      ### Interrupt programming is via three registers:
+
+      - **IIC**: Internal Interrupt Code
+      - **IIE**: Internal Interrupt Enable
+      - **PVL**: Previous Level (of hardware interrupt source)
+  - name: "Memory Management Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "128-129"
+    description: |
+      These instructions are PRIVILEGED and only available to:
+
+      * programs running in system mode (rings 2-3)
+      * programs running without memory protection
+
+      These instructions control the CPU memory management system.
+  - name: "Physical Memory Control Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "130"
+    description: |
+      These instructions are PRIVILEGED and only available to:
+
+      * programs running in system mode (rings 2-3)
+      * programs running without memory protection
+
+      These instructions monitor physical memory location contents.
+  - name: "Writable Control Store Instruction"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "131"
+  - name: "OPCOM Mode Instruction"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "132"
+  - name: "SINTRAN III Memory Transfer Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "134-136"
+    description: |
+      These instructions are **PRIVILEGED** and only available to:
+
+      - Programs running in system mode (rings 2-3)
+      - Programs running without memory protection
+
+      These instructions read/write from/to physical memory locations independent of whether paging is on or off. If the address is within the page-table range then the page tables are affected.
+
+      ---
+
+      ### Instruction format
+
+      ```
+      <physical instruction mnemonic> <displacement>
+      ```
+
+      ### Instruction structure
+
+      ```
+       | 15                      6 | 5          3 | 2-0 |
+       |---------------------------|--------------|-----|
+       | physical memory operation | displacement |type |
+      ```
+
+      - **physical memory operation type** (bits 15-6 and 2-0):
+        There are seven physical memory read/write instructions, specified by a base octal code of 143300₈ (bits 15-6) and type field (bits 2-0).
+      - **disp.**: The contents of the T and X register give the effective address of the physical memory location (see page 28).
+      - A 3-bit displacement can be added to the X register within the instruction code. This is denoted by Δ in the following codes:
+
+      | instruction mnemonic | octal code |
+      |----------------------|------------|
+      | LDATX                | 1433Δ0     |
+      | LDXTX                | 1433Δ1     |
+      | LDDTX                | 1433Δ2     |
+      | LDBTX                | 1433Δ3     |
+      | STATX                | 1433Δ4     |
+      | STZTX                | 1433Δ5     |
+      | STDTX                | 1433Δ6     |
+
+      † If you use programs written for ND-100 computers with the microprogram version numbers 015xx A-J (48 bit) or 026xx A-F (32 bit), LDBTX would have been followed by a word containing 177777₈.
+
+      This is not necessary for later ND-100 versions nor the ND-110. Running these earlier programs may change the status of the K bit in the ND-110 and later ND-100s.
+  - name: "SINTRAN III Control Instructions"
+    sources:
+      - manual: "ND-06.029.1"
+        pages: "137-146"
+    description: |
+      These instructions are **PRIVILEGED** and only available to:
+
+      - Programs running in system mode (rings 2-3)
+      - Programs running without memory protection
+
+  - name: "Undocumented Instructions"
+    sources: []

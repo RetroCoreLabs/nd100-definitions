@@ -15,6 +15,9 @@ instruction:
   mask: "1111_1111_1100_0000"  # Matches bit pattern from image
   format: "RDIV <source> <destination>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 52
   instruction_class: "register_src_dst"
   privilege: "user"
   flags_affected:

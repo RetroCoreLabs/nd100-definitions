@@ -8,6 +8,9 @@ instruction:
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
   format: "BSKP <condition> <bit_no>"    
   category: "Bit Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 87
   instruction_class: "bit_instructions_with_condition"
   privilege: "user"
   examples:

@@ -208,6 +208,9 @@ namespace NDGen.Core
                                     Name = instruction.Name,
                                     Description = instruction.Description,
                                     DetailedDescription = instruction.DetailedDescription,
+                                    ExtendedDescription = instruction.ExtendedDescription,
+                                    BeforeUse = instruction.BeforeUse,
+                                    ManualRefs = instruction.ManualRefs,
                                     Opcode = instruction.Opcode,                                    
                                     Mask = instruction.Mask,
                                     Format = instruction.Format,
@@ -216,6 +219,12 @@ namespace NDGen.Core
                                     Privilege = instruction.Privilege,
                                     Operands = newOperands,
                                     FlagsAffected = instruction.FlagsAffected,
+                                    // These four were not copied before 2026-11-18, so an instruction
+                                    // that took this path lost its examples before any tool saw them.
+                                    Flags = instruction.Flags,
+                                    Pseudocode = instruction.Pseudocode,
+                                    Examples = instruction.Examples,
+                                    GeneratedBitFormat = instruction.GeneratedBitFormat,
                                     // Keep where execution continues afterwards (exits).
                                     InlineWords = instruction.InlineWords,
                                     Exits = instruction.Exits,
@@ -391,6 +400,9 @@ namespace NDGen.Core
                             Name = instruction.Name,
                             Description = instruction.Description,
                             DetailedDescription = instruction.DetailedDescription,
+                            ExtendedDescription = instruction.ExtendedDescription,
+                            BeforeUse = instruction.BeforeUse,
+                            ManualRefs = instruction.ManualRefs,
                             Opcode = instruction.Opcode,
                             Mask = instruction.Mask,
                             Format = instruction.Format,

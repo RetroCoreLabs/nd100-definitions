@@ -9,6 +9,9 @@ instruction:
     Note that the L register points to the instruction after the jump(the program counter incremented before transfer to the L register).	
 
   category: "Jump Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 78
   privilege: "user"
   flags_affected: []  # JMP doesn't affect any flags
   instruction_class: "memory_transfer"

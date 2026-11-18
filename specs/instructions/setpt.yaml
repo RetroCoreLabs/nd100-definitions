@@ -22,6 +22,9 @@ instruction:
   opcode: "140300"  # Octal
   mask: "1111_1111_1111_1111"
   category: "SINTRAN III Control Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 145
   privilege: "privileged"
 
   # Where execution continues after this instruction (see schema field 'exits').

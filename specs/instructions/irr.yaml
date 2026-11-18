@@ -7,6 +7,9 @@ instruction:
   mask: "1111_1111_1000_0000"  # Matches bit pattern 1 1 0 1 0 1 1 1 from image
   format: "IRR <level> <register>"
   category: "Inter-level Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 114
   instruction_class: 
   privilege: "privileged"
   

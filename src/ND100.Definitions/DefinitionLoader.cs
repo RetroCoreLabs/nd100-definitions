@@ -21,7 +21,13 @@ namespace NDGen.Core
         private bool _isInitialized;
         private Dictionary<string, string> _categoryDocs = new();
 
+        private List<CategoryDefinition> _categories = new();
+
+        /// <summary>Category text keyed by the category name in lower case (from specs/categories.yaml).</summary>
         public IReadOnlyDictionary<string, string> CategoryDocs => _categoryDocs;
+
+        /// <summary>Every category in specs/categories.yaml, in the order of the manuals.</summary>
+        public IReadOnlyList<CategoryDefinition> Categories => _categories;
 
         public DefinitionLoader(ILogger<DefinitionLoader> logger, YamlLoader yamlLoader)
         {
@@ -40,10 +46,9 @@ namespace NDGen.Core
             {
                 _logger.LogInformation("Initializing DefinitionLoader with CPU definition from {Path}", cpuDefinitionPath);
                 LoadDefinitions(cpuDefinitionPath);
-                // Scan and cache category documentation
+                // The categories: their names, sources and text
                 var cpuDir = Path.GetDirectoryName(cpuDefinitionPath);
-                var categoryDir = Path.Combine(cpuDir!, "category");
-                LoadCategoryDocs(categoryDir);
+                LoadCategories(Path.Combine(cpuDir!, "categories.yaml"));
                 _isInitialized = true;  // Set initialized before validation
                 ValidateAll();
                 GenerateVisualizations(); // Generate visualizations after validation
@@ -79,23 +84,60 @@ namespace NDGen.Core
             }
         }
 
-        private void LoadCategoryDocs(string categoryDir)
+        private void LoadCategories(string path)
         {
             _categoryDocs.Clear();
-            if (!Directory.Exists(categoryDir)) return;
-            foreach (var file in Directory.GetFiles(categoryDir, "*.md"))
+            _categories = new List<CategoryDefinition>();
+            if (!File.Exists(path))
+                throw new DefinitionValidationException($"Missing {path}: every instruction category must be defined there");
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(UnderscoredNamingConvention.Instance)
+                .Build();
+            var file = deserializer.Deserialize<CategoryFile>(File.ReadAllText(path));
+            _categories = file?.Categories ?? new List<CategoryDefinition>();
+            for (int i = 0; i < _categories.Count; i++)
             {
-                var key = Path.GetFileNameWithoutExtension(file)
-                    .Replace("_", " ")
-                    .ToLowerInvariant();
-                _categoryDocs[key] = File.ReadAllText(file);
+                var c = _categories[i];
+                if (!string.IsNullOrEmpty(c.Description))
+                    _categoryDocs[c.Name.ToLowerInvariant()] = c.Description;
             }
-            _logger.LogInformation("Loaded {Count} category documentation files from {Dir}", _categoryDocs.Count, categoryDir);
+            _logger.LogInformation("Loaded {Count} categories from {Path}", _categories.Count, path);
+        }
+
+        /// <summary>
+        /// Every instruction's category must be in categories.yaml, and every manual an instruction
+        /// or a category cites must be listed in cpu.yaml metadata.manuals. A name that does not
+        /// match would drop the instruction from every grouped list, or print a reference to nothing.
+        /// </summary>
+        private void ValidateCategoriesAndManuals()
+        {
+            var names = new HashSet<string>(StringComparer.Ordinal);
+            for (int i = 0; i < _categories.Count; i++) names.Add(_categories[i].Name);
+            var manuals = new HashSet<string>(StringComparer.Ordinal);
+            var listed = _cpuDefinition.Metadata.Manuals;
+            for (int i = 0; i < listed.Count; i++) manuals.Add(listed[i].Id);
+            var errors = new List<string>();
+            for (int i = 0; i < _instructions.Count; i++)
+            {
+                var ins = _instructions[i];
+                if (!names.Contains(ins.Category))
+                    errors.Add($"{ins.Name}: category '{ins.Category}' is not in categories.yaml");
+                for (int r = 0; r < ins.ManualRefs.Count; r++)
+                    if (!manuals.Contains(ins.ManualRefs[r].Manual))
+                        errors.Add($"{ins.Name}: manual '{ins.ManualRefs[r].Manual}' is not in cpu.yaml manuals");
+            }
+            for (int i = 0; i < _categories.Count; i++)
+                for (int r = 0; r < _categories[i].Sources.Count; r++)
+                    if (!manuals.Contains(_categories[i].Sources[r].Manual))
+                        errors.Add($"category {_categories[i].Name}: manual '{_categories[i].Sources[r].Manual}' is not in cpu.yaml manuals");
+            if (errors.Count > 0)
+                throw new DefinitionValidationException(string.Join(Environment.NewLine, errors));
         }
 
         private void ValidateAll()
         {
             ValidateCpuDefinition();
+            ValidateCategoriesAndManuals();
             ValidateInstructions();
             ValidateInstructionClasses();
             ValidateOperandTypes();

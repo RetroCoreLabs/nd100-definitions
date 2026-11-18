@@ -12,6 +12,9 @@ instruction:
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "LDF <addressing_mode> <disp>"  
   category: "Memory Transfer: Load"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 60
   instruction_class: "memory_transfer" 
   privilege: "user"
 

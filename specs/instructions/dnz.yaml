@@ -20,6 +20,9 @@ instruction:
   mask: "1111_1111_0000_0000"  # Standard mask format
   format: "DNZ <scaling_factor>"
   category: "Floating Point Conversion Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 71
   instruction_class: 
   privilege: "user"
     

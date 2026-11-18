@@ -10,7 +10,7 @@ Because this repo is consumed as a git submodule by multiple tools, changes here
 | What | Where |
 |---|---|
 | Instruction definitions | `specs/instructions/<mnemonic>.yaml` |
-| Instruction category descriptions | `specs/category/<name>.md` |
+| Instruction categories (name, source, text) | `specs/categories.yaml` |
 | Internal register definitions | `specs/internalregisters/<name>.yaml` |
 | Operand / addressing-mode types | `specs/operand_types/<name>.yaml` |
 | Behavioural pseudocode (EMIL) | `specs/behaviour/` |

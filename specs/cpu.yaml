@@ -21,6 +21,26 @@ metadata:
       pattern: "#.*"
       description: "Comment token"
 
+  # The manuals the definitions cite (instructions/*.yaml 'manual_refs', categories.yaml
+  # 'sources'). Every tool that prints a reference takes the title from here.
+  manuals:
+    - id: "ND-06.014.2A"
+      title: "ND-100 Reference Manual"
+    - id: "ND-06.029.1"
+      title: "ND-110 Instruction Set"
+
+  # What the 'privilege' value of an instruction means.
+  # Source: ND-06.029.1 section 3.1.1 "Using privileged instructions".
+  privilege_levels:
+    - name: "user"
+      description: "Any program can run it."
+    - name: "privileged"
+      description: >-
+        Used by the operating system and RT programs only. Privileged instructions do all I/O
+        transfers, control memory management and the interrupt system, and let program levels
+        talk to each other. Running one from a user program causes the privileged instruction
+        interrupt (ND-06.014.2A, Privileged Instruction Interrupt).
+
   registers:
     - name: "STS"
       size: 16

@@ -10,6 +10,9 @@ instruction:
   mask: "1111_1111_1111_1000"  # Top 13 bits are opcode
   format: "RINC <destination>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 54
   instruction_class: "register_dst"
   privilege: "user"
   flags_affected: ["C", "O", "Q"]  # See RADD instruction

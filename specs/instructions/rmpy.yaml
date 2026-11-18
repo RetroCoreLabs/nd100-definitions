@@ -12,6 +12,9 @@ instruction:
   mask: "1111_1111_1100_0000"  # Matches bit pattern from image
   format: "RMPY <source> <destination>"
   category: "Register Instructions"
+  manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
+    - manual: "ND-06.029.1"
+      page: 55
   privilege: "user"
   instruction_class: "register_src_dst"
 
