@@ -43,6 +43,47 @@ instruction:
     The SHDE instruction causes the program counter to skip the next instruction UNLESS an error has been generated, when the instruction immediately following the SHDE will handle the error in some way (in this example a jump is executed on error to (P) + 10₈)).
     
     (* is the assembler mnemonic for the P register)
+
+  detailed_description: |
+    Decimal shift.
+
+        op2 <- op1 shifted
+
+    Used to normalize operands for decimal operations. The digits of the first
+    operand are shifted and the result is placed in the second operand's
+    memory location. The number of places shifted is the difference in decimal
+    position of the two operands, which normalizes op1 to op2 for decimal
+    operations such as ADDD.
+
+        (op2 - op1) positive: shift op1 to the right
+        (op2 - op1) negative: shift op1 to the left
+
+    If significant digits are lost by a left shift, an error is generated.
+
+    An unsigned operand is turned into a plus, unless bit 13 of descriptor D2
+    is set; then the BCD code for unsigned (17 octal) is used. The sign and
+    digits of the first operand are checked before execution and any illegal
+    digit codes are reported.
+
+    If bit 10 of descriptor D2 (op2) is set, the result is rounded: a 1 is added
+    to the operand depending on the last digit shifted out of the field.
+
+    Format: SHDE      Octal code: 140126
+
+    Instruction sequence:
+
+        SHDE
+        error handling instruction
+        next instruction after SHDE or after the error handling routine
+
+    If no error occurs, SHDE skips the next instruction (the error return) and
+    execution continues at the second instruction after it. If an error occurs,
+    the instruction straight after SHDE is executed and should deal with the
+    error, for example by jumping to an error routine.
+
+    The first operand descriptor is held in the A and D registers; the second
+    in the X and T registers.
+
   opcode: "0140126" # Octal
   format: "SHDE"
   mask: "1111_1111_1111_1111"

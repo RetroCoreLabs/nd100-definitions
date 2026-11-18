@@ -1,6 +1,16 @@
 instruction:
   name: "AAT"
   description: "Add argument to T"
+
+  detailed_description: |
+    Add argument to the T register.
+
+        (T) <- (T) + argument
+
+    Argument instructions work on registers. The low 8 bits of the instruction hold the argument, a signed number from -128 to 127 (negative numbers in 2's complement). The 8-bit argument is extended to 16 bits by sign extension: it stays as the low byte, and the high byte is filled with zeros when the number is positive and with ones when it is negative. For an add argument instruction, all 16 bits are added to the 16 bits already in the register.
+
+    Format: AAT <number>
+
   opcode: "173000"  # Octal
   mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
   format: "AAT <number>"

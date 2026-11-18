@@ -30,6 +30,38 @@ instruction:
     The SUBD instruction causes the program counter to skip the next instruction UNLESS an error has been generated, when the instruction immediately following the SUBD will handle the error in some way (in this example, a jump is executed on error to a subroutine at (P) + 15₈)).
     
     (* is the assembler mnemonic for the P register)
+
+  detailed_description: |
+    Subtract two decimal operands.
+
+        (op1) <- (op1) - (op2)
+
+    The second operand is subtracted from the first, and the result is left in
+    the location of the first operand.
+
+    - If the first operand field is too short to hold all the significant
+      digits of the result, decimal overflow occurs.
+    - If bit 13 of D2 of the first operand is set, the sign of the result is
+      17 octal (BCD unsigned).
+    - An empty operand (field length zero) is treated as a positive zero.
+    - A zero result can have either a negative or a positive sign.
+
+    Format: SUBD      Octal code: 140121
+
+    Instruction sequence:
+
+        SUBD
+        error handling instruction
+        next instruction after SUBD or after the error handling routine
+
+    If no error occurs, SUBD skips the next instruction (the error return) and
+    execution continues at the second instruction after it. If an error occurs,
+    the instruction straight after SUBD is executed and should deal with the
+    error, for example by jumping to an error routine.
+
+    The first operand descriptor is held in the A and D registers; the second
+    in the X and T registers.
+
   opcode: "0140121" # Octal
   format: "SUBD"
   mask: "1111_1111_1111_1111"

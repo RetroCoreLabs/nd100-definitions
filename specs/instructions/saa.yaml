@@ -1,6 +1,14 @@
 instruction:
   name: "SAA"
   description: "Set argument to A"
+
+  detailed_description: |
+    Set argument to A.
+
+        (A) <- argument
+
+    The 8-bit argument in bits 7-0 is sign-extended to 16 bits: it becomes the low byte, and the high byte is filled with zeros for a positive argument and with ones for a negative one (the argument is in 2's complement form).
+
   opcode: "170400"  # Octal
   mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
   format: "SAA <number>"

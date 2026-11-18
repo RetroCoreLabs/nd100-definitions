@@ -5,6 +5,17 @@ instruction:
     
     (X) points to the start of a bit array
     (A) points to the bit within the array
+
+  detailed_description: |
+    Store the single bit accumulator (K) in a bit in logical memory.
+
+        (X) points to the start of a bit array
+        (A) points to the bit within the array
+
+    Format: SBIT      Octal code: 140512
+
+    Privileged instruction.
+
   format: SBIT
   opcode: "140512"  # Octal
   mask: "1111_1111_1111_1111"

@@ -7,6 +7,13 @@ instruction:
     (D) ⟵ (ea + 1) + (A)
 
     The contents of two sequential memory locations, pointed to by the effective address, are added to the contents of the floating point accumulator (T and A registers). The result is held in the accumulator.
+
+  detailed_description: |
+    Add to floating accumulator. The floating point number held in the memory locations pointed to by the effective address is added to the floating accumulator, and the result is left in the floating accumulator.
+
+    The ND-100 Reference Manual describes the operand as the effective location and the two following locations, and the floating accumulator as the T, A and D registers.
+
+    Registers and flags affected: T, A, D and TG.
     
 
   opcode: "0100000"  # Octal

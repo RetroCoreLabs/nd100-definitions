@@ -2,6 +2,16 @@ instruction:
   name: REX
   description: |
     Reset extended address mode
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Reset extended address mode. The paging system goes from 24-bit addresses back to 19-bit addresses, which gives a physical address space of up to 512K words.
+
+    Flag: SEXI (bit 13 of the STS register) is cleared, which shows normal address mode.
+
+    SEX does the opposite.
+
   extended_description: |
     Set the paging system to the 19-bit address mode instead of the 24-bit address mode.
     (Creating a physical address space of up to 512K words.)

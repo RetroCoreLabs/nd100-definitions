@@ -6,6 +6,26 @@ instruction:
     (ea) ⟵ 000000₈
     
     Store zero in the memory location given by the effective address.
+
+  detailed_description: |
+    Store zero in physical memory.
+
+        (ea) <- 000000
+
+    Zero is stored in the memory location given by the effective address.
+
+    Format: STZTX <disp>      Octal code: 1433?5 (? = displacement)
+
+    Physical memory store. The instruction writes a physical memory location
+    whether paging is on or off. If the address is inside the page table range,
+    the page tables are affected.
+
+    The T and X registers give the effective address of the physical memory
+    location. A 3-bit displacement (bits 5-3 of the instruction, shown as a
+    digit in the octal code) is added to the X register.
+
+    Privileged instruction.
+
   format: STZTX <displacement>
   opcode: "143305"  # Octal, Δ denotes 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"

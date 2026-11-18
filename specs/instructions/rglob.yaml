@@ -6,6 +6,16 @@ instruction:
     (T) <--- bank number of segment table (STBNK)
     (A) <--- start address within bank (STSRT)
     (D) <--- bank number of core map table (CMBNK)
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Examine global pointers.
+
+        (T) <- bank number of the segment table (STBNK)
+        (A) <- start address within the bank (STSTRT)
+        (D) <- bank number of the core map table (CMBNK)
+
   format: RGLOB
   opcode: "140501"  # Octal
   mask: "1111_1111_1111_1111"

@@ -8,6 +8,14 @@ instruction:
     Load the contents of the memory location pointed to by the effective address into the A register 
     Load the contents of the memory location pointed to by the effective address plus one into the D register.
 
+  detailed_description: |
+    Load double word. The word at the effective address goes into A and the word at the effective address plus one goes into D.
+
+        (A) <- (ea)
+        (D) <- (ea + 1)
+
+    Registers affected: A, D.
+
   opcode: "024000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "LDD <addressing_mode> <displacement>"

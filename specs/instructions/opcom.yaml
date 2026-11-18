@@ -10,6 +10,14 @@ instruction:
     This instruction allows the programmer to use a terminal in direct communication with the CPU board.
     When the CPU is running, MOPC can be used to read input from the console.
     This is the software equivalent to pressing the OPCOM button on the control panel of the ND-110.
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Operator communication. The instruction lets the programmer use a terminal in direct communication with the CPU board. It does the same as pressing the OPCOM button on the control panel. While the CPU is running, the operator communication microprogram (MOPC) can then read input from the console.
+
+    ND-100 Reference Manual: while the OPCOM lamp is lit, input from the console terminal goes only to MOPC, and MOPC prints a # at the start of each line. Pressing ESCAPE while the CPU is running leaves MOPC, and later input goes to programs in main memory again.
+
   format: OPCOM
   opcode: "150400"  # Octal
   mask: "1111_1111_1111_1111"

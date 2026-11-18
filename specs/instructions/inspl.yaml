@@ -2,6 +2,11 @@ instruction:
   name: INSPL
   description: |
     Insert page in page list. (See Appendix B for a software description.)
+
+  detailed_description: |
+    Insert page in page list. A SINTRAN III control instruction; the manual refers to its Appendix B for a software description and gives no further detail in the instruction section.
+
+    Privileged instruction.
   format: INSPL
   opcode: "140502"  # Octal
   mask: "1111_1111_1111_1111"

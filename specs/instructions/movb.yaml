@@ -6,7 +6,20 @@ instruction:
     This instruction moves a block of bytes from the memory location addressed by the source operand to that of the memory location addressed by the destination operand.
     
     After execution, bit 15 of the D and T registers point to the end of the field that has been moved. The field length of the D register (source) equals zero and the T register (destination) field length is equal to the number of bytes moved.
-    
+
+  detailed_description: |
+    Move bytes. A block of bytes is moved from the memory field given by the source operand to the field given by the destination operand.
+
+    The operands are byte fields in memory, each given by two 16-bit descriptor words. The source descriptor is in the A and D registers, the destination descriptor in the X and T registers. The first word (A or X) is the start address. The second word (D or T) holds:
+
+        bit 15      lr: 0 = the field starts in the left byte, 1 = in the right byte
+        bit 14      pt: 0 = normal page table, 1 = alternative page table
+        bit 13      must always be zero
+        bit 12      can be any value
+        bits 11-0   field length, number of bytes (maximum 4095)
+
+    After execution, bit 15 of the D and T registers points to the end of the field that was moved. The field length in D (source) is zero, and the field length in T (destination) equals the number of bytes moved.
+
   opcode: "0140131" # Octal
   format: "MOVB"
   mask: "1111_1111_1111_1111"

@@ -6,6 +6,15 @@ instruction:
 
     Perform a bitwise OR operation between the contents of the A register and the contents of the memory location pointed to by the effective address, leaving the result in A.
 
+  detailed_description: |
+    OR memory contents with the A register.
+
+        (A) <- (A) OR (ea)
+
+    The word at the effective address is ORed with the A register, and the result is left in A.
+
+    The address mode field (,X I ,B in bits 10-8) and the 8-bit signed displacement (-128 to 127) select the effective address, as for all memory transfer instructions.
+
   opcode: "074000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "ORA <addressing_mode> <displacement>"

@@ -26,6 +26,36 @@ instruction:
         Error code: 2   illegal code†
                     3   overflow
         † bit 15 of both the A and D registers point to the byte containing the illegal code.
+
+  detailed_description: |
+    Convert to BCD.
+
+        (op2) <- (op1) in BCD format
+
+    The first operand is converted from ASCII format to BCD format and the result is placed in the second operand.
+
+    Both operands are decimal fields in memory, each given by two descriptor words: the first operand by the A and D registers, the second by the X and T registers. The first word is the word address of the field. The second word holds lr (bit 15, which byte the field starts in), the sign form for ASCII (bits 13-11), rounding (bit 10), the decimal point position (bits 9-5) and the field length (bits 4-0, in nibbles for BCD and in bytes for ASCII, at most 32).
+
+    Steps:
+
+    1. Checks that the sign and the digits of op1 are ASCII digits. An illegal code is reported as error code 2.
+    2. Takes the 4 lowest bits of each ASCII digit as the BCD digit.
+    3. Converts the ASCII sign to BCD:
+
+        ASCII   BCD    sign
+        53₈     14₈    +
+        55₈     15₈    -
+
+       If bit 13 of descriptor D2 is set, the code 17₈ (BCD unsigned) is used.
+    4. Fills the rest of op2 with zeros if the result is too short for the field. If the op2 field is too short to hold the significant digits of the result, overflow is reported as error code 3 and the remaining digits are ignored.
+
+    Error codes are placed in bits 0-4 of the D register. Only the first error found is reported.
+
+        2   illegal code
+        3   overflow
+
+    For an illegal code, bit 15 of both the A and D registers points to the byte that holds it.
+
   opcode: "0140124" # Octal
   format: "PACK"
   mask: "1111_1111_1111_1111"

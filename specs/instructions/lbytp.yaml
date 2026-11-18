@@ -6,6 +6,15 @@ instruction:
     (D) points to the bank number containing the byte array
     (T) points to the start of a byte array
     (X) points to the actual byte within the array
+
+  detailed_description: |
+    Load the A register with a byte from physical memory.
+
+        (D) holds the bank number containing the byte array
+        (T) points to the start of the byte array
+        (X) points to the byte within the array
+
+    Privileged instruction (SINTRAN III control instruction).
   format: LBYTP
   opcode: "140514"  # Octal
   mask: "1111_1111_1111_1111"

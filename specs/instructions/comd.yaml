@@ -32,6 +32,34 @@ instruction:
     The COMD instruction causes the program counter to skip the next instruction UNLESS an error has been generated. In this case, the instruction immediately after COMD will handle the error in some way (in this example a jump is executed on error to ((P) + 30₈)).
     
     (* is the assembler mnemonic for the P register)
+
+  detailed_description: |
+    Compare decimal.
+
+        (A) <- (op1) compared to (op2)
+
+        (A) =  0   if (op1) = (op2)
+        (A) =  1   if (op1) > (op2)
+        (A) = -1   if (op1) < (op2)
+
+    The first operand is compared with the second, and the result is placed in the A register. Neither operand is changed.
+
+    Decimal operands must be right adjusted, so that the least significant digit and the sign are in the last byte of the operand field. Each operand is given by a two-word descriptor: the first operand in the A and D registers, the second operand in the X and T registers. The operands are read into the register file before the operation, and the result is written back to memory.
+
+    If the operands differ in length, the shorter one is extended with zeros. The positions of the decimal points are not taken into account, so the operands must be aligned first, as for ADDD/SUBD, with SHDE.
+
+    An empty operand (field length 0) is treated as a positive zero. An unsigned number is treated as positive. Positive and negative zero are equal.
+
+    Format: COMD
+
+    Skip behaviour: the ND-100 manual says COMD always gives a skip return (no error condition). The ND-110 manual shows the usual decimal sequence, with an error return after COMD that is skipped unless an error occurs:
+
+        COMD
+        JMP *30       error return
+        AAA 20        normal return
+
+    (* is the assembler mnemonic for the P register.)
+
   opcode: "0140122" # Octal
   format: "COMD"
   mask: "1111_1111_1111_1111"

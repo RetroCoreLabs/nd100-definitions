@@ -7,6 +7,19 @@ instruction:
     
     After execution, bit 15 of the T register points to the end of the field (after the last byte position) and the field length equals zero.
 
+  detailed_description: |
+    Byte fill.
+
+    This instruction has only one operand, the destination field, given by the descriptor in the X and T registers. The right-most byte of the A register (bits 0-7) is filled into the destination field.
+
+    The descriptor is two words: D1 (here X) is the start address; D2 (here T) holds bit 15 (lr: 0 = the field starts in the left byte, 1 = the right byte), bit 14 (pt: page table mode, 0 = normal, 1 = alternative), bit 13 (should always be zero), and bits 0-11 (field length, at most 4095 bytes).
+
+    After execution, X and bit 15 of T point to the end of the field (after the last byte), and the field length in T (bits 0-11) is zero.
+
+    The instruction always gives a skip return (there is no error condition).
+
+    Format: BFILL
+
   opcode: "0140130" # Octal
   format: "BFILL"
   mask: "1111_1111_1111_1111"

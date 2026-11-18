@@ -7,6 +7,16 @@ instruction:
 
     Before_use:
       Check conditions of the IOF instruction.
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Turns off both the memory management system and the interrupt system. It does the work of IOF and POF together.
+
+    Before use, check the conditions of the IOF instruction. On IOF the CPU continues at the same program level, the PVL register is unchanged, and the ION display on the panel is reset.
+
+    POF: the next instruction is taken from the physical address that follows the POF instruction. The CPU is then in an unrestricted mode without hardware protection: all instructions are legal and all memory can be reached.
+
   format: PIOF
   opcode: "150405"  # Octal
   mask: "1111_1111_1111_1111"

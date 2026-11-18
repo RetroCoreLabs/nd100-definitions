@@ -32,6 +32,36 @@ instruction:
     
     (* is the assembler mnemonic for the P register)
 
+  detailed_description: |
+    Add decimal.
+
+        (op1) <- (op1) + (op2)
+
+    The second operand is added to the first operand, and the sum is placed in the first operand's location. If needed, high-order zeros are applied to either operand.
+
+    Decimal operands must be right adjusted, so that the least significant digit and the sign are in the last byte of the operand field. Each operand is given by a two-word descriptor: the first operand in the A and D registers, the second operand in the X and T registers. The operands are read into the register file before the operation, and the result is written back to memory.
+
+    Decimal overflow occurs when the first operand field is too short to hold all significant digits of the sum. It has two possible causes:
+    - a carry from the most significant digit position of the result field;
+    - an oversized result: the second operand field is larger than the first, and significant result digits are lost.
+    The field sizes alone do not show whether overflow will happen.
+
+    The instruction does not scale automatically, so the operands must be aligned (normalised) first, for example with SHDE.
+
+    If bit 13 of D2 in the first (destination) operand is set, the sign of the result is 17 octal (binary 1111, unsigned).
+
+    An empty operand (field length 0) is treated as a positive zero.
+
+    Format: ADDD
+
+    Skip behaviour: the instruction after ADDD is the error return. With no error, ADDD skips it and execution continues at the second instruction after ADDD. On overflow, the next instruction is executed.
+
+        ADDD
+        JMP *12       error return: jump to (P) + 12 on overflow
+        STX 20        normal return
+
+    (* is the assembler mnemonic for the P register.)
+
   opcode: "0140120" # Octal
   format: "ADDD"
   mask: "1111_1111_1111_1111"

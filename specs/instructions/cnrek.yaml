@@ -7,6 +7,15 @@ instruction:
 
     Source: the ND-110 Instruction Set manual, ND-06.029.1, page 139, and its PLANC listing in Appendix B (page 168). The OCR of that listing is damaged in places, so only the shape of the loop is given here.
 
+  detailed_description: |
+    Clear non reentrant pages (SINTRAN K only).
+
+    Privileged. Only available to programs running in system mode (rings 2-3) or without memory protection.
+
+    The ND-110 manual gives only this one-line description and a PLANC listing in Appendix B (page 168). From that listing: a page table entry is cleared for each bit that is set in a bitmap of words read through T and X.
+
+    Format: CNREK
+
   format: CNREK
   opcode: "140504"  # Octal
   mask: "1111_1111_1111_1111"

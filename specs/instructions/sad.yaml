@@ -5,6 +5,48 @@ instruction:
 
     Every shift instruction places the last bit discarded in the multi-shift flag (M). 
     M can be used as an inputfor the next shift instruction. M is bit 8 of the STS Register.
+
+  detailed_description: |
+    SAD shifts the A and D registers connected together. Bit 0 of the A
+    register is connected to bit 15 of the D register, so 32-bit numbers can
+    be shifted.
+
+    Format: SAD <type> <number>      Octal code: 154600
+
+    Instruction structure:
+
+        15        11 10  9  8  7  6  5        0
+        | shift      | type | reg | 0 | number |
+
+    Bit 6 is always zero.
+
+    Type field (bits 10 and 9) selects one of four kinds of shift:
+
+        bits 10 9   octal     mnemonic   kind
+        0 0         000000    (none)     arithmetic shift
+        0 1         001000    ROT        rotational shift
+        1 0         002000    ZIN        zero end input
+        1 1         003000    LIN        link end input
+
+    Number field (bits 0-5) is a 6-bit signed field that gives the number of
+    shifts and the direction. Bits 0-4 hold the number of shifts. If bit 5 is 1
+    the shift is to the right (at most 32 places); if bit 5 is 0 the shift is
+    to the left (at most 31 places).
+
+    The assembler accepts SHR to mean a right shift, so the 2's complement of
+    the count does not have to be worked out by hand. For example, a shift of
+    the A register three places to the right can be written as any of:
+
+        SHA 7
+        SHA 10 - 3
+        SHA SHR 3
+
+    (all numbers octal)
+
+    Flag affected: M. Every shift instruction places the last bit shifted out
+    in the multi-shift flag (M). M can be used as an input to the next shift
+    instruction. M is bit 8 of the STS register.
+
   opcode: "0154600"  # Octal
   mask: "1111_1001_1000_0000" # top 5 bit are the opcode and bit 8-7 are register, part of decoding
   format: "SAD <shift_type> <shift_counter>"

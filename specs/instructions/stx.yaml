@@ -5,6 +5,17 @@ instruction:
     (EA) ⟵ (X)
 
     Store the contents of the X register in the memory location pointed to by the effective address.
+
+  detailed_description: |
+    Store X register.
+
+        (ea) <- (X)
+
+    The contents of the X register are stored in the memory location given by
+    the effective address.
+
+    Format: STX <address mode> <disp>      Octal code: 014000
+
   opcode: "014000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "STX <addressing_mode> <displacement>"

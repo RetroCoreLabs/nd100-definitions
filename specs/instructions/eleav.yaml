@@ -15,6 +15,30 @@ instruction:
     
     Format:
       ELEAV
+
+  detailed_description: |
+    Error leave stack.
+
+        (B - 200) - 1 => B - 200   (LINK)
+        A             => B - 173   (ERRCODE)
+        (B - 200)     => P         (LINK)
+        (B - 177)     => B         (PREVB)
+
+    LINK is decreased by one, the A register (holding an error code) is saved in the ERRCODE entry, the program counter is loaded with the return address in LINK, and B is restored to the previous stack frame (PREVB).
+
+    Format: ELEAV
+
+    The B register always points to a stack frame holding:
+
+        B - 200   LINK    next instruction address (used by LEAVE)
+        B - 177   PREVB   previous stack frame address
+        B - 176   STP     next stack frame address
+        B - 175   SMAX    top of stack address (used to find stack overflow)
+        B - 174   reserved for system use
+        B - 173   ERRCODE filled with (A) each time ELEAV is executed
+
+    The ND-110 manual says the stack instructions are page-fault tolerant on the ND-110. The ND-100 manual warns that a page fault during a stack instruction can destroy the B register, so on the ND-100 the stack instructions must not be used where page faults can occur.
+
   opcode: "0140137" # Octal
   format: "ELEAV"
   mask: "1111_1111_1111_1111"

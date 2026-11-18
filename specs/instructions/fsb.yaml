@@ -6,6 +6,13 @@ instruction:
     The contents of two sequential memory locations, pointed to by the effective address, are subtracted from the contents of the floating point accumulator (A and D registers). 
     The result is held in the accumulator.
 
+  detailed_description: |
+    Subtract from floating accumulator. The floating point number in the memory locations pointed to by the effective address is subtracted from the floating accumulator. The result is left in the floating accumulator.
+
+    The ND-100 Reference Manual describes the operand as the effective location and the two following locations, and the floating accumulator as the T, A and D registers.
+
+    Registers and flags affected: T, A, D and TG.
+
   opcode: "104000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "FSB <addressing_mode> <disp>"

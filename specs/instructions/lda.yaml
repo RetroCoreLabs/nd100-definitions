@@ -5,6 +5,13 @@ instruction:
     
     Load the contents of the memory location pointed to by the effective address into the A register.
 
+  detailed_description: |
+    Load A register. The word at the effective address is loaded into the A register.
+
+        (A) <- (ea)
+
+    Registers affected: A.
+
   opcode: "044000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "LDA <addressing_mode> <disp>"  

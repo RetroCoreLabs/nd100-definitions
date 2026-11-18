@@ -8,6 +8,16 @@ instruction:
     ea = (B) + Δ = STBNK entry
     
     Δ: 3-bit displacement added to B included in the instruction opcode (bits 5-3)
+
+  detailed_description: |
+    Load the A register from the segment table bank (STBNK).
+
+        (A) <- (ea)
+        ea = (B) + d = STBNK entry
+
+    d is a 3-bit displacement (bits 3-5 of the instruction) added to B.
+
+    Privileged instruction (SINTRAN III control instruction).
   format: LASB <displacement>
   opcode: "140700"  # Octal, Δ is a 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"

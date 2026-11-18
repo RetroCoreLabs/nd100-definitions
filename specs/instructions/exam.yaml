@@ -4,6 +4,18 @@ instruction:
     Examine
     
     Load the contents of the physical memory location, pointed to by the A and D register contents, into the T register.
+
+  detailed_description: |
+    Memory examine.
+
+    Privileged. Only available to programs running in system mode (rings 2-3) or without memory protection.
+
+    The T register is loaded with the contents of the physical memory location addressed by the A and D registers.
+
+    Format: EXAM
+
+    If a memory error occurs during an EXAM, bit 15 (Fetch) of the PES register (memory error status, read with TRA PES) is set.
+
   format: EXAM
   opcode: "150416"  # Octal
   mask: "1111_1111_1111_1111"

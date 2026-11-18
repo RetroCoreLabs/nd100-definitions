@@ -5,6 +5,15 @@ instruction:
 
     Disables the interrupt system.
     On IOF the ND-110 continues operation at the same program level.
+
+  detailed_description: |
+    Interrupt system off. Disables the interrupt system, turning off the mechanism for changing program level. The CPU continues on the same program level; PIL and the PVL register are unchanged.
+
+    The ION indicator on the operator panel is turned off.
+
+    IOF and ION can be used to block interrupts for short periods, for example to prevent timing problems in software.
+
+    Privileged instruction.
   opcode: "150401"  # Octal
   mask: "1111_1111_1111_1111" # top 16 bits are opcode
   format: "IOF"    

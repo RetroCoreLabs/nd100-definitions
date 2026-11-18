@@ -4,6 +4,46 @@ instruction:
     Skip next location if specified condition is true
 
     P ⟵ P+1
+
+  detailed_description: |
+    Skip the next instruction if a bit condition is true.
+
+    The selected bit is tested according to the sub-instruction; if the condition is true, the next instruction is skipped:
+
+        BSKP ZRO <bn> <dr>   skip if bit = 0          175000
+        BSKP ONE <bn> <dr>   skip if bit = 1          175200
+        BSKP BCM <bn> <dr>   skip if not bit = K      175400
+        BSKP BAC <bn> <dr>   skip if bit = K          175600
+
+    Bit instructions work on one bit in a working register or in the STS register. Bits 11-15 of the instruction are all ones; bits 7-10 select the operation; bits 3-6 (bn) give the bit number, written in octal; bits 0-2 (dr) give the register.
+
+        dr  register  mnemonic
+        0   STS       (none, see below)
+        1   D         DD
+        2   P         DP
+        3   B         DB
+        4   L         DL
+        5   A         DA
+        6   T         DT
+        7   X         DX
+
+    Only eight STS bits can be used. They have their own compound mnemonics that combine bn and dr:
+
+        SSPTM  STS bit 0  page table flag               00
+        SSTG   STS bit 1  floating point rounding flag  10
+        SSK    STS bit 2  one bit accumulator (K)       20
+        SSZ    STS bit 3  error flag (Z)                30
+        SSQ    STS bit 4  dynamic overflow flag (Q)     40
+        SSO    STS bit 5  static overflow flag (O)      50
+        SSC    STS bit 6  carry flag (C)                60
+        SSM    STS bit 7  multi-shift link flag (M)     70
+
+    K is the one bit accumulator (STS bit 2, mnemonic SSK).
+
+    Example from the manuals:
+
+        BSKP ONE SSC    skip the next instruction if the carry flag is set
+
   opcode: "175000"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
   format: "BSKP <condition> <bit_no>"    

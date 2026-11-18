@@ -6,6 +6,15 @@ instruction:
     (T) points to the bank number containing the bit array
     (X) points to the start of a bit array
     (A) points to the bit within the array
+
+  detailed_description: |
+    Load the single bit accumulator (K) with a bit from physical memory.
+
+        (T) holds the bank number containing the bit array
+        (X) points to the start of the bit array
+        (A) points to the bit within the array
+
+    Privileged instruction (SINTRAN III control instruction).
   format: LBITP
   opcode: "140511"  # Octal
   mask: "1111_1111_1111_1111"

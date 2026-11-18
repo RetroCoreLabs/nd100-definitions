@@ -8,6 +8,18 @@ instruction:
       - Interrupt system is enabled,
       - Internal hardware interrupts are enabled,
       - Page tables and PCR registers are initialized.
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Memory management on. The memory management system is turned on, and the instruction after PON uses the page index table given by the PCR register.
+
+    Before use, make sure that:
+
+    - the interrupt system is on,
+    - internal hardware interrupts are enabled,
+    - the page tables and the PCR registers are set up.
+
   opcode: "150410"  # Octal
   mask: "1111_1111_1111_1111" # top 16 bits are opcode
   format: "PON"    

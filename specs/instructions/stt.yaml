@@ -5,6 +5,17 @@ instruction:
     (EA) ⟵ (T)
 
     Store the contents of the T register in the memory location pointed to by the effective address.
+
+  detailed_description: |
+    Store T register.
+
+        (ea) <- (T)
+
+    The contents of the T register are stored in the memory location given by
+    the effective address.
+
+    Format: STT <address mode> <disp>      Octal code: 010000
+
   opcode: "010000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "STT <addressing_mode> <displacement>"

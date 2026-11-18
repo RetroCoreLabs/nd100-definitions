@@ -7,6 +7,20 @@ instruction:
     (D) ⟵ (ea + 1)
     
     Load the contents of the physical memory location pointed to by the effective address into the A register and the contents of the effective address plus one into the D register.
+
+  detailed_description: |
+    Load double word from physical memory.
+
+        (A) <- (ea)
+        (D) <- (ea + 1)
+
+    Physical memory addressing: the instruction reads physical memory whether paging is on or off (it does affect the page tables if the address is inside the page table range). The effective address is
+
+        ea = (T) + (X) + d
+
+    where d is a 3-bit displacement (bits 3-5 of the instruction, 0 to 7). d is added to X first; a carry out of that addition is dropped and not added to T, so T always selects the 64K memory area.
+
+    Privileged instruction.
   format: LDDTX <displacement>
   opcode: "143302"  # Octal, Δ denotes 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"

@@ -10,6 +10,20 @@ instruction:
     The old content of the memory address is always read from the memory and never from cache.
     
     Note: The execution time of this instruction includes two read-bus cycles (The CPU uses semaphore cycles - see ND-110 Functional Description Manual ND.06.027)
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Read a physical memory word without using the cache.
+
+        (T) points to the physical memory bank to read
+        (X) points to the address within the bank
+        (A) <- the memory word
+
+    The value is always read from memory, never from the cache.
+
+    The execution time includes two read bus cycles (the CPU uses semaphore cycles, see the ND-110 Functional Description Manual, ND-06.027).
+
   format: RDUSP
   opcode: "140517"  # Octal
   mask: "1111_1111_1111_1111"

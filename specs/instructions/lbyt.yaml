@@ -11,6 +11,17 @@ instruction:
 
     The contents of T point to the beginning of a character string and the contents of X to a byte within the string.
 
+  detailed_description: |
+    Load byte. Loads the byte addressed by the T and X registers into bits 0-7 of the A register; bits 8-15 of A are cleared.
+
+    Byte addressing: T points to the start of the character string and X points to a byte within it. The word holding the byte is at
+
+        (T) + (X)/2
+
+    If X is even (bit 0 = 0) the byte is the left half of the word; if X is odd it is the right half.
+
+    Registers affected: A.
+
   opcode: "142200"  # Octal
   mask: "1111_1111_1111_1111"  # Standard mask format
   format: "LBYT"

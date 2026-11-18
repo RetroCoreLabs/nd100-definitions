@@ -7,6 +7,28 @@ instruction:
     (ea) + 1 ⟵ (D)
     
     Store the double word held in the A and D registers in the memory locations given by the effective address and the effective address plus one.
+
+  detailed_description: |
+    Store double word in physical memory.
+
+        (ea)     <- (A)
+        (ea) + 1 <- (D)
+
+    The double word held in the A and D registers is stored in the memory
+    locations given by the effective address and the effective address plus one.
+
+    Format: STDTX <disp>      Octal code: 1433?6 (? = displacement)
+
+    Physical memory store. The instruction writes a physical memory location
+    whether paging is on or off. If the address is inside the page table range,
+    the page tables are affected.
+
+    The T and X registers give the effective address of the physical memory
+    location. A 3-bit displacement (bits 5-3 of the instruction, shown as a
+    digit in the octal code) is added to the X register.
+
+    Privileged instruction.
+
   format: STDTX <displacement>
   opcode: "143306"  # Octal, Δ denotes 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"

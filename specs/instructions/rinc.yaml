@@ -6,6 +6,18 @@ instruction:
     dr ⟵ dr + 1
     
     RINC is a compound mnemonic for RADD AD1.
+
+  detailed_description: |
+    Register increment.
+
+        dr <- dr + 1
+
+    RINC is another name for RADD AD1. The destination register is given in bits 2-0.
+
+    Flags: the same as for RADD. C is set if there is a carry out of the sign position of the adder. If there is an overflow (both operands have the same sign and the result has the other sign), O and Q are set to 1. If there is no overflow, O is cleared and Q is left as it was.
+
+    Example: RINC DA (146405₈) increments the A register by one.
+
   opcode: "146400"  # Octal
   mask: "1111_1111_1111_1000"  # Top 13 bits are opcode
   format: "RINC <destination>"

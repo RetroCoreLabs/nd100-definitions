@@ -9,6 +9,16 @@ instruction:
     The contents of the memory location pointed to by the effective address are incremented by one. 
     If the new memory location when incremented becomes zero, the next instruction is skipped.
 
+  detailed_description: |
+    Increment memory and skip if zero.
+
+        (ea) <- (ea) + 1
+        (P)  <- (P) + 2   if the new (ea) = 0
+
+    The word at the effective address is incremented by one. If the new value is zero, the next instruction is skipped.
+
+    The address mode field (,X I ,B in bits 10-8) and the 8-bit signed displacement (-128 to 127) select the effective address, as for all memory transfer instructions.
+
   opcode: "040000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "MIN <addressing_mode> <displacement>"

@@ -25,6 +25,22 @@ instruction:
       <address left empty>
       <error return address>
       <return address>
+
+  detailed_description: |
+    Initialize stack. Sets up the first stack frame. INIT is followed in memory by a parameter list:
+
+        INIT
+        stack demand (number of words for this frame)
+        address of stack start
+        maximum stack size
+        flag
+        (word not used by the microprogram)
+        error return address
+        normal return address
+
+    The stack frame is filled in from these values: LINK gets the return address (L + 1), PREVB gets the old B (the saved pointer), SMAX gets stack start + maximum size, B is set to point into the new frame, and STP gets stack demand + (B).
+
+    A stack overflow or a flag error gives an error return: the program continues at the error return address. Otherwise that word is skipped and the program continues at the normal return address. A flag error means flag bit 0 is not equal to bit 0 of the STS register.
     
   opcode: "0140134" # Octal
   format: "INIT"

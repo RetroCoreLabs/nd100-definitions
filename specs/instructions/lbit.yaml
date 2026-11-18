@@ -5,6 +5,14 @@ instruction:
     
     (X) points to the start of a bit array
     (A) points to the bit within the array
+
+  detailed_description: |
+    Load the single bit accumulator (K) with a bit from logical memory.
+
+        (X) points to the start of a bit array
+        (A) points to the bit within the array
+
+    Privileged instruction (SINTRAN III control instruction).
   format: LBIT
   opcode: "140510"  # Octal
   mask: "1111_1111_1111_1111"

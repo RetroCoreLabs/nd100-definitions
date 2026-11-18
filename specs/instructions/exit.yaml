@@ -8,6 +8,15 @@ instruction:
 
     It causes the return from a subroutine by copying the stored return address into the program counter (P register).
 
+  detailed_description: |
+    Return from subroutine. EXIT is a combined mnemonic for COPY SL DP (or RADD CLD SL DP): the contents of the L register are copied into the program counter, so execution continues at the return address saved in L.
+
+        (P) <- (L)
+
+    Flags: as for the RADD instruction.
+
+    Example: with (L) = 108 and (P) = 190 (octal), EXIT leaves the subroutine at location 190 and returns to location 108.
+
   opcode: "0146142"  # Octal
   mask: "1111_1111_1111_1111"  # Matches bit pattern from image
   format: "EXIT" # COPY SL DP

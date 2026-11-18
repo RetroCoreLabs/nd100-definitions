@@ -8,6 +8,22 @@ instruction:
     If the R1 is zero, the reentrant page has nothing to change so the loop is left, otherwise the contents of the memory location pointed to by the R1 + 2 are loaded into T.
     
     T then contains the protect table entry, if the page has not been written to (WIP bit 12 is zero) T and R1 are loaded with Rp. R1 (now containing Rp) is tested again for zero. If the page has been written to, the T register is loaded with the contents of the second scratch register (R2), pointed to by R1, and R2 becomes the address of Rp. X is loaded with R1 as the new pointer to the reentrant pages and Rp is loaded into the D register pointed to by A.
+
+  detailed_description: |
+    Change page tables (change non reentrant pages).
+
+    Privileged. Only available to programs running in system mode (rings 2-3) or without memory protection.
+
+    The manual's description:
+
+    The X register is used to address the current (R1) and previous (Rp) scratch registers.
+
+    If R1 is zero, the reentrant page has nothing to change and the loop is left. Otherwise the contents of the memory location at R1 + 2 are loaded into T.
+
+    T then holds the protect table entry. If the page has not been written to (WIP, bit 12, is zero), T and R1 are loaded with Rp, and R1 (now holding Rp) is tested again for zero. If the page has been written to, T is loaded with the contents of the second scratch register (R2) pointed to by R1, and R2 becomes the address of Rp. X is loaded with R1 as the new pointer to the reentrant pages, and Rp is loaded into the D register pointed to by A.
+
+    Format: CHREENTPAGES
+
   format: CHREENTPAGES
   opcode: "140303"  # Octal
   mask: "1111_1111_1111_1111"

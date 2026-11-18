@@ -5,6 +5,14 @@ instruction:
     
     Disable memory management system. The next instruction will be taken from a physical address given by the address following the POF instruction.
     Note: The CPU will be in an unrestricted mode without any hardware protection features - all instructions are legal and all memory accessible.
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Memory management off. The memory management system is turned off, and the next instruction is taken from the physical address that follows the POF instruction.
+
+    Note: the CPU is then in an unrestricted mode without any hardware protection. All instructions are legal and all memory can be reached.
+
   opcode: "150404"  # Octal
   mask: "1111_1111_1111_1111" # top 16 bits are opcode
   format: "POF"    

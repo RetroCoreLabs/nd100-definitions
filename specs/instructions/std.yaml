@@ -7,6 +7,19 @@ instruction:
 
     Store the contents of the A register in the memory location pointed to by the effective address
     Store the contents of the D register in the memory location pointed to by the effective address plus one.
+
+  detailed_description: |
+    Store double word.
+
+        (ea)     <- (A)
+        (ea) + 1 <- (D)
+
+    The A register is stored in the memory location given by the effective
+    address, and the D register in the location at the effective address plus
+    one.
+
+    Format: STD <address mode> <disp>      Octal code: 020000
+
   opcode: "020000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "STD <addressing_mode> <displacement>"

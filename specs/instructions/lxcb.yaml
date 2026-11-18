@@ -8,6 +8,17 @@ instruction:
     ea = (B) + Δ = CMBNK entry
     
     Δ: 3-bit displacement added to B included in the instruction opcode (bits 5-3)
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Load the X register from the core map table bank (CMBNK).
+
+        (X) <- (ea)
+        ea = (B) + Δ = CMBNK entry
+
+    Δ is a 3-bit displacement, part of the instruction code, that is added to B. The word is read from the bank that holds the core map table.
+
   format: LXCB <displacement>
   opcode: "140705"  # Octal, Δ is a 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"

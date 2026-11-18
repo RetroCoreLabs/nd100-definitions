@@ -7,6 +7,25 @@ instruction:
 
     Source: the ND-110 Instruction Set manual, ND-06.029.1, page 142, and its PLANC listing in Appendix B (page 169). The OCR of that listing is damaged in places, so only the shape of the operation is given here.
 
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Remove page from page list. The manual describes it in software (PLANC) form in Appendix B. The transcription of that listing is damaged in places; it is given here exactly as transcribed:
+
+        R1 := (cmbnk,X).0
+        R2 := (cmbnk,X).1
+        IF R2∧3 = 0 THEN
+            R1 := (cmbnk,R2).0
+        ELSE
+            Q := (R2 * 2) + ststr
+            R1 := (stbnk,Q).7
+        ENDIF
+        IF R1≠0 THEN
+            R2 := (cmbnk,R1).1
+        ENDIF
+        O := (cmbnk,X).0
+        O := (cmbnk,X).1
+
   format: REMPL
   opcode: "140503"  # Octal
   mask: "1111_1111_1111_1111"

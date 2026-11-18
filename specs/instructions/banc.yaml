@@ -9,6 +9,53 @@ instruction:
 
     Source: ND-06.014 (ND-100 Reference Manual) section 3.2.2.6.3, One Bit Accumulator Instructions. K is the one-bit accumulator in the status register STS; <bn> is the bit number and <dr> the register.
 
+  detailed_description: |
+    Logical AND with bit complement.
+
+        K <- (not bit) AND K
+
+    The complement of the selected bit is ANDed with K, and the result is left in K.
+
+    Format: BANC <bn> <dr>
+
+    Bit instructions work on one bit in a working register or in the STS register. Bits 11-15 of the instruction are all ones; bits 7-10 select the operation; bits 3-6 (bn) give the bit number, written in octal; bits 0-2 (dr) give the register.
+
+        dr  register  mnemonic
+        0   STS       (none, see below)
+        1   D         DD
+        2   P         DP
+        3   B         DB
+        4   L         DL
+        5   A         DA
+        6   T         DT
+        7   X         DX
+
+    Only eight STS bits can be used. They have their own compound mnemonics that combine bn and dr:
+
+        SSPTM  STS bit 0  page table flag               00
+        SSTG   STS bit 1  floating point rounding flag  10
+        SSK    STS bit 2  one bit accumulator (K)       20
+        SSZ    STS bit 3  error flag (Z)                30
+        SSQ    STS bit 4  dynamic overflow flag (Q)     40
+        SSO    STS bit 5  static overflow flag (O)      50
+        SSC    STS bit 6  carry flag (C)                60
+        SSM    STS bit 7  multi-shift link flag (M)     70
+
+    K is the one bit accumulator (STS bit 2, mnemonic SSK).
+
+    This is one of the eight one bit accumulator instructions:
+
+        BSTA  bit <- K, K <- 0            store and clear
+        BSTC  bit <- not K, K <- 1        store complement and set
+        BLDA  K <- bit                    load
+        BLDC  K <- not bit                load complement
+        BAND  K <- bit AND K              logical AND
+        BANC  K <- (not bit) AND K        logical AND complement
+        BORA  K <- bit OR K               logical OR
+        BORC  K <- (not bit) OR K         logical OR complement
+
+    These instructions take no ZRO/ONE/BCM/BAC sub-instruction; only BSET and BSKP do.
+
   opcode: "177000"  # Octal
   mask: "1111_1111_1000_0000" # top 9 bits are opcode
   format: "BANC <bn> <dr>"

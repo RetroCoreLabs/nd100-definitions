@@ -8,6 +8,18 @@ instruction:
     (D) = bank number of core map table (CMBNK)
     
     * must be divisible by 8
+
+  detailed_description: |
+    Initialize global pointers.
+
+        (T) = bank number of the segment table (STBNK)
+        (A) = start address within the bank (STSTRT); must be divisible by 8
+        (D) = bank number of the core map table (CMBNK)
+
+    Format: WGLOB      Octal code: 140500
+
+    Privileged instruction.
+
   format: WGLOB
   opcode: "140500"  # Octal
   mask: "1111_1111_1111_1111"

@@ -6,6 +6,17 @@ instruction:
 
     Perform a bitwise AND operation between the contents of the A register and the contents of the memory location pointed to by the effective address, leaving the result in A.
 
+  detailed_description: |
+    Logical AND with the A register.
+
+        (A) <- (A) AND (ea)
+
+    The contents of the memory location at the effective address are ANDed with the A register, and the result is left in A. Each bit of the result is one where both A and the effective word have a one, otherwise zero.
+
+    Format: AND <address mode> <disp>
+
+    Affected: (A)
+
   opcode: "070000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "AND <addressing_mode> <displacement>"

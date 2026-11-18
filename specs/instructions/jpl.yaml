@@ -3,10 +3,18 @@ instruction:
   format: "JPL <address mode> <displacement>"
   opcode: "134000"  # Octal <<
   description: |
-    Jump if Plus - Jump to specified address if the result of the last operation was positive (sign bit is 0)
+    Jump to subroutine (jump link)
     
     The contents of the program counter are transferred to the L register and the next instruction is taken from the effective address of the JPL instruction.
     Note that the L register points to the instruction after the jump(the program counter incremented before transfer to the L register).	
+
+  detailed_description: |
+    Jump to subroutine (jump link). The return address (the program counter plus one) is saved in the L register, then execution continues at the effective address.
+
+        (L) <- (P) + 1
+        (P) <- ea
+
+    A subroutine returns with EXIT (copy L to P).
 
   category: "Jump Instructions"
   manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)

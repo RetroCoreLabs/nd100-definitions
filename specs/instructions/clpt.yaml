@@ -7,6 +7,15 @@ instruction:
 
     Source: the ND-110 Instruction Set manual, ND-06.029.1, page 139, and its PLANC listing in Appendix B (page 168). The OCR of that listing is damaged in places, so only the shape of the loop is given here.
 
+  detailed_description: |
+    Clear segment from the page tables.
+
+    Privileged. Only available to programs running in system mode (rings 2-3) or without memory protection.
+
+    The ND-110 manual gives only this one-line description and a PLANC listing in Appendix B (page 168). From that listing: the instruction loops while X is not zero, handling one page per pass and then loading X from word 0 of the entry X points to. If an interrupt is pending at the end of a pass, P is set back by one and the instruction exits, so it is executed again afterwards.
+
+    Format: CLPT
+
   format: CLPT
   opcode: "140505"  # Octal
   mask: "1111_1111_1111_1111"

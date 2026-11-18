@@ -8,6 +8,19 @@ instruction:
      (ea) + 2 ⟵ (D)
 
     Store the contents of the floating accumulator (T,A and D registers) into the memory location pointed to by the effective address.
+
+  detailed_description: |
+    Store floating accumulator (32-bit and 48-bit floating point).
+
+        (ea)     <- (T)
+        (ea) + 1 <- (A)
+        (ea) + 2 <- (D)
+
+    The floating accumulator (the T, A and D registers) is stored in the memory
+    locations starting at the effective address.
+
+    Format: STF <address mode> <disp>      Octal code: 030000
+
   opcode: "030000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "STF <addressing_mode> <disp>"  

@@ -25,6 +25,40 @@ instruction:
         Error code: 2   illegal code†
                     3   overflow
         † bit 15 of both the A and D registers point to the byte containing the illegal code.
+
+  detailed_description: |
+    Convert to ASCII (unpack).
+
+        (op2) <- (op1) in ASCII format
+
+    The first operand is converted from BCD to ASCII and the result is placed
+    in the second operand location. The steps are:
+
+    1. Check that the sign and digits of op1 are valid BCD codes. An illegal
+       code gives error code 2.
+    2. Use each BCD digit as the low nibble of an ASCII digit, and set the high
+       nibble (the zone) to 0011 (binary).
+    3. Convert the BCD sign to ASCII: plus becomes 53 octal, minus becomes
+       55 octal. If bit 13 of descriptor D2 is set, the code 17 octal (BCD
+       unsigned) is used.
+    4. Fill the rest of the op2 field with ASCII zeros (60 octal) if the result
+       is too short to fill it. If the op2 field is too short to hold the
+       significant digits of the result, overflow is reported (error code 3)
+       and the remaining digits are dropped.
+
+    Error codes: an error code is placed in bits 0-4 of the D register if an
+    illegal code is found or if overflow occurs. Only the first error found is
+    reported.
+
+        2  illegal code (bit 15 of both the A and D registers point to the
+           byte that holds the illegal code)
+        3  overflow
+
+    Format: UPACK      Octal code: 140125
+
+    The first operand descriptor is held in the A and D registers; the second
+    in the X and T registers.
+
   opcode: "0140125" # Octal
   format: "UPACK"
   mask: "1111_1111_1111_1111"

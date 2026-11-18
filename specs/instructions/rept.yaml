@@ -2,6 +2,26 @@ instruction:
   name: REPT
   description: |
     Enter reentrant segment in page tables. (See Appendix B for a software description.)
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Enter reentrant segment in page tables. The manual describes it in software (PLANC) form in Appendix B:
+
+        WHILE X<>0 DO
+            A := ( (cmbnk,X).2 ) ∧ 073777
+            R3 := X/4
+            B := ( ( (cmbnk,X).3 ) ∨ 176000 ) * 2
+            A =: B.0
+            R3 =: B.1
+            X := (cmbnk,X).0
+            IF interrupt_pending THEN
+                P := P-1
+                EXIT
+            ENDIF
+        ENDDO
+        EXIT
+
   format: REPT
   opcode: "140507"  # Octal
   mask: "1111_1111_1111_1111"

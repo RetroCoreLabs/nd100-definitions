@@ -6,7 +6,14 @@ instruction:
     (X) ⟵ [(A)-1] * 3
     
     Take the contents of the A register as an operand and subtract one. Multiply the result by three and place it in the X register.
-    
+
+  detailed_description: |
+    Multiply index by 3.
+
+        (X) <- [(A) - 1] * 3
+
+    The contents of the A register are taken as the operand, one is subtracted, the result is multiplied by three and placed in the X register. Only X is changed.
+
   opcode: "143200" # Octal
   format: "MIX3"
   mask: "1111_1111_1111_1111"

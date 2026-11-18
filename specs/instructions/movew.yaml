@@ -46,6 +46,45 @@ instruction:
     - ΔΔ = 06 = 07
     
     MOVEW can be interrupted. L, A, D, X, T, and P registers are then changed to restart execution.
+
+  detailed_description: |
+    Move a block of words from one area of memory to another. The base octal code is 1431ΔΔ; the field ΔΔ chooses where the words are read and written:
+
+        ΔΔ    move from      move to
+        00₈   PT             PT
+        01₈   PT             APT
+        02₈   PT             phys. memory *
+        03₈   APT            PT
+        04₈   APT            APT
+        05₈   APT            phys. memory *
+        06₈   phys. memory   PT
+        07₈   phys. memory   APT *
+        10₈   phys. memory   phys. memory *
+
+        PT  = normal page table
+        APT = alternative page table
+        *   = privileged
+
+    Registers that control the move:
+
+        A and D   source address
+        X and T   destination address
+        L         number of words to move (maximum 2048)
+
+    For moves to or from physical memory, only A and/or X are used, and they are incremented when D and/or T overflow.
+
+    If L holds a value greater than 2048 (L = 4000₈), no words are moved and A, D, T and X are unchanged.
+
+    After the move, A, D, T and X hold the addresses after the last moved word, and L is zero.
+
+    If memory management is off (bit PTM of the STS register is zero), bank 0 of physical memory is addressed, and these codes do the same thing:
+
+        ΔΔ = 00 = 01 = 03 = 04
+        ΔΔ = 02 = 05
+        ΔΔ = 06 = 07
+
+    MOVEW can be interrupted. The L, A, D, X, T and P registers are then changed so that execution restarts.
+
   opcode: "0143100" # Octal, ΔΔ specifies the transfer type
   format: "MOVEW"
   mask: "1111_1111_1111_1000" # 

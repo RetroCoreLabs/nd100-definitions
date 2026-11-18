@@ -9,6 +9,24 @@ instruction:
     EXR <sr> cannot be used to fetch an <sr> register containing another EXR instruction. 
     If you attempt this the error flag (Z) is set.
 
+  detailed_description: |
+    Register execute. The contents of the register named in the sr field are moved to the instruction register and executed as the next instruction.
+
+        (IR) <- (sr)
+
+    Registers affected: IR, and whatever registers the executed instruction changes.
+
+    If sr holds a memory reference instruction, the address is given as part of that instruction. With relative addressing, the address is relative to the EXR instruction itself. If sr holds a JPL instruction, the L register will point to the instruction after the EXR.
+
+    Restriction: sr must not hold another EXR instruction. If this is tried, the error flag (Z) is set.
+
+    Examples:
+        EXR SA (140650)  with (A) = 014177 = STX *177
+            Stores X in the location P + 177.
+        EXR SB (140630)  with (B) = 134020 = JPL 20
+            Jumps to the subroutine at (P) + 20; L holds the
+            address of the instruction after the EXR.
+
   opcode: "0140600"  # Octal
   mask: "1111_1111_1100_0000"  # Only 3 lower bits are flexible
   format: "EXR <sr>"

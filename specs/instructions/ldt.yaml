@@ -6,6 +6,13 @@ instruction:
     (T) ⟵ (ea)
     
     Load the contents of the memory location pointed to by the effective address into the T register.
+
+  detailed_description: |
+    Load T register. The word at the effective address is loaded into the T register.
+
+        (T) <- (ea)
+
+    Registers affected: T.
   opcode: "050000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "LDT <addressing_mode> <disp>"

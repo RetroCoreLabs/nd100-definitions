@@ -6,6 +6,22 @@ instruction:
     A ⟵ A + (EL)
     Add the contents of the memory location pointed to by the effective address to the A register, leaving the result in A.
 
+  detailed_description: |
+    Add to the A register.
+
+        (A) <- (A) + (ea)
+
+    The contents of the memory location at the effective address are added to the A register, and the result is left in A.
+
+    Format: ADD <address mode> <disp>
+
+    Flags:
+    - C is set to 1 if a carry occurs from the sign bit position of the adder, otherwise C is reset to 0.
+    - If the signs of the two operands are equal but the sign of the result is different, overflow has occurred and both the dynamic and the static overflow flags are set to 1.
+    - If there is no overflow, the dynamic overflow flag is reset to 0 and the static overflow flag is left unchanged.
+
+    Affected: (A), C, O, Q
+
   opcode: "060000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "ADD <addressing_mode> <displacement>"

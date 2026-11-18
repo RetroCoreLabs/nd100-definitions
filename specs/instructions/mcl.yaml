@@ -7,7 +7,25 @@ instruction:
     Setting a bit in the A register clears the corresponding bit in the internal register.
     
     See table for internal registers that allow MCL.
-  
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Masked clear. The A register is used as a mask: every bit that is set in A clears the same bit in the selected internal register. The register number is in bits 3-0 of the instruction.
+
+    Internal registers that allow MCL and MST:
+
+        STS   status                       1₈
+        PID   priority interrupt detect    6₈
+        PIE   priority interrupt enable    7₈
+        CS    control store (ND-110 only)  17₈
+
+    Example:
+
+        MCL STS (150201₈) with (A) = 000100₈
+
+    clears the carry flag (bit 6) in the status register.
+
   opcode: "0150200"  # Octal  
   format: "MCL <internal_register>"  
   category: "Register Transfer Instructions"

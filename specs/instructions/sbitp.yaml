@@ -6,6 +6,18 @@ instruction:
     (T) points to the bank number containing the bit array
     (X) points to the start of a bit array
     (A) points to the bit within the array
+
+  detailed_description: |
+    Store the single bit accumulator (K) in a bit in physical memory.
+
+        (T) holds the number of the memory bank that holds the bit array
+        (X) points to the start of the bit array
+        (A) points to the bit within the array
+
+    Format: SBITP      Octal code: 140513
+
+    Privileged instruction.
+
   format: SBITP
   opcode: "140513"  # Octal
   mask: "1111_1111_1111_1111"

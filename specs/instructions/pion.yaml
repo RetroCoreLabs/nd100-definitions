@@ -4,6 +4,14 @@ instruction:
     Memory management and interrupt system ON
     
     Enable both the memory management and interrupt systems. This combines the functions of the ION and PON instructions.
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    Turns on both the memory management system and the interrupt system. It does the work of ION and PON together.
+
+    Before use, check the conditions of the ION and PON instructions. On ION the CPU continues on the program level with the highest priority, the PVL register changes to the new program level, and the ION display on the panel is lit. After PON the next instruction uses the page index table given by PCR. Before PON the manual asks that the interrupt system and the internal hardware interrupts are enabled, and that the page tables and the PCR registers are set up.
+
   before_use: |
     Check conditions of ION and PON instructions.
   format: PION

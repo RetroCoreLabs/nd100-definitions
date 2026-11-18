@@ -3,6 +3,17 @@ instruction:
   description: |
     Inter Register Read
     A: = specified register on specified level
+
+  detailed_description: |
+    Inter register read. Reads one register of the given program level into the A register of the current level. It can also read registers of the current level.
+
+        Format: IRR <level * 10 (octal)> <dr>
+
+    If bits 0-2 are zero (the status register, STS), only the lower byte of STS (bits 0-7) is loaded into A bits 0-7, and bits 8-15 are cleared.
+
+    Example: IRR 160 DP (153762) copies the P register of program level 14 into the A register of the current level.
+
+    Privileged instruction.
   opcode: "153600"  # Octal
   mask: "1111_1111_1000_0000"  # Matches bit pattern 1 1 0 1 0 1 1 1 from image
   format: "IRR <level> <register>"

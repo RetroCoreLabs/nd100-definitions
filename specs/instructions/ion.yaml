@@ -4,6 +4,15 @@ instruction:
     Interrupt System ON
     
     Enables the interrupt system. On ION the ND-i10 resumes operation in the program level with highest priority.
+
+  detailed_description: |
+    Interrupt system on. Enables the interrupt system. The CPU continues on the program level with the highest priority at the time ION is executed.
+
+    If a change of program level is pending, ION is the last instruction executed on the old level, and the P register of the old level points to the instruction after ION. The PVL register changes to the new program level.
+
+    The ION indicator on the operator panel is lit.
+
+    Privileged instruction.
   opcode: "150402"  # Octal
   mask: "1111_1111_1111_1111" # top 16 bits are opcode
   format: "ION"    

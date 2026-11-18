@@ -5,6 +5,24 @@ instruction:
   mask: "1111_1111_1100_0000" # top 16 bits are opcode
   description: |
     Transfer IDENT code of interrupting device with highest priority on the specified level to A register. 
+
+  detailed_description: |
+    Identify vectored interrupt. Finds and serves the input/output device that caused an interrupt on the given program level. A hardware search is made on that level; the first interrupting device found answers with its identification code and turns off its interrupt.
+
+    Bits 0-8 of the A register are loaded with the identification code; bits 9-15 are cleared. If there is no interrupting device to serve, the A register is unchanged, and an IOX error interrupt to level 14 occurs if that is enabled.
+
+    Vectored interrupts are only allowed on program levels 10 to 13, so there is one IDENT per level:
+
+        IDENT PL10   143604
+        IDENT PL11   143611
+        IDENT PL12   143622
+        IDENT PL13   143643
+
+    IDENT only searches the level it names; interrupts on other levels are left for their own IDENT.
+
+    If several devices on the same level interrupt at the same time, the device in the card slot nearest the CPU has the highest priority and is served first. The PID register bit for that level stays set until all interrupting devices are served.
+
+    Privileged instruction.
   category: "Interrupt Control Instructions"
   manual_refs:                # where the manuals describe it (manual ids: cpu.yaml metadata.manuals)
     - manual: "ND-06.029.1"

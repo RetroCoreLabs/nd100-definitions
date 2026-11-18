@@ -16,6 +16,16 @@ instruction:
     Unused areas of the microprogram can be read or written to using the TRR CS or TRA CS instruction.
     
     Further information on the LWCS instruction for the ND-100 can be found in the ND-100 Reference Manual (ND-06.014).
+
+  detailed_description: |
+    This instruction is privileged. It is only available to programs running in system mode (rings 2-3) and to programs running without memory protection.
+
+    ND-110: LWCS does nothing. The ND-110 runs the same programs as the ND-100 but not the same microcode, so writing to the writable control store has no meaning. The instruction is kept as a no-operation so that programs written for the ND-100 and NORD-10 still run. On the ND-110, unused areas of the microprogram can be read or written with TRR CS and TRA CS.
+
+    ND-100: LWCS loads the contents of main memory addresses 15K to 16K into the optional writable control store (256 words of 64 bits, RAM). Four 16-bit memory words make one 64-bit control store word, so 1K of main memory is used. Microprogram addresses 7400₈ to 7777₈ can then be used. After the instruction all microprogram addresses are legal, and the "ROM out of range" interrupt never occurs.
+
+    On the ND-100, LWCS must always be executed before any instruction that uses microprogram addresses 4000-7777, even when no writable control store is installed. Those microinstructions are only used by the instructions of the CE and CX options.
+
   format: LWCS
   opcode: "143500"  # Octal
   mask: "1111_1111_1111_1111"

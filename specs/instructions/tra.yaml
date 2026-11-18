@@ -3,6 +3,36 @@ instruction:
   description: |
     Transfer to A register
     The internal register given in the instruction is copied into the A register.  
+
+  detailed_description: |
+    Transfer to A register.
+
+    The internal register named in the instruction is copied into the A
+    register. The manual's table marks these registers as readable with TRA:
+
+        code  register
+        0     PANS  panel status
+        1     STS   status
+        2     OPR   operator panel switch
+        3     PGS   paging status
+        4     PVL   previous program level
+        5     IIC   internal interrupt control
+        6     PID   priority interrupt detect
+        7     PIE   priority interrupt enable
+        10    CSR   cache status
+        11    ACTL  active level
+        12    ALD   automatic load descriptor
+        13    PES   parity error status
+        14    PGC   paging control
+        15    PEA   parity error address
+        17    CS    control store (not on the ND-100)
+
+    (codes octal)
+
+    Format: TRA <register>      Octal code: 150000
+
+    Privileged instruction.
+
   opcode: "0150000"  # Octal  
   format: "TRA <internal_register>"
   category: "Register Transfer Instructions"

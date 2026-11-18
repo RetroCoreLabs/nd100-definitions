@@ -13,6 +13,27 @@ instruction:
     Using ADC and AD1i in the same instruction generates a no-operation.
 
 
+  detailed_description: |
+    Register copy.
+
+        dr <- sr
+
+    COPY is a compound mnemonic for RADD CLD (dr <- sr).
+
+    Format: COPY <sub-instruction(s)> <sr> <dr>
+
+    Allowed sub-instructions: CM1, CM2, ADC, AD1. Using ADC and AD1 in the same instruction gives a no-operation.
+
+    Flags: see RADD.
+
+    Related compound mnemonics:
+    - RCLR <dr> is COPY 0 <dr>: it clears the given register (base code 146100).
+    - EXIT is COPY SL DP: it returns from a subroutine by copying the return address in L into the P register. Code 146142.
+
+    Example:
+
+        COPY SA DD    (146151)
+
   opcode: "0146100"  # Octal
   mask: "1111_1111_0000_0000"  # Top 8 is the opcode.
   format: "COPY [sub-instruction(s)] <source> <destination>"

@@ -3,6 +3,21 @@ instruction:
   description: |
     Inter Register Write
     Write A to specified register on specified level
+
+  detailed_description: |
+    Inter register write. Writes the A register of the current level into a register on the given program level (any level, the current one included).
+
+        Format: IRW <level * 10 (octal)> <dr>
+
+    If the P register of the current level is named, IRW does nothing. (The ND-110 manual says it does nothing when the A register of the current level is used.)
+
+    If bits 0-2 are zero (the status register, STS), only bits 0-7 of A are written into bits 0-7 of STS on that level.
+
+    Examples:
+        IRW 100 DB (153503)  copies A into the B register on level 8.
+        IRW 110              copies A bits 0-7 into STS on level 9.
+
+    Privileged instruction.
     
   opcode: "153400"  # Octal
   mask: "1111_1111_1000_0000"  # Matches bit pattern 1 1 0 1 0 1 1 1 from image

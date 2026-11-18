@@ -8,6 +8,18 @@ instruction:
     ea = (B) + Δ = STBNK entry
     
     Δ: 3-bit displacement added to B included in the instruction opcode (bits 5-3)  
+
+  detailed_description: |
+    Store the A register in the segment table bank (STBNK).
+
+        (ea) <- (A)
+        ea = (B) + displacement = STBNK entry
+
+    ea is (B) plus a 3-bit displacement that is part of the instruction code
+    (bits 5-3, shown as the ? digit in the octal code 1407?1).
+
+    Privileged instruction.
+
   format: SASB <displacement>
   opcode: "140701"  # Octal, Δ is a 3-bit displacement in bits 5-3
   mask: "1111_1111_1100_0111"

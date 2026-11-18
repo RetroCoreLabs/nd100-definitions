@@ -5,6 +5,17 @@ instruction:
     (EA) ⟵ (A)
 
     Store the contents of the A register in the memory location pointed to by the effective address.
+
+  detailed_description: |
+    Store A register.
+
+        (ea) <- (A)
+
+    The contents of the A register are stored in the memory location given by
+    the effective address.
+
+    Format: STA <address mode> <disp>      Octal code: 004000
+
   opcode: "004000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "STA <addressing_mode> <displacement>"

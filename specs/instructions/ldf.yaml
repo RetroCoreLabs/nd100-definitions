@@ -8,6 +8,15 @@ instruction:
      (D) ⟵ EL+2
 
     Load the contents of the memory location pointed to by the effective address into the T register, the contents of the effective address plus one into the A register and the contents of the effective address plus two into the D register.
+
+  detailed_description: |
+    Load floating accumulator (32- and 48-bit). The word at the effective address and the two words after it are loaded into the T, A and D registers.
+
+        (T) <- (ea)
+        (A) <- (ea + 1)
+        (D) <- (ea + 2)
+
+    Registers affected: T, A, D.
   opcode: "034000"  # Octal
   mask: "1111_1000_0000_0000" # top 5 bits are opcode
   format: "LDF <addressing_mode> <disp>"  

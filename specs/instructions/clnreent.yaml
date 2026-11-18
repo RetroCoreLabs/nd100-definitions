@@ -5,6 +5,16 @@ instruction:
     
     The contents of the memory address at A + 2 are read to find the page table to be cleared along with the SINTRAN RT bitmap (addressed by the X and T registers). 
     The page table entries corresponding to those bits set in the RT bitmap are then cleared.
+
+  detailed_description: |
+    Clear non reentrant pages.
+
+    Privileged. Only available to programs running in system mode (rings 2-3) or without memory protection.
+
+    The contents of the memory address at A + 2 are read to find the page table to be cleared, together with the SINTRAN RT bitmap, which is addressed by the X and T registers. The page table entries that match the bits set in the RT bitmap are then cleared.
+
+    Format: CLNREENT
+
   format: CLNREENT
   opcode: "140302"  # Octal
   mask: "1111_1111_1111_1111"

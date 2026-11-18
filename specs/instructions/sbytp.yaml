@@ -6,6 +6,18 @@ instruction:
     (D) points to the bank number containing the byte array
     (T) points to the start of a byte array
     (X) points to the actual byte within the array
+
+  detailed_description: |
+    Store a byte in physical memory.
+
+        (D) holds the number of the memory bank that holds the byte array
+        (T) points to the start of the byte array
+        (X) points to the byte within the array
+
+    Format: SBYTP      Octal code: 140515
+
+    Privileged instruction.
+
   format: SBYTP
   opcode: "140515"  # Octal
   mask: "1111_1111_1111_1111"

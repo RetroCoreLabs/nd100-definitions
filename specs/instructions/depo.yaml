@@ -4,6 +4,18 @@ instruction:
     Deposit
     
     Store the contents of the T register in the physical memory location pointed to by the A and D register contents.
+
+  detailed_description: |
+    Memory deposit.
+
+    Privileged. Only available to programs running in system mode (rings 2-3) or without memory protection.
+
+    The contents of the T register are stored in the physical memory location addressed by the A and D registers.
+
+    Format: DEPO
+
+    If a memory error occurs during a DEPO, bit 15 (Fetch) of the PES register (memory error status, read with TRA PES) is set.
+
   format: DEPO
   opcode: "150417"  # Octal
   mask: "1111_1111_1111_1111"

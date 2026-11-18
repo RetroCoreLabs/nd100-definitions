@@ -11,6 +11,26 @@ instruction:
     
     Format:
       LEAVE
+
+  detailed_description: |
+    Leave stack. Used by programs built on the stack instructions, where the B register points to the current stack frame.
+
+        (P) <- (B - 200₈)    {LINK}
+        (B) <- (B - 177₈)    {PREVB}
+
+    The P register (program counter) is loaded with the return address held in LINK, the word 200₈ below the address in B. The B register is then restored to its previous value, PREVB, the word 177₈ below B. This leaves the stack frame and returns to the caller.
+
+    The stack frame that B points to contains:
+
+        B - 200₈   LINK     next instruction address (used by LEAVE)
+        B - 177₈   PREVB    previous stack frame address
+        B - 176₈   STP      next stack frame address
+        B - 175₈   SMAX     top of stack address
+        B - 174₈   -        reserved for system use
+        B - 173₈   ERRCODE  (A) after an ELEAV instruction
+
+    On the ND-110 the stack instructions are page-fault tolerant.
+
   opcode: "0140136" # Octal
   format: "LEAVE"
   mask: "1111_1111_1111_1111"

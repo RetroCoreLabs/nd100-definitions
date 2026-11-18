@@ -1,6 +1,17 @@
 instruction:
   name: "SAX"
   description: "Set argument to X"
+
+  detailed_description: |
+    Set argument to X.
+
+    The 8-bit argument (bits 0-7 of the instruction) is extended to 16 bits by
+    sign extension and the result is loaded into the X register. The argument
+    becomes the low byte; the high byte is filled with zeros for a positive
+    argument and with ones for a negative argument (given in 2's complement form).
+
+    Octal code: 171400.
+
   opcode: "171400"  # Octal
   mask: "1111_1111_0000_0000"  # Top 8 bits are the opcode
   format: "SAX <number>"

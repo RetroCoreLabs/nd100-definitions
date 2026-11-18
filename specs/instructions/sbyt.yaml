@@ -7,6 +7,19 @@ instruction:
     - If least significant bit of X = 0: Store left byte
 
     The contents of T point to the beginning of a character string and the contents of X to a byte within the string.
+
+  detailed_description: |
+    Store byte.
+
+    The byte in bits 0-7 of the A register is stored in one half of the memory
+    location addressed by the T and X registers. The other half of that
+    location is not changed.
+
+    Byte addressing uses the T and X registers: T points to the start of a
+    character string and X to a byte within the string.
+
+    Format: SBYT      Octal code: 142600
+
   opcode: "142600"  # Octal
   mask: "1111_1111_1111_1111"  # Standard mask format
   format: "SBYT"
