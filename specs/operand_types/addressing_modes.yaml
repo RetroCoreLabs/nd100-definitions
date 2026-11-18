@@ -14,6 +14,21 @@ values:
       - I: 0
       - B: 0
     effective_address: "(P) + disp"
+    worked_example:
+      title: "Read a constant kept next to the code"
+      story: >-
+        A program keeps the constant 100 (octal 144) in a word three places after the
+        instruction that reads it. P holds the address of the instruction itself, so
+        "*3" means "three words further on".
+      code: |
+        001000  LDA *3      % A := the word at 001000+3
+        001001  ...
+        001002  ...
+        001003  000144      % the constant 100
+      registers: {P: "001000"}
+      memory: {"001003": "000144"}
+      effective_address_value: "001003"
+      result: "A = 000144 (100 decimal)"
 
   - name: "brelative"
     value: 1
@@ -26,6 +41,17 @@ values:
       - I: 0
       - B: 1
     effective_address: "(B) + disp"
+    worked_example:
+      title: "Read a local variable of a subroutine"
+      story: >-
+        B points at the data area of the running subroutine. Its variable COUNT sits in
+        the third word of that area, at offset 2, wherever in memory the area happens to be.
+      code: |
+        LDA 2,B             % A := COUNT, the word at B+2
+      registers: {B: "020000"}
+      memory: {"020002": "000012"}
+      effective_address_value: "020002"
+      result: "A = 000012 (COUNT is 10 decimal)"
 
   - name: "indirect_prelative"
     value: 2
@@ -38,6 +64,20 @@ values:
       - I: 1
       - B: 0
     effective_address: "((P) + disp)"
+    worked_example:
+      title: "Reach a buffer that is too far away"
+      story: >-
+        The displacement only reaches 128 words back or 127 forward. The buffer is at
+        040000, far from the code, so its address is kept in a word next to the code and
+        the instruction goes through that word.
+      code: |
+        001000  LDA I *3    % A := the word whose address is stored at 001003
+        001003  040000      % pointer: address of BUFFER
+        040000  000101      % BUFFER, first word: the letter 'A'
+      registers: {P: "001000"}
+      memory: {"001003": "040000", "040000": "000101"}
+      effective_address_value: "040000"
+      result: "A = 000101 (the letter 'A')"
 
   - name: "indirect_brelative"
     value: 3
@@ -50,6 +90,18 @@ values:
       - I: 1
       - B: 1
     effective_address: "((B) + disp)"
+    worked_example:
+      title: "Use a parameter passed by address"
+      story: >-
+        The caller passed the ADDRESS of its variable, not the value. The subroutine finds
+        that address in its own data area at offset 3 and reads the caller's variable
+        through it.
+      code: |
+        LDA I 3 ,B          % A := the word whose address is stored at B+3
+      registers: {B: "020000"}
+      memory: {"020003": "041000", "041000": "000007"}
+      effective_address_value: "041000"
+      result: "A = 000007 (the caller's variable)"
 
   - name: "xrelative"
     value: 4
@@ -62,6 +114,18 @@ values:
       - I: 0
       - B: 0
     effective_address: "(X) + disp"
+    worked_example:
+      title: "Read one field of a record"
+      story: >-
+        X holds the address of a record of several words. The field wanted is the third
+        word of the record, offset 2. Step X to the next record and the same instruction
+        reads the same field there.
+      code: |
+        LDA 2,X             % A := word 2 of the record X points at
+      registers: {X: "042000"}
+      memory: {"042002": "000500"}
+      effective_address_value: "042002"
+      result: "A = 000500 (the field's value)"
 
   - name: "brelative_indexed"
     value: 5
@@ -74,6 +138,18 @@ values:
       - I: 0
       - B: 1
     effective_address: "(B) + disp + (X)"
+    worked_example:
+      title: "Index a table inside the local data area"
+      story: >-
+        A subroutine keeps a small table at offset 10 (octal) of its data area. X holds the
+        element number, here 3, so the instruction reads element 3 of the table.
+      code: |
+        SAX 3               % X := 3, the element number
+        LDA 10,B,X          % A := TABLE(3), the word at B+10+X
+      registers: {B: "020000", X: "000003"}
+      memory: {"020013": "000033"}
+      effective_address_value: "020013"
+      result: "A = 000033 (element 3)"
 
   - name: "indirect_prelative_indexed"
     value: 6
@@ -86,6 +162,19 @@ values:
       - I: 1
       - B: 0
     effective_address: "((P) + disp) + (X)"
+    worked_example:
+      title: "Index a table that is far away"
+      story: >-
+        The table is at 043000, out of reach of the displacement. Its start address is kept
+        next to the code; the instruction reads that address and then adds the element
+        number in X, here 5.
+      code: |
+        001000  LDA ,X I *3 % A := the word at (address stored at 001003) + X
+        001003  043000      % pointer: start of TABLE
+      registers: {P: "001000", X: "000005"}
+      memory: {"001003": "043000", "043005": "001750"}
+      effective_address_value: "043005"
+      result: "A = 001750 (element 5, 1000 decimal)"
 
   - name: "indirect_brelative_indexed"
     value: 7
@@ -97,4 +186,15 @@ values:
       - X: 1
       - I: 1
       - B: 1
-    effective_address: "((B) + disp) + (X)" 
+    effective_address: "((B) + disp) + (X)"
+    worked_example:
+      title: "Index an array the caller passed by address"
+      story: >-
+        The caller passed the start address of its array. The subroutine finds it in its data
+        area at offset 3, and X holds the element number, here 4.
+      code: |
+        LDA ,X I ,B 3       % A := the word at (address stored at B+3) + X
+      registers: {B: "020000", X: "000004"}
+      memory: {"020003": "044000", "044004": "000077"}
+      effective_address_value: "044004"
+      result: "A = 000077 (element 4 of the caller's array)"

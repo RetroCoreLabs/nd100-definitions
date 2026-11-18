@@ -111,3 +111,24 @@ properties:
         effective_address:
           type: string
           description: "Formula for effective address calculation"
+        worked_example:
+          type: object
+          description: >-
+            A practical example of one addressing mode, used to draw it on the docs site:
+            register and memory contents (octal strings) and the address and result they give.
+            The site generator recomputes the effective address and fails if it differs.
+          required: [title, story, code, registers, memory, effective_address_value, result]
+          properties:
+            title: {type: string, description: "What the example does, in a few words"}
+            story: {type: string, description: "Why a program would use this mode here"}
+            code: {type: string, description: "Assembler lines, with addresses where they matter"}
+            registers:
+              type: object
+              description: "P, B and X as used by the mode, octal strings"
+              additionalProperties: {type: string, pattern: "^[0-7]{6}$"}
+            memory:
+              type: object
+              description: "Memory words the mode reads, address to contents, octal strings"
+              additionalProperties: {type: string, pattern: "^[0-7]{6}$"}
+            effective_address_value: {type: string, pattern: "^[0-7]{6}$"}
+            result: {type: string, description: "What an LDA ends up with"}
